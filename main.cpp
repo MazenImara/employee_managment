@@ -3,6 +3,7 @@
 #include <string>
 //#include <windows.h>
 #include <mysql.h>
+#include <employee_managment.h>
 
 using namespace std;
 // all method headers:
@@ -43,9 +44,8 @@ public:
 };
 // end mazen database class
 
-
 int main()
 {
-    cout<< "hello world " << endl;
+    print();
     return 0;
 }
