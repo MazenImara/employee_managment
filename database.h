@@ -1,15 +1,13 @@
 #ifndef DATABASE_H_INCLUDED
 #define DATABASE_H_INCLUDED
-
-
-
-
 #include <iostream>
 #include <string>
 #include <windows.h>
 #include <mysql.h>
 
+
 using namespace std;
+
 
 
 class Database{
@@ -38,3 +36,4 @@ public:
 };
 
 #endif // DATABASE_H_INCLUDED
+
