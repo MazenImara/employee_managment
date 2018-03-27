@@ -5,17 +5,7 @@
 
 using namespace std;
 
-int main()
-{
-    Login l;
-    if(l.loged){
-        l.e.show();
-    }
 
-
-
-    return 0;
-}
 
 void manageEmployeeMenu(){
     int choice;
@@ -64,3 +54,13 @@ void employeeMenu(){
         case 5:cout << " 5. LOGOUT" << endl;break;
    }
  }
+
+
+ int main()
+{
+ manageEmployeeMenu();
+
+
+
+    return 0;
+}
