@@ -9,7 +9,7 @@ using namespace std;
 
 int main()
 {
+    Database db;
    Project p;
-   p.test();
     return 0;
 }

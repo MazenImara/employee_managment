@@ -8,6 +8,8 @@
 #include <string>
 #include <windows.h>
 #include <mysql.h>
+#include <project.h>
+#include <list>
 
 using namespace std;
 
@@ -37,6 +39,7 @@ public:
     }
 
     //hamza
+
 
             void insertProject(Project p){
             string query="insert into project(title,description,status) values('"+p.title+"','"+p.description+"','"+p.status+"')";

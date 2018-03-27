@@ -28,8 +28,6 @@ class Project{
             cin >> title;
             cout << "\ndescription: ";
             cin >> description;
-            cout << "\nstatus";
-            cin >> status;
             cout << endl;
         }
 };
