@@ -1,13 +1,18 @@
 
 #include <iostream>
 #include <string>
-#include <database.h>
+#include <login.h>
 
 using namespace std;
 
 
 int main()
 {
-   Database db;
+    Login l;
+    if(l.loged){
+        l.e.show();
+    }
+
+
     return 0;
 }
