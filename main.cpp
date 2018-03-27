@@ -1,18 +1,18 @@
 
 #include <iostream>
 #include <string>
-#include <database.h>
-#include <employee.h>
+#include <login.h>
 
 using namespace std;
 
 
 int main()
 {
-    Employee e;
-    e.enterLogin();
-   Database db;
-   e=db.getLoginEmployee(e);
-   e.show();
+    Login l;
+    if(l.loged){
+        l.e.show();
+    }
+
+
     return 0;
 }
