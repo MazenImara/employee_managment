@@ -42,3 +42,25 @@ void manageEmployeeMenu(){
 
 
 }
+
+void employeeMenu(){
+    int choice;
+    cout << "==========================================" <<endl;
+   cout << right << setw(25) << "Hello Employee" <<endl;
+   cout << "==========================================" <<endl;
+   cout << endl;
+   cout << " 1. START" << endl;
+   cout << " 2. PAUSE" << endl;
+   cout << " 3. FINISH" << endl;
+   cout << " 4. MANAGE TIMEOFF" << endl;
+   cout << " 5. LOGOUT" << endl;
+   cout << " \n Enter your choice(1-5):";
+   cin >> choice;
+   switch(choice){
+        case 1:cout << " 1. START" << endl;break;
+        case 2:cout << " 2. PAUSE" << endl;break;
+        case 3:cout << " 3. FINISH" << endl;break;
+        case 4:cout << " 4. MANAGE TIMEOFF" << endl;break;
+        case 5:cout << " 5. LOGOUT" << endl;break;
+   }
+ }
