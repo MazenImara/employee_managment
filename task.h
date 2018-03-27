@@ -1,32 +1,32 @@
 #ifndef TASK_H_INCLUDED
 #define TASK_H_INCLUDED
+#include <iostream>
+#include <string>
+#include <windows.h>
+
+
+using namespace std;
+
 
 class Task{
 public:
     string id;
     string title;
     string status;
-    string timespend;
-    string datecreated;
+    string time_spend;
+    string date_created;
     string start;
     string project_id;
     string employee_id;
 public:
     void enterId(){
-        cout<<" Enter id: "<<endl;cin>>id;
+        cout<<"\nEnter id: ";cin>>id;
         }
     void enter(){
-        cout<<" Enter Title: "<<endl;cin>>title;
+        cout<<"\nEnter Title: ";cin>>title;
     }
     void show(){
-        cout<<" Enter id: "<<endl;cin>>id;
-        cout<<" Enter Title: "<<endl;cin>>title;
-        cout<<" Enter Status: "<<endl;cin>>status;
-        cout<<" Enter Time spend: "<<endl;cin>>timespend;
-        cout<<" Enter Date created: "<<endl;cin>>datecreated;
-        cout<<" Enter Start: "<<endl;cin>>start;
-        cout<<" Enter Project id: "<<endl;cin>>project_id;
-        cout<<" Enter Employee id: "<<endl;cin>>employee_id;
+        cout<<"\nId: "<< id <<"\tTitle: "<< title <<"\tStatus: "<< status <<"\tTime Spend: "<< time_spend <<"\tDate Created: "<< date_created <<"\tProject id: "<< project_id <<"\tEmployee id: "<< employee_id <<endl;
     }
 };
 
