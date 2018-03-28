@@ -77,3 +77,20 @@ void employeeMenu(){
         case 5:cout << " 5. LOGOUT" << endl;break;
    }
  }
+void manageTimeOff(){
+    int choice;
+    cout << "==========================================" <<endl;
+    cout << right << setw(25) << "Manage Time Off" <<endl;
+    cout << "==========================================" <<endl;
+    cout << endl;
+    cout << " 1. Add" << endl;
+    cout << " 2. Delete" << endl;
+    cout << " 0. Back to Employee Menu" << endl;
+    cout << " \n Enter your choice(0-2):";
+    cin >> choice;
+    switch(choice){
+        case 1:cout << " 1. Add" << endl;break;
+        case 2:cout << " 2. Delete" << endl;break;
+        case 0:cout << " 0. Back to Employee Menu" << endl;break;
+    }
+ }
