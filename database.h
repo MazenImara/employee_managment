@@ -27,13 +27,14 @@ public:
         else
             cout<<"conn object problem: "<<mysql_error(conn);
 
-        conn = mysql_real_connect(conn,"localhost","root","","employee_managment",0,NULL,0);
+        conn = mysql_real_connect(conn,"localhost","root","password","employee_managment",0,NULL,0);
 
         if(conn)
             cout<<"connect to data base  successfully..."<<endl;
         else
             cout<<"conn object problem: "<<mysql_error(conn);
     }
+
     void close(){
         mysql_close(conn);
     }
@@ -42,13 +43,13 @@ public:
 
 
             void insertProject(Project p){
-            string query="insert into project(title,description,status) values('"+p.title+"','"+p.description+"','"+p.status+"')";
-            const char* q = query.c_str();
-            qstate = mysql_query(conn,q);
-            if(!qstate)
-                cout<<"Project inserted successfully..."<<endl;
-            else
-                cout<<"query problem: "<<mysql_error(conn)<<endl;
+                string query="insert into project(title,description,status) values('"+p.title+"','"+p.description+"','"+p.status+"')";
+                const char* q = query.c_str();
+                qstate = mysql_query(conn,q);
+                if(!qstate)
+                    cout<<"Project inserted successfully..."<<endl;
+                else
+                    cout<<"query problem: "<<mysql_error(conn)<<endl;
         }
 
         void updateProject(Project p){
