@@ -309,7 +309,55 @@ public:
     }
 
     // end hamzA
+
+    //Start Gab
+    void setAdmin(string employeeId)
+    {
+        if(!isAdmin(employeeId)){
+
+            string query="insert into admin(employee_id) values("+employeeId+")";
+            const char* q = query.c_str();
+            qstate = mysql_query(conn,q);
+            if(!qstate)
+                cout<<"Project inserted successfully..."<<endl;
+            else
+                cout<<"query problem: "<<mysql_error(conn)<<endl;
+        }
+    }
+
+    bool isAdmin(string employeeId)
+    {
+        bool is = false;
+        string id;
+        string query="SELECT * FROM `admin` WHERE employee_id="+employeeId;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+
+        if(!qstate)
+        {
+            res = mysql_store_result(conn);
+            while(row=mysql_fetch_row(res))
+            {
+                id = row[0];
+                employeeId = row[1];
+            }
+        }
+        else
+        {
+            cout<<"query error: "<<mysql_error(conn)<<endl;
+        }
+        if(!id.empty()){
+            is = true;
+        }
+        return is;
+    }
+    //End Gab
+
+
+
 };
+
+
 
 
 

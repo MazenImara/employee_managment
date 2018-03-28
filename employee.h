@@ -1,6 +1,8 @@
 #ifndef EMPLOYEE_H_INCLUDED
 #define EMPLOYEE_H_INCLUDED
+#include <iostream>
 #include <iomanip>
+#include <inbtw.h>
 
 using namespace std;
 class Employee{
@@ -28,6 +30,18 @@ public:
         cout <<setw(20)<<"Enter email =\t";cin >>email;cout <<endl;
         cout <<setw(20)<<"Enter password =\t";cin >>password;cout <<endl;
     }
+
+    void setAdmin()
+    {
+        SetAdmin(id);
+
+    }
+    bool isAdmin(){
+        return IsAdmin(id);
+    }
+
+
+
 };
 
 

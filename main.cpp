@@ -55,10 +55,9 @@ void employeeMenu(){
    }
  }
 
-
  int main()
 {
- manageEmployeeMenu();
+
 
 
 
