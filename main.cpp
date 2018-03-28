@@ -7,13 +7,19 @@ using namespace std;
 
 int main()
 {
-    Login l;
-    if(l.loged){
-        l.e.show();
+
+    Loging l;
+    while(!l.loged){
+        l.login();
     }
-
-
-
+    if(l.loged){
+        if(l.e.isAdmin){
+            adminMenu(l);
+        }
+        else{
+            employeeMenu(l);
+        }
+    }
     return 0;
 }
 
