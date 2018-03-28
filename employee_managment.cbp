@@ -37,10 +37,7 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="database.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="project.h" />
-		<Unit filename="projectMenu.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
