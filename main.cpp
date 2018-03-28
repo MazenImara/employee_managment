@@ -3,12 +3,18 @@
 #include <login.h>
 #include <iomanip>
 #include <stdlib.h>
+#include <gtime.h>
 
 using namespace std;
 
 int main()
 {
+    CustomTime c;
+    cout << c.date() << "  " << c.Time() << endl;
+    c.getTimestampDate();
 
+
+/*
     Loging l;
     while(!l.loged){
         system("cls");
@@ -27,6 +33,7 @@ int main()
             //l.e.setAdmin();
         }
     }
+    */
     return 0;
 }
 
