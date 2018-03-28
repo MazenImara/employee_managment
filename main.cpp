@@ -2,10 +2,33 @@
 #include <string>
 #include <login.h>
 #include <iomanip>
+#include <stdlib.h>
 
 using namespace std;
 
+int main()
+{
 
+    Loging l;
+    while(!l.loged){
+        system("cls");
+        l.login();
+    }
+    if(l.loged){
+        if(l.e.isAdmin()){
+            //adminMenu(l);
+            cout<< "admin"<< endl;
+            l.e.show();
+        }
+        else{
+            //employeeMenu(l);
+            cout<< "employee"<< endl;
+            l.e.show();
+            //l.e.setAdmin();
+        }
+    }
+    return 0;
+}
 
 void manageEmployeeMenu(){
     int choice;
@@ -54,12 +77,3 @@ void employeeMenu(){
         case 5:cout << " 5. LOGOUT" << endl;break;
    }
  }
-
- int main()
-{
-
-
-
-
-    return 0;
-}

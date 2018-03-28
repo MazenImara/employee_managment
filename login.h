@@ -7,15 +7,14 @@
 #include <employee.h>
 
 using namespace std;
-class Login{
+class Loging{
 public:
     Employee e;
-    bool loged;
-    Login(){
+    bool loged = false;
+    Loging(){
         e.enterLogin();
         Database db;
         e = db.getLoginEmployee(e);
-        loged = false;
         if(e.id.empty()){
             cout<< "Email or password is wrong"<< endl;
         }
@@ -23,6 +22,22 @@ public:
             loged = true;
         }
 
+    }
+    void login(){
+        e.enterLogin();
+        Database db;
+        e = db.getLoginEmployee(e);
+        if(e.id.empty()){
+            cout<< "Email or password is wrong"<< endl;
+        }
+        else{
+            loged = true;
+        }
+    }
+    void logout(){
+        loged = false;
+        Employee E;
+        e = E;
     }
 };
 
