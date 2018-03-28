@@ -8,6 +8,7 @@
 #include<list>
 #include <task.h>
 #include <list>
+#include <project.h>
 
 using namespace std;
 
@@ -307,7 +308,7 @@ public:
         return projects;
     }
 
-    // end hamzA    
+    // end hamzA
 };
 
 
