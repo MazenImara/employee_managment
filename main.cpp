@@ -5,9 +5,18 @@
 #include <stdlib.h>
 
 using namespace std;
+void manageEmployeeMenu();
+void employeeMenu();
+void manageProjectMenu();
+void showProjectsMenu();
+void projectUpdateMenu();
+void manageTaskMenu();
+
 
 int main()
 {
+    manageProjectMenu();
+
 
     Loging l;
     while(!l.loged){
@@ -59,17 +68,17 @@ void manageEmployeeMenu(){
 void employeeMenu(){
     int choice;
     cout << "==========================================" <<endl;
-   cout << right << setw(25) << "Hello Employee" <<endl;
-   cout << "==========================================" <<endl;
-   cout << endl;
-   cout << " 1. START" << endl;
-   cout << " 2. PAUSE" << endl;
-   cout << " 3. FINISH" << endl;
-   cout << " 4. MANAGE TIMEOFF" << endl;
-   cout << " 5. LOGOUT" << endl;
-   cout << " \n Enter your choice(1-5):";
-   cin >> choice;
-   switch(choice){
+    cout << right << setw(25) << "Hello Employee" <<endl;
+    cout << "==========================================" <<endl;
+    cout << endl;
+    cout << " 1. START" << endl;
+    cout << " 2. PAUSE" << endl;
+    cout << " 3. FINISH" << endl;
+    cout << " 4. MANAGE TIMEOFF" << endl;
+    cout << " 5. LOGOUT" << endl;
+    cout << " \n Enter your choice(1-5):";
+    cin >> choice;
+    switch(choice){
         case 1:cout << " 1. START" << endl;break;
         case 2:cout << " 2. PAUSE" << endl;break;
         case 3:cout << " 3. FINISH" << endl;break;
@@ -77,3 +86,93 @@ void employeeMenu(){
         case 5:cout << " 5. LOGOUT" << endl;break;
    }
  }
+ void manageProjectMenu(){
+    int choice;
+    cout << "==========================================" <<endl;
+    cout << right << setw(25) << "Manage Project" <<endl;
+    cout << "==========================================" <<endl;
+    cout << endl;
+    cout << " 1. Show all project" << endl;
+    cout << " 2. Add project" << endl;
+    cout << " 3. Back" << endl;
+    cout << " \n Enter your choice(1-3):";
+    cin >> choice;
+    switch(choice){
+        case 1:
+            cout << " 1. Show all project" << endl;
+            showProjectsMenu();
+            break;
+        case 2:cout << " 1. Add project" << endl;break;
+        case 3:cout << "back"<< endl;break;
+        default:break;
+    }
+ }
+void showProjectsMenu(){
+    int choice;
+    cout << "==========================================" <<endl;
+    cout << right << setw(25) << " Show project" <<endl;
+    cout << "==========================================" <<endl;
+    cout << endl;
+    cout << " 1. Update project   " << endl;
+    cout << " 2. Delete project" << endl;
+    cout << " 3. Back" << endl;
+    cout << " \n Enter your choice(1-3):";
+    cin >> choice;
+    switch(choice){
+        case 1:
+            cout << " 1. Update project" << endl;
+            projectUpdateMenu();
+            break;
+        case 2:cout << " 2. Delete project" << endl;break;
+        case 3:cout << " 3. Back"<< endl;break;
+        default:break;
+
+    }
+}
+void projectUpdateMenu(){
+    int choice;
+    cout << "==========================================" <<endl;
+    cout << right << setw(25) << " Update project" <<endl;
+    cout << "==========================================" <<endl;
+    cout << endl;
+    cout << " 1. Update details   " << endl;
+    cout << " 2. Mange task" << endl;
+    cout << " 3. Back" << endl;
+    cout << " \n Enter your choice(1-3):";
+    cin >> choice;
+    switch(choice){
+        case 1:cout << " 1. Update details" << endl;break;
+        case 2:
+            cout << " 2. Mange task" << endl;
+            manageTaskMenu();
+            break;
+        case 3:cout << " 3. Back"<< endl;break;
+        default:break;
+
+    }
+}
+void manageTaskMenu(){
+    int choice;
+    cout << "==========================================" <<endl;
+    cout << right << setw(25) << " Manage task" <<endl;
+    cout << "==========================================" <<endl;
+    cout << endl;
+    cout << " 1. Add task   " << endl;
+    cout << " 2. Delete" << endl;
+    cout << " 3. Update task" << endl;
+    cout << " 4. Show task" << endl;
+    cout << " 5. Sign Employee to task" << endl;
+    cout << " 6. Back" << endl;
+    cout << " \n Enter your choice(1-6):";
+    cin >> choice;
+    switch(choice){
+        case 1:cout << " 1. Add tasl" << endl;break;
+        case 2:cout << " 2. Delete task" << endl;break;
+        case 3:cout << " 3. Update task" << endl;break;
+        case 4:cout << " 4. Show task" << endl;break;
+        case 5:cout << " 5. Sign Employee to task"<< endl;break;
+        case 6:cout << " 6. Back"<< endl;break;
+        default:break;
+    }
+}
+
