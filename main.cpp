@@ -6,6 +6,7 @@
 #include <gtime.h>
 
 using namespace std;
+/*
 void createDatabase(){
 MYSQL* conn;
     MYSQL_ROW row;
@@ -124,19 +125,16 @@ MYSQL* conn;
         mysql_close(conn);
 
 }
-
+*/
 
 int main()
 {
-<<<<<<< HEAD
+
     CustomTime c;
     cout << c.date() << "  " << c.Time() << endl;
     c.getTimestampDate("2018/10/11 23:15:13");
     //c.getTimestampDate("2017/07/26 00:00:00");
 
-
-=======
->>>>>>> c7c4dd230fb92dd4ee660287bef49c4548561a03
 /*
     Loging l;
     while(!l.loged){
