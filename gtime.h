@@ -72,30 +72,34 @@ public:
 
     long getTimestampDate(string date){
 
-    char *strptime(const char * __restrict, const char * __restrict, struct tm * __restrict);
 
-        const char *time_details = date.c_str();
-        struct tm tm;
-        strptime(time_details, "%Y:%m:%d", &tm);
-        time_t t = mktime(&tm);
+    //string startTime = "2016/05/18 13:10:00";
+    string startTime = date;
+    time_t tStart;
+    int yy, month, dd, hh, mm, ss;
+    struct tm whenStart;
+    const char *zStart = startTime.c_str();
 
+    sscanf(zStart, "%d/%d/%d %d:%d:%d", &yy, &month, &dd, &hh, &mm, &ss);
+    whenStart.tm_year = yy - 1900;
+    whenStart.tm_mon = month - 1;
+    whenStart.tm_mday = dd;
+    whenStart.tm_hour = hh+1;
+    whenStart.tm_min = mm+60;
+    whenStart.tm_sec = ss;
+    whenStart.tm_isdst = -1;
 
+    tStart = mktime(&whenStart);
 
+    std::cout << tStart << std::endl;
 
     }
 
     long getTimestampDate(){
 
-
         time_t result = time(NULL);
-        struct tm nowLocal=*localtime(&result);
 
-        day = nowLocal.tm_mday;
-        month = nowLocal.tm_mon+1;
-        year = nowLocal.tm_year+1900;
-        long result2 = year;
-
-        cout << result2 << endl;
+        cout << result << endl;
     }
    /* long longTimestamp()
     {
