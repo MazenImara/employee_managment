@@ -42,10 +42,12 @@
 			<Add library="C:/employee_managment/include/libmysql.a" />
 		</Linker>
 		<Unit filename="database.h" />
+		<Unit filename="employee.h" />
 		<Unit filename="inbtw.cpp" />
 		<Unit filename="inbtw.h" />
 		<Unit filename="login.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="task.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

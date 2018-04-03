@@ -3,8 +3,10 @@
 
 #include <iostream>
 #include <string>
-#include <time.h>
 #include <ctime>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include <iomanip>
 #include <sstream>
 
@@ -46,7 +48,7 @@ public:
     }
 
 
-    string  showDate()
+    string  date()
     {
         stringstream sy;    sy << year;     string dateY = sy.str();
         stringstream sm;    sm << month;    string dateM = sm.str();
@@ -57,7 +59,7 @@ public:
         return date;
     }
 
-    string showTime()
+    string Time()
     {
         stringstream sh;    sh << hour;       string shour = sh.str();
         stringstream sm;    sm << minut;      string sminut = sm.str();
@@ -68,6 +70,43 @@ public:
         return time;
     }
 
+    long getTimestampDate(string date){
+
+
+    //string startTime = "2016/05/18 13:10:00";
+    string startTime = date;
+    time_t tStart;
+    int yy, month, dd, hh, mm, ss;
+    struct tm whenStart;
+    const char *zStart = startTime.c_str();
+
+    sscanf(zStart, "%d/%d/%d %d:%d:%d", &yy, &month, &dd, &hh, &mm, &ss);
+    whenStart.tm_year = yy - 1900;
+    whenStart.tm_mon = month - 1;
+    whenStart.tm_mday = dd;
+    whenStart.tm_hour = hh+1;
+    whenStart.tm_min = mm+60;
+    whenStart.tm_sec = ss;
+    whenStart.tm_isdst = -1;
+
+    tStart = mktime(&whenStart);
+
+    std::cout << tStart << std::endl;
+
+    }
+
+    long getTimestampDate(){
+
+        time_t result = time(NULL);
+
+        cout << result << endl;
+    }
+   /* long longTimestamp()
+    {
+
+
+        long mylong = atol(c.getTimestampDate().c_str());
+    }*/
 };
 
 
