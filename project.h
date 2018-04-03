@@ -11,7 +11,6 @@ class Project{
         string title;
         string description;
         string status;
-
     public:
         void enterId(){
             cout << "Enter project id: ";
@@ -30,6 +29,7 @@ class Project{
             cin >> description;
             cout << endl;
         }
+
 };
 
 #endif // PROJECT_H_INCLUDED
