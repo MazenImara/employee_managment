@@ -3,6 +3,7 @@
 #include <login.h>
 #include <iomanip>
 #include <stdlib.h>
+#include <gtime.h>
 
 using namespace std;
 void createDatabase(){
@@ -127,7 +128,13 @@ MYSQL* conn;
 
 int main()
 {
+    CustomTime c;
+    cout << c.date() << "  " << c.Time() << endl;
+    c.getTimestampDate("2018/10/11 23:15:13");
+    //c.getTimestampDate("2017/07/26 00:00:00");
 
+
+/*
     Loging l;
     while(!l.loged){
         system("cls");
@@ -146,6 +153,7 @@ int main()
             //l.e.setAdmin();
         }
     }
+    */
     return 0;
 }
 
