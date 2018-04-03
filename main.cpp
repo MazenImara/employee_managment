@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <login.h>
+//#include <login.h>
 #include <iomanip>
 #include <stdlib.h>
 
@@ -8,7 +8,7 @@ using namespace std;
 
 int main()
 {
-
+/*
     Loging l;
     while(!l.loged){
         system("cls");
@@ -27,6 +27,7 @@ int main()
             //l.e.setAdmin();
         }
     }
+    */
     return 0;
 }
 
