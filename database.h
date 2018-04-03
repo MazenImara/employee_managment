@@ -290,17 +290,17 @@ public:
     }
     // end code Mohamad
 
-//hamza
+    //hamza
 
 
-        void insertProject(Project p){
-            string query="insert into project(title,description,status) values('"+p.title+"','"+p.description+"','"+p.status+"')";
-            const char* q = query.c_str();
-            qstate = mysql_query(conn,q);
-            if(!qstate)
-                cout<<"Project inserted successfully..."<<endl;
-            else
-                cout<<"query problem: "<<mysql_error(conn)<<endl;
+            void insertProject(Project p){
+                string query="insert into project(title,description,status) values('"+p.title+"','"+p.description+"','"+p.status+"')";
+                const char* q = query.c_str();
+                qstate = mysql_query(conn,q);
+                if(!qstate)
+                    cout<<"Project inserted successfully..."<<endl;
+                else
+                    cout<<"query problem: "<<mysql_error(conn)<<endl;
         }
 
         void updateProject(Project p){
@@ -311,7 +311,7 @@ public:
                 cout<<"Project updated successfully..."<<endl;
             else
                 cout<<"query problem: "<<mysql_error(conn)<<endl;
-        }
+    }
 
         void deleteProject(Project p){
             string query="DELETE FROM `project` WHERE id="+p.id;
