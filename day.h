@@ -2,7 +2,7 @@
 #define DAY_H_INCLUDED
 #include <sstream>
 #include <iostream>
-#include <string>
+
 
 using namespace std;
 
@@ -11,19 +11,19 @@ using namespace std;
 class Day{
 public:
     string id,employee_id;
-    long long date ,startTime,endTime,temp;
+    long  date ,start,endTime,temp;
     int timeSpend;
 public:
     void enterDate(){
         cout<<"Enter date=\t";cin >>date;
     }
     void enterStart(){
-        cout <<"Enter start=\t";cin >>startTime;
+        cout <<"Enter start=\t";cin >>start;
     }
     void enterEnd(){
         cout <<"Enter end=\t";cin >>endTime;
     }
-    string longToString(long long number){
+    string longToString(long  number){
         std::stringstream ss;
         ss << number;
         return ss.str();

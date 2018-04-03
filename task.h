@@ -8,9 +8,10 @@
 using namespace std;
 
 class Task{
-    t.started();
+   /* t.started();
     t.paused();
     t.ended();
+    */
 public:
     string id;
     string title;

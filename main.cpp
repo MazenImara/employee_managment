@@ -3,9 +3,9 @@
 //#include <login.h>
 #include <iomanip>
 #include <stdlib.h>
-<<<<<<< HEAD
 #include <day.h>
 #include <gtime.h>
+#include <database.h>
 
 using namespace std;
 void manageEmployeeMenu();
@@ -15,7 +15,6 @@ void showProjectsMenu();
 void projectUpdateMenu();
 void manageTaskMenu();
 
-=======
 #include <gtime.h>
 
 using namespace std;
@@ -139,7 +138,7 @@ MYSQL* conn;
 
 }
 */
->>>>>>> origin/master
+
 
 int main()
 { // test Mohamad
@@ -147,18 +146,18 @@ int main()
     Day d,day;
 
 
-    //d.employee_id=23;
-    //d.startTime=20180122122333;
+    d.employee_id="25";
+    d.start=1234567891;
     //cout <<d.longToString(20180122122333);
-    //d.endTime=20180123122444;
-    //d.timeSpend=12;
+    d.endTime=1234321234;
+     d.id="3";
    // d.enterStart();
     //d.enterEnd();
     //d.timeSpend=33;
-    day=db.selectDay("27");
+    //day=db.selectDay("27");
     //cout<<day.startTime<<endl;
     //cout<<day.endTime;
-    //db.insertDay(d);
+     db.updateDay(d);
 
  cin.get();
 cin.ignore();
@@ -248,7 +247,7 @@ void employeeMenu(){
         case 5:cout << " 5. LOGOUT" << endl;break;
    }
  }
-<<<<<<< HEAD
+
  void manageProjectMenu(){
     int choice;
     cout << "==========================================" <<endl;
@@ -338,7 +337,7 @@ void manageTaskMenu(){
         default:break;
     }
 }
-=======
+
 
 void manageTimeOff(){
     int choice;
@@ -357,5 +356,5 @@ void manageTimeOff(){
         case 0:cout << " 0. Back to Employee Menu" << endl;break;
     }
  }
->>>>>>> origin/master
+
 
