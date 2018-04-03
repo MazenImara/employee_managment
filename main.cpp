@@ -3,6 +3,8 @@
 #include <login.h>
 #include <iomanip>
 #include <stdlib.h>
+#include <day.h>
+#include <gtime.h>
 
 using namespace std;
 void manageEmployeeMenu();
@@ -14,8 +16,35 @@ void manageTaskMenu();
 
 
 int main()
-{
+{ // test Mohamad
+    Database db,data;
+    Day d,day;
+
+
+    //d.employee_id=23;
+    //d.startTime=20180122122333;
+    //cout <<d.longToString(20180122122333);
+    //d.endTime=20180123122444;
+    //d.timeSpend=12;
+   // d.enterStart();
+    //d.enterEnd();
+    //d.timeSpend=33;
+    day=db.selectDay("27");
+    //cout<<day.startTime<<endl;
+    //cout<<day.endTime;
+    //db.insertDay(d);
+
+ cin.get();
+cin.ignore();
+
+
     manageProjectMenu();
+
+
+
+
+//ent test Mohamad
+
 
 
     Loging l;
