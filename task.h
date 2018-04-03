@@ -28,6 +28,14 @@ public:
     void show(){
         cout<<"\nId: "<< id <<"\tTitle: "<< title <<"\tStatus: "<< status <<"\tTime Spend: "<< time_spend <<"\tDate Created: "<< date_created <<"\tProject id: "<< project_id <<"\tEmployee id: "<< employee_id <<endl;
     }
+    // start Nidal
+    void pause(string taskId){
+
+
+
+    }
+
+
 };
 
 #endif // TASK_H_INCLUDED

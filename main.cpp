@@ -67,7 +67,7 @@ MYSQL* conn;
 
         //create project
         {
-        query="CREATE TABLE employee_managment.project(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255), `description` VARCHAR(255), `status` VARCHAR(255), PRIMARY KEY (id));";
+        query="CREATE TABLE employee_managment.project(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255), `description` VARCHAR(255), `status` VARCHAR(255), PRIMARY KEY (id))";
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -81,7 +81,7 @@ MYSQL* conn;
 
         //create task
         {
-        query="CREATE TABLE employee_managment.task(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255), `status` VARCHAR(255), `time_spend` VARCHAR(255), `created` VARCHAR(255), `start` VARCHAR(255), `project_id` int, `employee_id` int, PRIMARY KEY (id));";
+        query="CREATE TABLE employee_managment.task(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255), `status` VARCHAR(255), `time_spend` VARCHAR(255), `created` VARCHAR(255), `start` VARCHAR(255), `project_id` int, `employee_id` int, PRIMARY KEY (id))";
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -125,7 +125,7 @@ MYSQL* conn;
 }
 
 
-int main()
+int main1()
 {
 
     Loging l;
