@@ -7,8 +7,10 @@
 
 using namespace std;
 
-
 class Task{
+    t.started();
+    t.paused();
+    t.ended();
 public:
     string id;
     string title;
@@ -27,6 +29,13 @@ public:
     }
     void show(){
         cout<<"\nId: "<< id <<"\tTitle: "<< title <<"\tStatus: "<< status <<"\tTime Spend: "<< time_spend <<"\tDate Created: "<< date_created <<"\tProject id: "<< project_id <<"\tEmployee id: "<< employee_id <<endl;
+    }
+    void started(){
+        Task t;
+        cout<<"\nEnter id of the task: ";cin>>id;
+    }
+    void ended(){
+        cout<<"\nEnter id of the task: ";cin>>id;
     }
 };
 

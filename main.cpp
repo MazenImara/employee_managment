@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <login.h>
+//#include <login.h>
 #include <iomanip>
 #include <stdlib.h>
 #include <gtime.h>
@@ -128,12 +128,15 @@ MYSQL* conn;
 
 int main()
 {
+<<<<<<< HEAD
     CustomTime c;
     cout << c.date() << "  " << c.Time() << endl;
     c.getTimestampDate("2018/10/11 23:15:13");
     //c.getTimestampDate("2017/07/26 00:00:00");
 
 
+=======
+>>>>>>> c7c4dd230fb92dd4ee660287bef49c4548561a03
 /*
     Loging l;
     while(!l.loged){
@@ -205,4 +208,21 @@ void employeeMenu(){
    }
  }
 
+void manageTimeOff(){
+    int choice;
+    cout << "==========================================" <<endl;
+    cout << right << setw(25) << "Manage Time Off" <<endl;
+    cout << "==========================================" <<endl;
+    cout << endl;
+    cout << " 1. Add" << endl;
+    cout << " 2. Delete" << endl;
+    cout << " 0. Back to Employee Menu" << endl;
+    cout << " \n Enter your choice(0-2):";
+    cin >> choice;
+    switch(choice){
+        case 1:cout << " 1. Add" << endl;break;
+        case 2:cout << " 2. Delete" << endl;break;
+        case 0:cout << " 0. Back to Employee Menu" << endl;break;
+    }
+ }
 
