@@ -142,16 +142,32 @@ MYSQL* conn;
 
 int main()
 { // test Mohamad
-
-
-//ent test Mohamad
-
-
 /*
+Employee e;
+Database db;
+list<Employee> employess;
+employess = db.selectEmployees();
+for( e : employess){
+cout << e.id <<endl;
+cout << e.name<<endl;
+cout << e.email<<endl;
+cout << e.password<<endl;
+cout << e.address<<endl;
+cout << e.phone<<endl;
+}
+*//*
+//ent test Mohamad
+CustomTime c;
+ c.getTimestampDate("2018/10/11 23:15:13");
+Employee e;
+e.getTime();
+
     CustomTime c;
-    cout << c.date() << "  " << c.Time() << endl;
-    c.getTimestampDate("2018/10/11 23:15:13");
-    //c.getTimestampDate("2017/07/26 00:00:00");
+CustomTime( );
+   cout << c.date() << "  " << c.Time() << endl;
+     c.getTimestampDate("2018/10/11 23:15:13");
+
+    c.getTimestampDate();
 */
 
 /*

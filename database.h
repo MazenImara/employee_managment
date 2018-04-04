@@ -191,19 +191,19 @@ public:
     }
     list<Employee> selectEmployees(){
         list <Employee> employees;
-        string query = "select * from  employee" ;
+        string query = "select * from  `employee`" ;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate){
-            mysql_store_result(conn);
+            res=mysql_store_result(conn);
             while(row=mysql_fetch_row(res)){
                 Employee e;
-                e.id = row[0];
-                e.name = row[1];
-                e.email=row[2];
+                e.id       = row[0];
+                e.name     = row[1];
+                e.email    = row[2];
                 e.password = row[3];
                 e.address  = row[4];
-                e.phone = row[5];
+                e.phone    = row[5];
                 employees.push_back(e);
             }
         }
