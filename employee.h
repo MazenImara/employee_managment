@@ -3,6 +3,7 @@
 #include <iostream>
 #include <iomanip>
 #include <inbtw.h>
+#include <database.h>
 
 using namespace std;
 class Employee{

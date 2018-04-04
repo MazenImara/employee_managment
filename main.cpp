@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-//#include <login.h>
+#include <login.h>
 #include <iomanip>
 #include <stdlib.h>
 #include <day.h>
@@ -142,44 +142,22 @@ MYSQL* conn;
 
 int main()
 { // test Mohamad
-    Database db,data;
-    Day d,day;
-
-
-    d.employee_id="25";
-    d.start=1234567891;
-    //cout <<d.longToString(20180122122333);
-    d.endTime=1234321234;
-     d.id="3";
-   // d.enterStart();
-    //d.enterEnd();
-    //d.timeSpend=33;
-    //day=db.selectDay("27");
-    //cout<<day.startTime<<endl;
-    //cout<<day.endTime;
-     db.updateDay(d);
-
- cin.get();
-cin.ignore();
-
-
-    manageProjectMenu();
-
-
 
 
 //ent test Mohamad
 
 
-
+/*
     CustomTime c;
     cout << c.date() << "  " << c.Time() << endl;
     c.getTimestampDate("2018/10/11 23:15:13");
     //c.getTimestampDate("2017/07/26 00:00:00");
+*/
 
-/*
     Loging l;
     while(!l.loged){
+        cin.get();
+        cin.ignore();
         system("cls");
         l.login();
     }
@@ -196,7 +174,7 @@ cin.ignore();
             //l.e.setAdmin();
         }
     }
-    */
+
     return 0;
 }
 

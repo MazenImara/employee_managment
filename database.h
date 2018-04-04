@@ -138,6 +138,8 @@ public:
     // End ikram
 
     //mohamad code
+
+
     Employee selectEmployee(string id){
         Employee e;
         string query = "select * from  employee where id=" + id;
@@ -225,13 +227,13 @@ public:
                e.address=row[4];
                e.phone= row[5];
             }
-       }
-       else{
+        }
+        else{
             cout<<"query error: "<<mysql_error(conn)<<endl;
-       }
-       return e;
+        }
+        return e;
     }
-   void insertDay(Day d){
+    void insertDay(Day d){
         string start=d.longToString(d.start),endTime=d.longToString(d.endTime);
 
         string query = "INSERT INTO `time_off`( `from`,`to`,`employee_id`) VALUES ('"+start+"','"+endTime+"','"+d.employee_id+"')";
@@ -242,7 +244,7 @@ public:
         else
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
-   Day selectDay(string id){
+    Day selectDay(string id){
         Day d;
         string query = "select * from  `time_off` where id=" + id;
         const char* q = query.c_str();
@@ -251,15 +253,12 @@ public:
             res = mysql_store_result(conn);
             while(row=mysql_fetch_row(res)){
                 string start=d.longToString(d.start),endTime=d.longToString(d.endTime),timeSpend=d.longToString(d.timeSpend);
-                d.id          = row[0];
-                d.employee_id = row[1];
-                start         =row[2];
-               // cout<<start<<endl;
-                endTime       =row[3];
-                 //d.date      =d.stringToLong(date);
-               // d.startTime =d.stringToLong(startTime);
-                //d.endTime   =d.stringToLong(endTime);
-               // d.timeSpend =d.stringToLong(timeSpend);
+                d.id           = row[0];
+                start          =row[1];
+                endTime        =row[2];
+                d.employee_id = row[3];
+                d.start =d.stringToLong(start);
+                d.endTime   =d.stringToLong(endTime);
             }
         }
         else{
@@ -289,12 +288,14 @@ public:
         else
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
+
+
     // end code Mohamad
 
     //hamza
 
 
-            void insertProject(Project p){
+        void insertProject(Project p){
                 string query="insert into project(title,description,status) values('"+p.title+"','"+p.description+"','"+p.status+"')";
                 const char* q = query.c_str();
                 qstate = mysql_query(conn,q);
