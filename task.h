@@ -8,9 +8,9 @@
 using namespace std;
 
 class Task{
-    t.started();
-    t.paused();
-    t.ended();
+//    t.started();
+//    t.paused();
+//    t.ended();
 public:
     string id;
     string title;

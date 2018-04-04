@@ -13,11 +13,11 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add directory="C:/Users/Ikram/Desktop/employee_managment/include" />
-					<Add directory="C:/Users/Ikram/Desktop/employee_managment" />
+					<Add directory="C:/Users/Storleden/Desktop/firstC++/employee_managment/" />
+					<Add directory="C:/Users/Storleden/Desktop/firstC++/employee_managment/include" />
 				</Compiler>
 				<Linker>
-					<Add library="C:/Users/Ikram/Desktop/employee_managment/include/libmysql.a" />
+					<Add library="C:/Users/Storleden/Desktop/employee_managment/include/libmysql.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -38,9 +38,12 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="database.h" />
+		<Unit filename="employee.h" />
 		<Unit filename="gtime.h" />
+		<Unit filename="inbtw.cpp" />
+		<Unit filename="inbtw.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="task.h" />
+		<Unit filename="project.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
