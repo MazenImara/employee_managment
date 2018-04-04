@@ -154,6 +154,8 @@ int main()
     //c.getTimestampDate("2017/07/26 00:00:00");
 */
 
+/*
+
     Loging l;
     while(!l.loged){
         cin.get();
@@ -174,6 +176,7 @@ int main()
             //l.e.setAdmin();
         }
     }
+*/
 
     return 0;
 }
