@@ -1,12 +1,13 @@
 #include <iostream>
 #include <string>
-//#include <login.h>
+#include <login.h>
 #include <iomanip>
 #include <stdlib.h>
 #include <gtime.h>
+#include <projectMenu.h>
 
 using namespace std;
-/*
+
 void createDatabase(){
 MYSQL* conn;
     MYSQL_ROW row;
@@ -20,7 +21,7 @@ MYSQL* conn;
         cout<<"connection object ok, conn="<<conn<<endl;
     else
         cout<<"conn object problem: "<<mysql_error(conn);
-    conn = mysql_real_connect(conn,"localhost","root","password",NULL,0,NULL,0);
+    conn = mysql_real_connect(conn,"localhost","root","",NULL,0,NULL,0);
 
     if(conn)
         cout<<"test without database  ok, conn="<<conn<<endl;
@@ -83,7 +84,7 @@ MYSQL* conn;
 
         //create task
         {
-        query="CREATE TABLE employee_managment.task(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255), `status` VARCHAR(255), `time_spend` VARCHAR(255), `created` VARCHAR(255), `start` VARCHAR(255), `project_id` int, `employee_id` int, PRIMARY KEY (id));";
+        query="CREATE TABLE employee_managment.task(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255), `status` VARCHAR(255), `time_spend` VARCHAR(255), `date_created` VARCHAR(255), `project_id` int, `employee_id` int, PRIMARY KEY (id));";
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -94,6 +95,20 @@ MYSQL* conn;
             cout<<"query error: "<<mysql_error(conn)<<endl;
         }
         //end task
+
+        //create status
+        {
+        query="CREATE TABLE employee_managment.status(`id` int not null AUTO_INCREMENT, `start` VARCHAR(255), `pause` VARCHAR(255), `task_id` int, PRIMARY KEY (id));";
+        }
+         q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate){
+            cout<< "Task-status Tabel created successfully\n";
+        }
+        else{
+            cout<<"query error: "<<mysql_error(conn)<<endl;
+        }
+        //end status
 
         //create time_off
         {
@@ -125,14 +140,14 @@ MYSQL* conn;
         mysql_close(conn);
 
 }
-*/
+
 
 int main()
 {
 
-    CustomTime c;
-    cout << c.date() << "  " << c.Time() << endl;
-    c.getTimestampDate("2018/10/11 23:15:13");
+//    CustomTime c;
+//    cout << c.date() << "  " << c.Time() << endl;
+//    c.getTimestampDate("2018/10/11 23:15:13");
     //c.getTimestampDate("2017/07/26 00:00:00");
 
 /*
@@ -155,6 +170,8 @@ int main()
         }
     }
     */
+
+    manageProjectMenu();
     return 0;
 }
 
