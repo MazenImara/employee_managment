@@ -23,14 +23,14 @@ public:
     Database(){
         conn = mysql_init(0);
         if(conn)
-            cout<<"connection object ok, conn="<<conn<<endl;
+            //cout<<"connection object ok, conn="<<conn<<endl;
         else
             cout<<"conn object problem: "<<mysql_error(conn);
 
-        conn = mysql_real_connect(conn,"localhost","root","","employee_managment",0,NULL,0);
+        conn = mysql_real_connect(conn,"localhost","root","password","employee_managment",0,NULL,0);
 
         if(conn)
-            cout<<"connect to data base  successfully..."<<endl;
+            //cout<<"connect to data base  successfully..."<<endl;
         else
             cout<<"conn object problem: "<<mysql_error(conn);
     }
