@@ -9,10 +9,10 @@
 #include <task.h>
 #include <list>
 #include <project.h>
+#include <gtime.h>
+#include <status.h>
 
 using namespace std;
-
-
 
 class Database{
 public:
@@ -73,6 +73,7 @@ public:
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
 
+    //show specific task by id
     Task selectTask(string id){
         Task t;
         string query ="SELECT `id`, `title`, `status`, `time_spend`, `date_created`, `start`, `project_id`, `employee_id` FROM `task` WHERE `id`="+id;
@@ -89,7 +90,7 @@ public:
                 t.status = row[2];
                 t.time_spend = row[3];
                 t.date_created = row[4];
-                t.start = row[5];
+                //t.start = row[5];
                 t.project_id = row[6];
                 t.employee_id =row[7];
             }
@@ -100,10 +101,12 @@ public:
         return t;
     }
 
+    //show specific task by status
+
     list<Task>selectTasks(){
         list<Task>tasks;
         string query ="SELECT * FROM `task`";
-                const char* q = query.c_str();
+        const char* q = query.c_str();
         cout<<"query is: "<<q<<endl;
         qstate = mysql_query(conn,q);
         if(!qstate)
@@ -117,7 +120,7 @@ public:
                 t.status = row[2];
                 t.time_spend = row[3];
                 t.date_created = row[4];
-                t.start = row[5];
+                //t.start = row[5];
                 t.project_id = row[6];
                 t.employee_id =row[7];
                 tasks.push_back(t);
@@ -127,6 +130,38 @@ public:
                     cout<<"query error: "<<mysql_error(conn)<<endl;
                 }
         return tasks;
+    }
+
+
+    void startTask(string id){
+        CustomTime c;
+        c.date();
+        c.Time();
+        string dateTime = c.date() + " " + c.Time();
+        string query ="UPDATE `task` SET `start` = '"+dateTime+"' WHERE `id` ="+id;
+        const char* q = query.c_str();
+        cout<<"query is: "<<q<<endl;
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+            cout<<"record inserted successfully..."<<endl;
+        else
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+
+    }
+
+    void endTask(string id){
+        CustomTime c;
+        c.date();
+        c.Time();
+        string dateTime = c.date() + " " + c.Time();
+        string query ="UPDATE `task` SET `time_spend`= '"+dateTime+"' WHERE `id`="+id;
+        const char* q = query.c_str();
+        cout<<"query is: "<<q<<endl;
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+            cout<<"record inserted successfully..."<<endl;
+        else
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
     // End ikram
 
