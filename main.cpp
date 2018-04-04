@@ -4,11 +4,11 @@
 #include <iomanip>
 #include <stdlib.h>
 #include <gtime.h>
-<<<<<<< HEAD
+#include <employee.h>
+#include <project.h>
 #include <projectMenu.h>
 
 using namespace std;
-
 void createDatabase(){
 MYSQL* conn;
     MYSQL_ROW row;
@@ -53,38 +53,36 @@ MYSQL* conn;
             cout<<"query error: "<<mysql_error(conn)<<endl;
         }
         // End create
-=======
-#include <employee.h>
-#include <project.h>
-#include <projectMenu.h>
 
-using namespace std;
->>>>>>> 56b303365a62222217270de948b68424ff311b65
+        // Create Tabeles
+        // create employee
+        {
+        query="CREATE TABLE employee_managment.Employee(`id` int not null AUTO_INCREMENT, `name` VARCHAR(255), `email` VARCHAR(255), `password` VARCHAR(255), `address` VARCHAR(255), `phone` VARCHAR(255), PRIMARY KEY (id));";
+        }
+         q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate){
+            cout<< "Employee Tabel created successfully\n";
+        }
+        else{
+            cout<<"query error: "<<mysql_error(conn)<<endl;
+        }
+        //end employee
 
-void PrintMessage(string message, bool printTop = true, bool printBottom = true)
-{
-	if (printTop)
-	{
+        //create project
+        {
+        query="CREATE TABLE employee_managment.project(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255), `description` VARCHAR(255), `status` VARCHAR(255), PRIMARY KEY (id));";
+        }
+         q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate){
+            cout<< "Project Tabel created successfully\n";
+        }
+        else{
+            cout<<"query error: "<<mysql_error(conn)<<endl;
+        }
+        //end project
 
-		cout << "+----------------------------------------+" << endl;
-		cout << "|";
-	}
-	else
-	{
-		cout << "|";
-	}
-	bool front = true;
-	for (int i = message.length(); i < 40; i++)
-	{
-		if (front)
-		{
-			message = " " + message;
-		}
-		else
-		{
-			message = message + " ";
-
-<<<<<<< HEAD
         //create task
         {
         query="CREATE TABLE employee_managment.task(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255), `status` VARCHAR(255), `time_spend` VARCHAR(255), `date_created` VARCHAR(255), `project_id` int, `employee_id` int, PRIMARY KEY (id));";
@@ -126,7 +124,45 @@ void PrintMessage(string message, bool printTop = true, bool printBottom = true)
             cout<<"query error: "<<mysql_error(conn)<<endl;
         }
         //end time_off
-=======
+
+        //create admin
+        {
+        query="CREATE TABLE employee_managment.admin(`id` int not null AUTO_INCREMENT, `employee_id` int, PRIMARY KEY (id));";
+        }
+         q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate){
+            cout<< "Admin Tabel created successfully\n";
+        }
+        else{
+            cout<<"query error: "<<mysql_error(conn)<<endl;
+        }
+        //end admin
+        mysql_close(conn);
+
+}
+void PrintMessage(string message, bool printTop = true, bool printBottom = true)
+{
+	if (printTop)
+	{
+
+		cout << "+----------------------------------------+" << endl;
+		cout << "|";
+	}
+	else
+	{
+		cout << "|";
+	}
+	bool front = true;
+	for (int i = message.length(); i < 40; i++)
+	{
+		if (front)
+		{
+			message = " " + message;
+		}
+		else
+		{
+			message = message + " ";
 		}
 		front = !front;
 	}
@@ -148,16 +184,12 @@ void EmployeeMenu();
 void ManageProjectMenu();
 void ManageTaskMenu();
 void manageProjectMenu();
->>>>>>> 56b303365a62222217270de948b68424ff311b65
+
 
 void showAllProject()
 {
 
 }
-<<<<<<< HEAD
-
-=======
->>>>>>> 56b303365a62222217270de948b68424ff311b65
 
 int main()
 {
@@ -185,21 +217,10 @@ int main()
 		default: "\a"; break;
 		}
 
-<<<<<<< HEAD
-//    CustomTime c;
-//    cout << c.date() << "  " << c.Time() << endl;
-//    c.getTimestampDate("2018/10/11 23:15:13");
-=======
+
 	} while (n != 0);
 
 	return 0;
-    /*
-    CustomTime c;
-    cout << c.date() << "  " << c.Time() << endl;
-    c.getTimestampDate("2018/10/11 23:15:13");
->>>>>>> 56b303365a62222217270de948b68424ff311b65
-    //c.getTimestampDate("2017/07/26 00:00:00");
-    */
 
 /*
     Loging l;
