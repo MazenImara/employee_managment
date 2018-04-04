@@ -136,7 +136,7 @@ void AdminMenu()
 	switch (n)
 	{
 	case 1:
-        manageProjectMenu();
+        ManageProjectMenu();
 	    break;
 	case 2:
         ManageEmployeeMenu();
