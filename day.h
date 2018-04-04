@@ -2,8 +2,7 @@
 #define DAY_H_INCLUDED
 #include <sstream>
 #include <iostream>
-
-
+#include <string>
 using namespace std;
 
 
@@ -23,6 +22,7 @@ public:
     void enterEnd(){
         cout <<"Enter end=\t";cin >>endTime;
     }
+
     string longToString(long  number){
         std::stringstream ss;
         ss << number;

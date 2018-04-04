@@ -257,8 +257,8 @@ public:
                 start          =row[1];
                 endTime        =row[2];
                 d.employee_id = row[3];
-                d.start =d.stringToLong(start);
-                d.endTime   =d.stringToLong(endTime);
+                d.start       =d.stringToLong(start);
+                d.endTime     =d.stringToLong(endTime);
             }
         }
         else{
