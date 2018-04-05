@@ -75,7 +75,7 @@ public:
 
     Task selectTask(string id){
         Task t;
-        string query ="SELECT `id`, `title`, `status`, `time_spend`, `date_created`, `start`, `project_id`, `employee_id` FROM `task` WHERE `id`="+id;
+        string query ="SELECT `id`, `title`, `status`, `time_spend`, `date_created`, `project_id`, `employee_id` FROM `task` WHERE `id`="+id;
         const char* q = query.c_str();
         cout<<"query is: "<<q<<endl;
         qstate = mysql_query(conn,q);
@@ -89,9 +89,8 @@ public:
                 t.status = row[2];
                 t.time_spend = row[3];
                 t.date_created = row[4];
-                t.start = row[5];
-                t.project_id = row[6];
-                t.employee_id =row[7];
+                t.project_id = row[5];
+                t.employee_id =row[6];
             }
         }
             else{
@@ -117,9 +116,8 @@ public:
                 t.status = row[2];
                 t.time_spend = row[3];
                 t.date_created = row[4];
-                t.start = row[5];
-                t.project_id = row[6];
-                t.employee_id =row[7];
+                t.project_id = row[5];
+                t.employee_id =row[6];
                 tasks.push_back(t);
             }
         }
@@ -128,6 +126,8 @@ public:
                 }
         return tasks;
     }
+
+
     // End ikram
 
     //mohamad code
