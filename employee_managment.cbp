@@ -13,8 +13,8 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add directory="C:/Users/Ikram/Desktop/employee_managment/include" />
 					<Add directory="C:/Users/Ikram/Desktop/employee_managment" />
+					<Add directory="C:/Users/Ikram/Desktop/include" />
 				</Compiler>
 				<Linker>
 					<Add library="C:/Users/Ikram/Desktop/employee_managment/include/libmysql.a" />
@@ -40,6 +40,9 @@
 		<Unit filename="database.h" />
 		<Unit filename="gtime.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="project.h" />
+		<Unit filename="projectMenu.h" />
+		<Unit filename="status.h" />
 		<Unit filename="task.h" />
 		<Extensions>
 			<code_completion />
