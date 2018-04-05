@@ -13,11 +13,16 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+<<<<<<< HEAD
 					<Add directory="C:/Users/Ikram/Desktop/employee_managment" />
 					<Add directory="C:/Users/Ikram/Desktop/include" />
+=======
+					<Add directory="C:/Users/Hamza/Documents/CodeBlocks/employee_managment/" />
+					<Add directory="C:/Users/Hamza/Documents/CodeBlocks/employee_managment/include" />
+>>>>>>> testDummy
 				</Compiler>
 				<Linker>
-					<Add library="C:/Users/Ikram/Desktop/employee_managment/include/libmysql.a" />
+					<Add library="C:/Users/Hamza/Documents/CodeBlocks/employee_managment/include/libmysql.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -38,12 +43,14 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="database.h" />
-		<Unit filename="gtime.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="project.h" />
 		<Unit filename="projectMenu.h" />
+<<<<<<< HEAD
 		<Unit filename="status.h" />
 		<Unit filename="task.h" />
+=======
+>>>>>>> testDummy
 		<Extensions>
 			<code_completion />
 			<debugger />

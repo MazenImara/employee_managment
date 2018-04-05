@@ -9,13 +9,12 @@
 using namespace std;
 
 
- class status{
+ class Status{
     public:
         string id;
         string start;
         string pause;
         string task_id;
-
     };
 
 #endif // STATUS_H_INCLUDED
