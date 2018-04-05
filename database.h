@@ -7,7 +7,6 @@
 #include <mysql.h>
 #include <list>
 #include <task.h>
-#include <list>
 #include <project.h>
 #include <day.h>
 #include <sstream>
@@ -138,12 +137,33 @@ public:
     //mohamad code
 
 
-    Employee selectEmployee(string id){
+    Employee selectEmployeeById(string id){
         Employee e;
         string query = "select * from  employee where id=" + id;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate){{}
+            res = mysql_store_result(conn);
+            while(row=mysql_fetch_row(res)){
+                e.id = row[0];
+                e.name = row[1];
+                e.email = row[2];
+                e.password = row[3];
+                e.address=row[4];
+                e.phone= row[5];
+            }
+        }
+        else{
+            cout<<"query error: "<<mysql_error(conn)<<endl;
+        }
+        return e;
+    }
+    Employee selectEmployeeByEmail(string email){
+        Employee e;
+        string query = "select * from  employee where email='"+email+"'";
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate){
             res = mysql_store_result(conn);
             while(row=mysql_fetch_row(res)){
                 e.id = row[0];
