@@ -3,12 +3,16 @@
 #include <login.h>
 #include <iomanip>
 #include <stdlib.h>
+#include <day.h>
+#include <gtime.h>
+#include <database.h>
 #include <gtime.h>
 #include <employee.h>
 #include <project.h>
 #include <projectMenu.h>
 
 using namespace std;
+/*
 void createDatabase(){
 MYSQL* conn;
     MYSQL_ROW row;
@@ -141,6 +145,7 @@ MYSQL* conn;
         mysql_close(conn);
 
 }
+*/
 void PrintMessage(string message, bool printTop = true, bool printBottom = true)
 {
 	if (printTop)
@@ -177,6 +182,16 @@ void PrintMessage(string message, bool printTop = true, bool printBottom = true)
 		cout << "|" << endl;
 	}
 }
+using namespace std;
+void manageEmployeeMenu();
+void employeeMenu();
+void manageProjectMenu();
+
+void projectUpdateMenu();
+void manageTaskMenu();
+
+
+
 
 void AdminMenu();
 void ManageEmployeeMenu();
@@ -190,6 +205,7 @@ void showAllProject()
 {
 
 }
+
 
 int main()
 {
@@ -211,8 +227,6 @@ int main()
 		case 1:
             AdminMenu();
 		    break;
-
-		    break;
         case 0: exit(0);
 		default: "\a"; break;
 		}
@@ -220,11 +234,43 @@ int main()
 
 	} while (n != 0);
 
-	return 0;
+
+
+ // test Mohamad
+/*
+Employee e;
+Database db;
+list<Employee> employess;
+employess = db.selectEmployees();
+for( e : employess){
+cout << e.id <<endl;
+cout << e.name<<endl;
+cout << e.email<<endl;
+cout << e.password<<endl;
+cout << e.address<<endl;
+cout << e.phone<<endl;
+}
+*//*
+//ent test Mohamad
+CustomTime c;
+ c.getTimestampDate("2018/10/11 23:15:13");
+Employee e;
+e.getTime();
+
+    CustomTime c;
+CustomTime( );
+   cout << c.date() << "  " << c.Time() << endl;
+     c.getTimestampDate("2018/10/11 23:15:13");
+
+    c.getTimestampDate();
+*/
 
 /*
+
     Loging l;
     while(!l.loged){
+        cin.get();
+        cin.ignore();
         system("cls");
         l.login();
     }
@@ -241,15 +287,16 @@ int main()
             //l.e.setAdmin();
         }
     }
+
     */
 
     manageProjectMenu();
+
     return 0;
 }
 
 void AdminMenu()
 {
-
     int n;
     system("cls");
 	PrintMessage("ADMIN MANAGE EMPLOYEE");
@@ -381,17 +428,17 @@ void manageEmployeeMenu(){
 void employeeMenu(){
     int choice;
     cout << "==========================================" <<endl;
-   cout << right << setw(25) << "Hello Employee" <<endl;
-   cout << "==========================================" <<endl;
-   cout << endl;
-   cout << " 1. START" << endl;
-   cout << " 2. PAUSE" << endl;
-   cout << " 3. FINISH" << endl;
-   cout << " 4. MANAGE TIMEOFF" << endl;
-   cout << " 5. LOGOUT" << endl;
-   cout << " \n Enter your choice(1-5):";
-   cin >> choice;
-   switch(choice){
+    cout << right << setw(25) << "Hello Employee" <<endl;
+    cout << "==========================================" <<endl;
+    cout << endl;
+    cout << " 1. START" << endl;
+    cout << " 2. PAUSE" << endl;
+    cout << " 3. FINISH" << endl;
+    cout << " 4. MANAGE TIMEOFF" << endl;
+    cout << " 5. LOGOUT" << endl;
+    cout << " \n Enter your choice(1-5):";
+    cin >> choice;
+    switch(choice){
         case 1:cout << " 1. START" << endl;break;
         case 2:cout << " 2. PAUSE" << endl;break;
         case 3:cout << " 3. FINISH" << endl;break;
@@ -399,6 +446,98 @@ void employeeMenu(){
         case 5:cout << " 5. LOGOUT" << endl;break;
    }
  }
+
+/* void manageProjectMenu(){
+    int choice;
+    cout << "==========================================" <<endl;
+    cout << right << setw(25) << "Manage Project" <<endl;
+    cout << "==========================================" <<endl;
+    cout << endl;
+    cout << " 1. Show all project" << endl;
+    cout << " 2. Add project" << endl;
+    cout << " 3. Back" << endl;
+    cout << " \n Enter your choice(1-3):";
+    cin >> choice;
+    switch(choice){
+        case 1:
+            cout << " 1. Show all project" << endl;
+            showProjectsMenu();
+            break;
+        case 2:cout << " 1. Add project" << endl;break;
+        case 3:cout << "back"<< endl;break;
+        default:break;
+    }
+ }
+ */
+void showProjectsMenu(){
+    int choice;
+    cout << "==========================================" <<endl;
+    cout << right << setw(25) << " Show project" <<endl;
+    cout << "==========================================" <<endl;
+    cout << endl;
+    cout << " 1. Update project   " << endl;
+    cout << " 2. Delete project" << endl;
+    cout << " 3. Back" << endl;
+    cout << " \n Enter your choice(1-3):";
+    cin >> choice;
+    switch(choice){
+        case 1:
+            cout << " 1. Update project" << endl;
+            projectUpdateMenu();
+            break;
+        case 2:cout << " 2. Delete project" << endl;break;
+        case 3:cout << " 3. Back"<< endl;break;
+        default:break;
+
+    }
+}
+void projectUpdateMenu(){
+    int choice;
+    cout << "==========================================" <<endl;
+    cout << right << setw(25) << " Update project" <<endl;
+    cout << "==========================================" <<endl;
+    cout << endl;
+    cout << " 1. Update details   " << endl;
+    cout << " 2. Mange task" << endl;
+    cout << " 3. Back" << endl;
+    cout << " \n Enter your choice(1-3):";
+    cin >> choice;
+    switch(choice){
+        case 1:cout << " 1. Update details" << endl;break;
+        case 2:
+            cout << " 2. Mange task" << endl;
+            manageTaskMenu();
+            break;
+        case 3:cout << " 3. Back"<< endl;break;
+        default:break;
+
+    }
+}
+void manageTaskMenu(){
+    int choice;
+    cout << "==========================================" <<endl;
+    cout << right << setw(25) << " Manage task" <<endl;
+    cout << "==========================================" <<endl;
+    cout << endl;
+    cout << " 1. Add task   " << endl;
+    cout << " 2. Delete" << endl;
+    cout << " 3. Update task" << endl;
+    cout << " 4. Show task" << endl;
+    cout << " 5. Sign Employee to task" << endl;
+    cout << " 6. Back" << endl;
+    cout << " \n Enter your choice(1-6):";
+    cin >> choice;
+    switch(choice){
+        case 1:cout << " 1. Add tasl" << endl;break;
+        case 2:cout << " 2. Delete task" << endl;break;
+        case 3:cout << " 3. Update task" << endl;break;
+        case 4:cout << " 4. Show task" << endl;break;
+        case 5:cout << " 5. Sign Employee to task"<< endl;break;
+        case 6:cout << " 6. Back"<< endl;break;
+        default:break;
+    }
+}
+
 
 void manageTimeOff(){
     int choice;
@@ -417,4 +556,5 @@ void manageTimeOff(){
         case 0:cout << " 0. Back to Employee Menu" << endl;break;
     }
  }
+
 

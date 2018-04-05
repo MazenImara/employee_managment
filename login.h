@@ -1,6 +1,5 @@
 #ifndef LOGIN_H_INCLUDED
 #define LOGIN_H_INCLUDED
-
 #include <iostream>
 #include <string>
 #include <database.h>

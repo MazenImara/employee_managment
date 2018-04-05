@@ -5,10 +5,17 @@
 #include <string>
 #include <windows.h>
 #include <mysql.h>
-#include<list>
+#include <list>
 #include <task.h>
 #include <list>
 #include <project.h>
+#include <day.h>
+#include <sstream>
+#include <ctime>
+
+
+
+
 
 using namespace std;
 
@@ -89,9 +96,8 @@ public:
                 t.status = row[2];
                 t.time_spend = row[3];
                 t.date_created = row[4];
-                t.start = row[5];
-                t.project_id = row[6];
-                t.employee_id =row[7];
+                t.project_id = row[5];
+                t.employee_id =row[6];
             }
         }
             else{
@@ -117,9 +123,8 @@ public:
                 t.status = row[2];
                 t.time_spend = row[3];
                 t.date_created = row[4];
-                t.start = row[5];
-                t.project_id = row[6];
-                t.employee_id =row[7];
+                t.project_id = row[5];
+                t.employee_id =row[6];
                 tasks.push_back(t);
             }
         }
@@ -131,6 +136,8 @@ public:
     // End ikram
 
     //mohamad code
+
+
     Employee selectEmployee(string id){
         Employee e;
         string query = "select * from  employee where id=" + id;
@@ -162,7 +169,7 @@ public:
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
     void updateEmployee( Employee e){
-        string query = "update  employee set name='"+e.name+"','"+e.email+"',password='"+e.password+"',address='"+e.address+"',phone='"+e.phone+"' where id="+e.id;
+        string query = "update  employee set name='"+e.name+"',email='"+e.email+"',password='"+e.password+"',address='"+e.address+"',phone='"+e.phone+"' where id="+e.id;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate)
@@ -182,19 +189,19 @@ public:
     }
     list<Employee> selectEmployees(){
         list <Employee> employees;
-        string query = "select * from  employee" ;
+        string query = "select * from  `employee`" ;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate){
-            mysql_store_result(conn);
+            res=mysql_store_result(conn);
             while(row=mysql_fetch_row(res)){
                 Employee e;
-                e.id = row[0];
-                e.name = row[1];
-                e.email=row[2];
+                e.id       = row[0];
+                e.name     = row[1];
+                e.email    = row[2];
                 e.password = row[3];
                 e.address  = row[4];
-                e.phone = row[5];
+                e.phone    = row[5];
                 employees.push_back(e);
             }
         }
@@ -218,18 +225,75 @@ public:
                e.address=row[4];
                e.phone= row[5];
             }
-       }
-       else{
+        }
+        else{
             cout<<"query error: "<<mysql_error(conn)<<endl;
-       }
-       return e;
+        }
+        return e;
     }
+    void insertDay(Day d){
+        string start=d.longToString(d.start),endTime=d.longToString(d.endTime);
+
+        string query = "INSERT INTO `time_off`( `from`,`to`,`employee_id`) VALUES ('"+start+"','"+endTime+"','"+d.employee_id+"')";
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+            cout<<"record inserted successfully..."<<endl;
+        else
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+    }
+    Day selectDay(string id){
+        Day d;
+        string query = "select * from  `time_off` where id=" + id;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate){{}
+            res = mysql_store_result(conn);
+            while(row=mysql_fetch_row(res)){
+                string start=d.longToString(d.start),endTime=d.longToString(d.endTime),timeSpend=d.longToString(d.timeSpend);
+                d.id           = row[0];
+                start          =row[1];
+                endTime        =row[2];
+                d.employee_id = row[3];
+                d.start       =d.stringToLong(start);
+                d.endTime     =d.stringToLong(endTime);
+            }
+        }
+        else{
+            cout<<"query error: "<<mysql_error(conn)<<endl;
+        }
+        return d;
+    }
+    void updateDay( Day d){
+
+        string start=d.longToString(d.start),endTime=d.longToString(d.endTime);
+
+        string query = "update  `time_off` set `from` ="+start+",`to` ="+endTime+",`employee_id`="+d.employee_id+" where id="+d.id;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+            cout<<"record updated successfully..."<<endl;
+        else
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+    }
+    void deleteDay (string id){
+        string query = "DELETE FROM `time_off`  where id="+id;
+        const char* q = query.c_str();
+        cout <<query<<endl;
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+            cout<<"record deleted successfully..."<<endl;
+        else
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+    }
+
+
     // end code Mohamad
 
     //hamza
 
 
-            void insertProject(Project p){
+        void insertProject(Project p){
                 string query="insert into project(title,description,status) values('"+p.title+"','"+p.description+"','"+p.status+"')";
                 const char* q = query.c_str();
                 qstate = mysql_query(conn,q);
