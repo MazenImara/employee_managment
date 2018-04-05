@@ -222,5 +222,6 @@ void manageTimeOff(){
         case 2:cout << " 2. Delete" << endl;break;
         case 0:cout << " 0. Back to Employee Menu" << endl;break;
     }
+
  }
 
