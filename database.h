@@ -400,6 +400,7 @@ public:
             cout<<"query problem: "<<mysql_error(conn)<<endl;
         }
         return projects;
+
     }
 
     // end hamzA
