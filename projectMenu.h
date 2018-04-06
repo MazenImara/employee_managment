@@ -1,18 +1,13 @@
 #ifndef PROJECTMENU_H_INCLUDED
 #define PROJECTMENU_H_INCLUDED
-
 #include <iostream>
 #include <string>
 #include <iomanip>
 #include <project.h>
 #include <list>
-
 #include <database.h>
-
 using namespace std;
 
-void manageProject();
-void manageProjectMenu();
 
 
 void showAllProjects(){
@@ -31,7 +26,6 @@ void updateProject(){
     Project p;
     cout << "1. Update project" << endl;
     cout << "2. Delete project" << endl;
-    cout << "0. Back" << endl;
 
     int menuChoice;
     cin >> menuChoice;
@@ -41,7 +35,6 @@ void updateProject(){
         p = db.selectProject(p.id);
         cout << "1. Update project details" << endl;
         cout << "2. Manage task" << endl;
-        cout << "0. Back" << endl;
 
         int choice;
         cin >> choice;
@@ -53,9 +46,6 @@ void updateProject(){
             break;
         case 2:
             break;
-        case 0:
-            updateProject();
-            break;
         default:
             cout << "Invalid choice" << endl;
             updateProject();
@@ -64,9 +54,6 @@ void updateProject(){
         p.enterId();
         p = db.selectProject(p.id);
         db.deleteProject(p);
-        break;
-    case 0:
-        manageProject();
         break;
     default:
         cout << "Invalid choice" << endl;
@@ -79,7 +66,6 @@ void manageProject(){
     cout << "================== Manage project ==================" << endl;
     cout << "1. Show all projects" << endl;
     cout << "2. Add project" << endl;
-    cout << "0. Back" << endl;
     int menuChoice;
     cin >> menuChoice;
     switch(menuChoice){
@@ -92,9 +78,6 @@ void manageProject(){
         p.enter();
         p.status = "new";
         db.insertProject(p);
-        break;
-    case 0:
-        manageProjectMenu();
         break;
     default:
         cout << "Invalid choice" << endl;
