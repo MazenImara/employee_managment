@@ -13,8 +13,18 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+<<<<<<< HEAD
 					<Add directory="C:/Users/Storleden/Desktop/firstC++/employee_managment/" />
 					<Add directory="C:/Users/Storleden/Desktop/firstC++/employee_managment/include" />
+=======
+<<<<<<< HEAD
+					<Add directory="C:/Users/Ikram/Desktop/employee_managment" />
+					<Add directory="C:/Users/Ikram/Desktop/include" />
+=======
+					<Add directory="C:/Users/Hamza/Documents/CodeBlocks/employee_managment/" />
+					<Add directory="C:/Users/Hamza/Documents/CodeBlocks/employee_managment/include" />
+>>>>>>> testDummy
+>>>>>>> ikram
 				</Compiler>
 				<Linker>
 					<Add library="C:/Users/Storleden/Desktop/firstC++/employee_managment/include/libmysql.a" />
@@ -47,8 +57,16 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="project.h" />
 		<Unit filename="projectMenu.h" />
+<<<<<<< HEAD
 		<Unit filename="show.h" />
 		<Unit filename="task.h" />
+=======
+<<<<<<< HEAD
+		<Unit filename="status.h" />
+		<Unit filename="task.h" />
+=======
+>>>>>>> testDummy
+>>>>>>> ikram
 		<Extensions>
 			<code_completion />
 			<debugger />

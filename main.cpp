@@ -7,6 +7,8 @@
 #include <gtime.h>
 #include <database.h>
 #include <gtime.h>
+#include <database.h>
+#include <task.h>
 #include <employee.h>
 #include <project.h>
 #include <projectMenu.h>
@@ -235,15 +237,35 @@ int main()
 		switch (n)
 		{
 		case 1:
+		    /*
             AdminMenu();
-		    break;
 
+<<<<<<< HEAD
         case 2:
             createDatabase();
             system("pause");
 		    break;
 
         case 0: exit(0);
+=======
+
+
+    //start ikram
+    Task t;
+    Database db;
+    t.enterId();
+    db.startTask(t.id);
+    CustomTime c;
+    cout<< c.date() + " " + c.Time()<<endl;
+    //end ikram
+
+    cout << c.date() << "  " << c.Time() << endl;
+    c.getTimestampDate("2018/10/11 23:15:13");
+    //c.getTimestampDate("2017/07/26 00:00:00");
+    */
+       break;
+
+        case 0: exit(0);break;
 		default: "\a"; break;
 		}
 
@@ -273,6 +295,8 @@ CustomTime( );
 
 //ent test Mohamad
 
+
+
 /*
 
     Loging l;
@@ -300,6 +324,9 @@ CustomTime( );
 
     return 0;
 }
+
+/*
+
 
 void AdminMenu()
 {
@@ -660,6 +687,7 @@ void manageTimeOff(){
         case 2:cout << " 2. Delete" << endl;break;
         case 0:cout << " 0. Back to Employee Menu" << endl;break;
     }
+<<<<<<< HEAD
 
  }
 */
@@ -677,5 +705,8 @@ void manageTimeOff(){
      }
       db.close();
 }
+
+
+
 
 

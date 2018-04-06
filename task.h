@@ -7,6 +7,7 @@
 
 using namespace std;
 
+
 class Task{
 public:
     string id;
@@ -18,6 +19,8 @@ public:
     string pause;
     string project_id;
     string employee_id;
+
+
 public:
     void enterId(){
         cout<<"\nEnter id: ";cin>>id;
