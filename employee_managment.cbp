@@ -38,6 +38,7 @@
 			<Add option="-fexceptions" />
 		</Compiler>
 		<Unit filename="database.h" />
+		<Unit filename="day.h" />
 		<Unit filename="employee.h" />
 		<Unit filename="gtime.h" />
 		<Unit filename="inbtw.cpp" />
@@ -46,6 +47,7 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="project.h" />
 		<Unit filename="projectMenu.h" />
+		<Unit filename="show.h" />
 		<Unit filename="task.h" />
 		<Extensions>
 			<code_completion />

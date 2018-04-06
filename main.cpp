@@ -76,7 +76,7 @@ MYSQL* conn;
 
         //create project
         {
-        query="CREATE TABLE employee_managment.project(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255), `description` VARCHAR(255), `status` VARCHAR(255), PRIMARY KEY (id));";
+        query="CREATE TABLE employee_managment.project(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255), `description` VARCHAR(255), `status` VARCHAR(255), PRIMARY KEY (id))";
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -90,7 +90,7 @@ MYSQL* conn;
 
         //create task
         {
-        query="CREATE TABLE employee_managment.task(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255), `status` VARCHAR(255), `time_spend` VARCHAR(255), `date_created` VARCHAR(255), `project_id` int, `employee_id` int, PRIMARY KEY (id));";
+        query="CREATE TABLE employee_managment.task(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255), `status` VARCHAR(255), `time_spend` INT, `endtemp` TIMESTAMP, `starttemp` TIMESTAMP , `project_id` int, `employee_id` int, PRIMARY KEY (id));";
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -209,6 +209,9 @@ void showAllProject()
 
 }
 
+void ShowAllTask();
+
+
 
 int main()
 {
@@ -223,6 +226,10 @@ int main()
 		PrintMessage("0. EXIT               ", false, false);
 		PrintMessage("                      ", false, false);
 
+        PrintMessage("2. CREATE DATABASE    ", false, false);
+		PrintMessage("                      ", false, false);
+
+
 		PrintMessage("Please Select your option (0-1): ");
 		cout<< ">";	cin >> n;
 		switch (n)
@@ -230,12 +237,19 @@ int main()
 		case 1:
             AdminMenu();
 		    break;
+
+        case 2:
+            createDatabase();
+            system("pause");
+		    break;
+
         case 0: exit(0);
 		default: "\a"; break;
 		}
 
 
 	} while (n != 0);
+
 
 
 
@@ -283,7 +297,6 @@ CustomTime( );
     }
 
     */
-
 
     return 0;
 }
@@ -455,7 +468,7 @@ void ManageProjectMenu()
     system("cls");
 	PrintMessage("MANAGE PROJECT");
     PrintMessage("                               ", false, false);
-	PrintMessage("1.  Show Project               ", false, false);
+	PrintMessage("1.  Show Project/Enter Task    ", false, false);
     PrintMessage("2.  Add Project                ", false, false);
     PrintMessage("3.  Deleted Project            ", false, false);
     PrintMessage("4.  Update Project             ", false, false);
@@ -467,7 +480,7 @@ void ManageProjectMenu()
 	switch (n)
 	{
 	case 1:
-	    p.show();
+	    ManageTaskMenu();
 	    system("pause");
 	    break;
 	case 2:
@@ -481,6 +494,58 @@ void ManageProjectMenu()
 
 	}
 	ManageProjectMenu();
+}
+
+void ManageTaskMenu()
+{
+    Task t;
+    Database db;
+    int n;
+    system("cls");
+	PrintMessage("MANAGE TASK");
+    PrintMessage("                               ", false, false);
+	PrintMessage("1.  Add Task                   ", false, false);
+    PrintMessage("2.  Delete Task                ", false, false);
+    PrintMessage("3.  Update Task                ", false, false);
+    PrintMessage("4.  Show All Task              ", false, false);
+    PrintMessage("4.  Sign Employee To Task      ", false, false);
+    PrintMessage("                               ", false, false);
+	PrintMessage("0.  LOGOUT                     ", false, false);
+    PrintMessage("                               ", false, false);
+	PrintMessage("Enter Your Choice (0-4)");
+	cout<< ">";	cin >> n;
+	switch (n)
+	{
+	case 1:
+	    t.enter();
+	    db.insertTask(t);
+	    t.showAdd();
+	    system("pause");
+	    break;
+	case 2:
+        t.enterId();
+        db.deleteTask(t.id);
+        system("pause");
+        break;
+    case 3:
+        t.enterId();
+        t.enter();
+        db.updateTask(t);
+        system("pause");
+	    break;
+    case 4:
+        ShowAllTask();
+
+	    system("pause");
+	    break;
+    case 5:
+        //
+	    break;
+   	case 0:return;
+	default: cout << "\a";
+
+	}
+	ManageTaskMenu();
 }
 
 
@@ -595,6 +660,22 @@ void manageTimeOff(){
         case 2:cout << " 2. Delete" << endl;break;
         case 0:cout << " 0. Back to Employee Menu" << endl;break;
     }
+
  }
 */
+
+ void ShowAllTask()
+ {
+     Database db;
+     Task t;
+
+     list<Task> tasks;
+     tasks = db.selectTasks();
+     for(Task t : tasks)
+     {
+         t.show();
+     }
+      db.close();
+}
+
 

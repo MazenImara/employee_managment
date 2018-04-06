@@ -63,7 +63,7 @@ public:
         cout<<"query is: "<<q<<endl;
         qstate = mysql_query(conn,q);
         if(!qstate)
-            cout<<"record inserted successfully..."<<endl;
+            cout<<"record delete successfully..."<<endl;
         else
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
@@ -74,7 +74,7 @@ public:
         cout<<"query is: "<<q<<endl;
         qstate = mysql_query(conn,q);
         if(!qstate)
-            cout<<"record inserted successfully..."<<endl;
+            cout<<"record updated successfully..."<<endl;
         else
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
@@ -125,6 +125,7 @@ public:
                 t.project_id = row[5];
                 t.employee_id =row[6];
                 tasks.push_back(t);
+
             }
         }
             else{
@@ -133,7 +134,16 @@ public:
         return tasks;
     }
     // End ikram
-
+        void pause(Task t){
+        string query ="UPDATE `task` SET `status`='"+t.pause+"' WHERE `id` ="+t.id;
+        const char* q = query.c_str();
+        cout<<"query is: "<<q<<endl;
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+            cout<<"record inserted successfully..."<<endl;
+        else
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+    }
     //mohamad code
 
 
