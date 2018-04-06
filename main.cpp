@@ -438,6 +438,7 @@ void workTimesMenu(){
 	{
 	case 1:
        // Show work details
+
         cin.get();
         cin.ignore();
 	    break;
