@@ -9,6 +9,7 @@
 #include <projectMenu.h>
 
 using namespace std;
+
 void createDatabase(){
 MYSQL* conn;
     MYSQL_ROW row;
@@ -71,7 +72,7 @@ MYSQL* conn;
 
         //create project
         {
-        query="CREATE TABLE employee_managment.project(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255), `description` VARCHAR(255), `status` VARCHAR(255), PRIMARY KEY (id));";
+        query="CREATE TABLE employee_managment.project(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255), `description` VARCHAR(255), `status` VARCHAR(255), PRIMARY KEY (id))";
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -85,7 +86,7 @@ MYSQL* conn;
 
         //create task
         {
-        query="CREATE TABLE employee_managment.task(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255), `status` VARCHAR(255), `time_spend` VARCHAR(255), `date_created` VARCHAR(255), `project_id` int, `employee_id` int, PRIMARY KEY (id));";
+        query="CREATE TABLE employee_managment.task(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255), `status` VARCHAR(255), `time_spend` INT, `endtemp` TIMESTAMP, `starttemp` TIMESTAMP , `project_id` int, `employee_id` int, PRIMARY KEY (id));";
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -141,6 +142,7 @@ MYSQL* conn;
         mysql_close(conn);
 
 }
+
 void PrintMessage(string message, bool printTop = true, bool printBottom = true)
 {
 	if (printTop)
@@ -184,12 +186,8 @@ void EmployeeMenu();
 void ManageProjectMenu();
 void ManageTaskMenu();
 void manageProjectMenu();
+
 void ShowAllTask();
-
-void showAllProject()
-{
-
-}
 
 int main()
 {
@@ -203,6 +201,7 @@ int main()
 		PrintMessage("                      ", false, false);
 		PrintMessage("0. EXIT               ", false, false);
 		PrintMessage("                      ", false, false);
+
         PrintMessage("2. CREATE DATABASE    ", false, false);
 		PrintMessage("                      ", false, false);
 
@@ -224,9 +223,6 @@ int main()
 
 
 	} while (n != 0);
-
-	return 0;
-
 /*
     Loging l;
     while(!l.loged){
@@ -247,8 +243,6 @@ int main()
         }
     }
     */
-
-    manageProjectMenu();
     return 0;
 }
 
@@ -473,6 +467,7 @@ void manageTimeOff(){
         case 2:cout << " 2. Delete" << endl;break;
         case 0:cout << " 0. Back to Employee Menu" << endl;break;
     }
+
  }
 
  void ShowAllTask()

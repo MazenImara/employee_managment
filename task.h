@@ -15,6 +15,7 @@ public:
     string time_spend;
     string date_created;
     string start;
+    string pause;
     string project_id;
     string employee_id;
 public:
@@ -31,13 +32,9 @@ public:
     {
         cout<<"\nId: "<< id <<"\tTitle: "<< title << endl;
     }
-    void started(){
-        Task t;
-        cout<<"\nEnter id of the task: ";cin>>id;
-    }
-    void ended(){
-        cout<<"\nEnter id of the task: ";cin>>id;
-    }
+
+
+
 };
 
 #endif // TASK_H_INCLUDED
