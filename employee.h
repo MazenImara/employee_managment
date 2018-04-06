@@ -14,11 +14,11 @@ public:
         cout <<"enter id =\t";cin >>id;cout <<endl;
     }
     void enter(){
-        cout <<setw(20)<<"Enter name =\t";cin >>name;cout <<endl;
-        cout <<setw(20)<<"Enter email =\t";cin >>email;cout <<endl;
+        cout <<setw(20)<<"Enter name     =\t";cin >>name;cout <<endl;
+        cout <<setw(20)<<"Enter email    =\t";cin >>email;cout <<endl;
         cout <<setw(20)<<"Enter password =\t";cin >>password;cout <<endl;
-        cout <<setw(20)<<"Enter address =\t";cin >>address;cout <<endl;
-        cout <<setw(20)<<"Enter phone =\t";cin >>phone;cout <<endl;
+        cout <<setw(20)<<"Enter address  =\t";cin >>address;cout <<endl;
+        cout <<setw(20)<<"Enter phone    =\t";cin >>phone;cout <<endl;
     }
     void show(){
        cout <<" __________________________________________________________________________________________________________________________________"<<endl;

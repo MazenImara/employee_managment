@@ -380,10 +380,12 @@ void ManageEmployeeMenu()
 	    break;
     case 4:{
         //Show all Employees
+        system("cls");
         s.Employee();
         cout <<" ___________________________________________________________"<<endl;
         cout <<"|    enter the id you nedd to show his work times           |"<<endl;
-        cout <<"| __________________________________________________________|"<<endl;
+        cout <<"|___________________________________________________________|"<<endl;
+
         workTimesMenu();
         cin.get();
         cin.ignore();
@@ -405,13 +407,15 @@ void workTimesMenu(){
     Employee e;
     Database db;
     e.enterId();
+    system("cls");
     e=db.selectEmployeeById(e.id);
         e.show();
     //system("cls");
 	PrintMessage(" show Works Times for Employee    ");
     PrintMessage("                                  ", false, false);
-	PrintMessage("1.  Show the Tasks                ", false, false);
-    PrintMessage("2.  Show Time off                 ", false, false);
+    PrintMessage("1.  Show work details             ", false, false);
+	PrintMessage("2.  Show the Tasks                ", false, false);
+    PrintMessage("3.  Show Time off                 ", false, false);
     PrintMessage("                                  ", false, false);
 	PrintMessage("0.  LOGOUT                        ", false, false);
     PrintMessage("                                  ", false, false);
@@ -420,18 +424,22 @@ void workTimesMenu(){
 	switch (n)
 	{
 	case 1:
-       // show tasks
+       // Show work details
         cin.get();
         cin.ignore();
 	    break;
 	case 2:
-        e=db.selectEmployeeById(e.id);
-        e.show();
+	    // Show the Tasks
         cin.get();
         cin.ignore();
 
         break;
+    case 3:
+        // Show Time off
 
+        cin.get();
+        cin.ignore();
+        break;
    	case 0:return;
 	default: cout << "\a";
 
