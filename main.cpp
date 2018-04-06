@@ -183,8 +183,6 @@ void PrintMessage(string message, bool printTop = true, bool printBottom = true)
 		cout << "|" << endl;
 	}
 }
-using namespace std;
-
 
 /*
 void manageEmployeeMenu();
@@ -203,7 +201,7 @@ void ManageProjectMenu();
 void ManageTaskMenu();
 void manageProjectMenu();
 void workTimesMenu();
-
+void showAllEmployee();
 void showAllProject()
 {
 
@@ -225,7 +223,6 @@ int main()
 		PrintMessage("                      ", false, false);
 		PrintMessage("0. EXIT               ", false, false);
 		PrintMessage("                      ", false, false);
-
         PrintMessage("2. CREATE DATABASE    ", false, false);
 		PrintMessage("                      ", false, false);
 
@@ -239,7 +236,9 @@ int main()
 		    break;
 
         case 2:
-            createDatabase();
+            ShowAllTask();
+//            showAllEmployee();
+            //createDatabase();
             system("pause");
 		    break;
 
@@ -249,29 +248,6 @@ int main()
 
 
 	} while (n != 0);
-
-
-
-
- // test Mohamad
-
-
- /*
-CustomTime c;
- c.getTimestampDate("2018/10/11 23:15:13");
-Employee e;
-e.getTime();
-
-    CustomTime c;
-CustomTime( );
-   cout << c.date() << "  " << c.Time() << endl;
-     c.getTimestampDate("2018/10/11 23:15:13");
-
-    c.getTimestampDate();
-*/
-
-
-//ent test Mohamad
 
 /*
 
@@ -396,7 +372,7 @@ void ManageEmployeeMenu()
         system("cls");
         s.Employee();
         cout <<" ___________________________________________________________"<<endl;
-        cout <<"|    enter the id you nedd to show his work times           |"<<endl;
+        cout <<"|    Enter the id you nedd to show his work times           |"<<endl;
         cout <<"|___________________________________________________________|"<<endl;
 
         workTimesMenu();
@@ -422,8 +398,7 @@ void workTimesMenu(){
     e.enterId();
     system("cls");
     e=db.selectEmployeeById(e.id);
-        e.show();
-    //system("cls");
+    e.show();
 	PrintMessage(" show Works Times for Employee    ");
     PrintMessage("                                  ", false, false);
     PrintMessage("1.  Show work details             ", false, false);
@@ -517,23 +492,27 @@ void ManageTaskMenu()
 	switch (n)
 	{
 	case 1:
+	    //add Task
 	    t.enter();
 	    db.insertTask(t);
 	    t.showAdd();
 	    system("pause");
 	    break;
 	case 2:
+	    //Del Task
         t.enterId();
         db.deleteTask(t.id);
         system("pause");
         break;
     case 3:
+        //update Task
         t.enterId();
         t.enter();
         db.updateTask(t);
         system("pause");
 	    break;
     case 4:
+        //show all Task
         ShowAllTask();
 
 	    system("pause");
@@ -671,11 +650,25 @@ void manageTimeOff(){
 
      list<Task> tasks;
      tasks = db.selectTasks();
-     for(Task t : tasks)
+     for(t : tasks)
      {
-         t.show();
+         t.showAdd();
      }
       db.close();
 }
 
+void showAllEmployee()
+{
+    Database db;
+    Employee e;
+
+    list<Employee> employees;
+    employees = db.selectEmployees();
+    for(e :employees)
+    {
+        e.show();
+
+    }
+    db.close();
+}
 

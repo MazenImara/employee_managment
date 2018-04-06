@@ -9,15 +9,7 @@ using namespace std;
 
 class Task{
 public:
-    string id;
-    string title;
-    string status;
-    string time_spend;
-    string date_created;
-    string start;
-    string pause;
-    string project_id;
-    string employee_id;
+    string id, title, status, time_spend, date_created, endtemp, starttemp, project_id, employee_id;
 public:
     void enterId(){
         cout<<"\nEnter id: ";cin>>id;
