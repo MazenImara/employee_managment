@@ -180,11 +180,8 @@ void showAllProject()
 {
 
 }
-int main(){
-createDatabase();
 
-}
-int main1()
+int main()
 {
     int n;
     string courseId;
