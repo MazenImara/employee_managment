@@ -184,7 +184,7 @@ void EmployeeMenu();
 void ManageProjectMenu();
 void ManageTaskMenu();
 void manageProjectMenu();
-
+void ShowAllTask();
 
 void showAllProject()
 {
@@ -203,6 +203,9 @@ int main()
 		PrintMessage("                      ", false, false);
 		PrintMessage("0. EXIT               ", false, false);
 		PrintMessage("                      ", false, false);
+        PrintMessage("2. CREATE DATABASE    ", false, false);
+		PrintMessage("                      ", false, false);
+
 
 		PrintMessage("Please Select your option (0-1): ");
 		cout<< ">";	cin >> n;
@@ -211,7 +214,9 @@ int main()
 		case 1:
             AdminMenu();
 		    break;
-
+        case 2:
+            createDatabase();
+            system("pause");
 		    break;
         case 0: exit(0);
 		default: "\a"; break;
@@ -323,7 +328,7 @@ void ManageProjectMenu()
     system("cls");
 	PrintMessage("MANAGE PROJECT");
     PrintMessage("                               ", false, false);
-	PrintMessage("1.  Show Project               ", false, false);
+	PrintMessage("1.  Show Project/Enter Task    ", false, false);
     PrintMessage("2.  Add Project                ", false, false);
     PrintMessage("3.  Deleted Project            ", false, false);
     PrintMessage("4.  Update Project             ", false, false);
@@ -335,7 +340,7 @@ void ManageProjectMenu()
 	switch (n)
 	{
 	case 1:
-	    p.show();
+	    ManageTaskMenu();
 	    system("pause");
 	    break;
 	case 2:
@@ -349,6 +354,58 @@ void ManageProjectMenu()
 
 	}
 	ManageProjectMenu();
+}
+
+void ManageTaskMenu()
+{
+    Task t;
+    Database db;
+    int n;
+    system("cls");
+	PrintMessage("MANAGE TASK");
+    PrintMessage("                               ", false, false);
+	PrintMessage("1.  Add Task                   ", false, false);
+    PrintMessage("2.  Delete Task                ", false, false);
+    PrintMessage("3.  Update Task                ", false, false);
+    PrintMessage("4.  Show All Task              ", false, false);
+    PrintMessage("4.  Sign Employee To Task      ", false, false);
+    PrintMessage("                               ", false, false);
+	PrintMessage("0.  LOGOUT                     ", false, false);
+    PrintMessage("                               ", false, false);
+	PrintMessage("Enter Your Choice (0-4)");
+	cout<< ">";	cin >> n;
+	switch (n)
+	{
+	case 1:
+	    t.enter();
+	    db.insertTask(t);
+	    t.showAdd();
+	    system("pause");
+	    break;
+	case 2:
+        t.enterId();
+        db.deleteTask(t.id);
+        system("pause");
+        break;
+    case 3:
+        t.enterId();
+        t.enter();
+        db.updateTask(t);
+        system("pause");
+	    break;
+    case 4:
+        ShowAllTask();
+
+	    system("pause");
+	    break;
+    case 5:
+        //
+	    break;
+   	case 0:return;
+	default: cout << "\a";
+
+	}
+	ManageTaskMenu();
 }
 
 
@@ -417,4 +474,19 @@ void manageTimeOff(){
         case 0:cout << " 0. Back to Employee Menu" << endl;break;
     }
  }
+
+ void ShowAllTask()
+ {
+     Database db;
+     Task t;
+
+     list<Task> tasks;
+     tasks = db.selectTasks();
+     for(Task t : tasks)
+     {
+         t.show();
+     }
+      db.close();
+}
+
 

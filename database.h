@@ -57,7 +57,7 @@ public:
         cout<<"query is: "<<q<<endl;
         qstate = mysql_query(conn,q);
         if(!qstate)
-            cout<<"record inserted successfully..."<<endl;
+            cout<<"record delete successfully..."<<endl;
         else
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
@@ -68,7 +68,7 @@ public:
         cout<<"query is: "<<q<<endl;
         qstate = mysql_query(conn,q);
         if(!qstate)
-            cout<<"record inserted successfully..."<<endl;
+            cout<<"record updated successfully..."<<endl;
         else
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
