@@ -33,7 +33,7 @@ public:
         else
             cout<<"conn object problem: "<<mysql_error(conn);
 
-        conn = mysql_real_connect(conn,"localhost","root","","employee_managment",0,NULL,0);
+        conn = mysql_real_connect(conn,"localhost","root","password","employee_managment",0,NULL,0);
 
         if(conn)
             cout<<"connect to data base  successfully..."<<endl;
@@ -58,7 +58,7 @@ public:
         cout<<"connection object ok, conn="<<conn<<endl;
     else
         cout<<"conn object problem: "<<mysql_error(conn);
-    conn = mysql_real_connect(conn,"localhost","root","",NULL,0,NULL,0);
+    conn = mysql_real_connect(conn,"localhost","root","password",NULL,0,NULL,0);
 
     if(conn)
         cout<<"test without database  ok, conn="<<conn<<endl;
@@ -121,7 +121,7 @@ public:
 
         //create task
         {
-        query="CREATE TABLE employee_managment.task(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255), `status` VARCHAR(255), `time_spend` INT, `endtemp` TIMESTAMP, `starttemp` TIMESTAMP , `project_id` int, `employee_id` int, PRIMARY KEY (id));";
+        query="CREATE TABLE employee_managment.task(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255) DEFAULT 'NONE', `status` VARCHAR(255) DEFAULT 'NONE', `time_spend` INT DEFAULT '0', `endtemp` TIMESTAMP, `starttemp` TIMESTAMP , `project_id` int not null, `employee_id` int not null, PRIMARY KEY (id));";
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -133,19 +133,19 @@ public:
         }
         //end task
 
-        //create status
+        //create day
         {
-        query="CREATE TABLE employee_managment.status(`id` int not null AUTO_INCREMENT, `start` VARCHAR(255), `pause` VARCHAR(255), `task_id` int, PRIMARY KEY (id));";
+        query="CREATE TABLE employee_managment.day(`id` int not null AUTO_INCREMENT, `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, `start_time` int, `end_time` int, `time_spend` INT DEFAULT '0', `employee_id` int, PRIMARY KEY (id));";
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate){
-            cout<< "Task-status Tabel created successfully\n";
+            cout<< "Day Tabel created successfully\n";
         }
         else{
             cout<<"query error: "<<mysql_error(conn)<<endl;
         }
-        //end status
+        //end day
 
         //create time_off
         {
