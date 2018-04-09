@@ -17,7 +17,7 @@
 					<Add directory="C:/employee_managment/" />
 				</Compiler>
 				<Linker>
-					<Add library="C:/employee_managment/include/libmysql.a" />
+					<Add library="C:/employee_managment/bin/Debug/libmysql.dll" />
 				</Linker>
 			</Target>
 			<Target title="Release">
@@ -36,16 +36,22 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
+			<Add directory="C:/Users/Storleden/Desktop/firstC++/employee_managment/" />
+			<Add directory="C:/Users/Storleden/Desktop/firstC++/employee_managment/include" />
 		</Compiler>
+		<Linker>
+			<Add library="C:/Users/Storleden/Desktop/firstC++/employee_managment/include/libmysql.a" />
+		</Linker>
 		<Unit filename="database.h" />
 		<Unit filename="day.h" />
+		<Unit filename="employee.h" />
 		<Unit filename="gtime.h" />
+		<Unit filename="inbtw.cpp" />
 		<Unit filename="inbtw.h" />
 		<Unit filename="login.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="project.h" />
 		<Unit filename="projectMenu.h" />
-		<Unit filename="show.h" />
 		<Unit filename="task.h" />
 		<Extensions>
 			<code_completion />
