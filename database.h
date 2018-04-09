@@ -11,14 +11,11 @@
 #include <day.h>
 #include <sstream>
 #include <ctime>
-
-
-
+#include <gtime.h>
+#include <status.h>
 
 
 using namespace std;
-
-
 
 class Database{
 public:
@@ -212,6 +209,7 @@ public:
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
 
+    //show specific task by id
     Task selectTask(string id){
         Task t;
         string query ="SELECT `id`, `title`, `status`, `time_spend`, `endtemp`, `starttemp`, `start`, `project_id`, `employee_id` FROM `task` WHERE `id`="+id;
@@ -231,6 +229,7 @@ public:
                 t.starttemp = row[5];
                 t.project_id = row[6];
                 t.employee_id =row[7];
+
             }
         }
             else{
@@ -238,6 +237,8 @@ public:
                 }
         return t;
     }
+
+    //show specific task by status
 
     list<Task>selectTasks(){
         list<Task>tasks;
@@ -268,19 +269,94 @@ public:
                 }
         return tasks;
     }
-    // End ikram
-        void pause(Task t){
-        string query ="UPDATE `task` SET `status`='"+t.endtemp+"' WHERE `id` ="+t.id;
+
+
+    void startTask(string id){
+        CustomTime c;
+        c.date();
+        c.Time();
+        string dateTime = c.date() + " " + c.Time();
+        string query ="UPDATE `task` SET `starttemp` = '"+dateTime+"' WHERE `id` ="+id;
         const char* q = query.c_str();
-        cout<<"query is: "<<q<<endl;
         qstate = mysql_query(conn,q);
         if(!qstate)
             cout<<"record inserted successfully..."<<endl;
         else
             cout<<"query problem: "<<mysql_error(conn)<<endl;
-    }
-    //mohamad code
 
+    }
+
+    void pause(string id){
+        CustomTime c;
+        c.date();
+        c.Time();
+        Task t;
+        string startTime;
+        string getTimeSpend;
+        string query ="SELECT * FROM `task` WHERE id ="+id;
+        const char* q = query.c_str();
+        cout<<"query is: "<<q<<endl;
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+            startTime = row[5];
+        else
+        cout<<"query problem: "<<mysql_error(conn)<<endl;
+
+        //query 1
+        string endTime = c.date() + " " + c.Time();
+        string query1="UPDATE `task` SET `endtemp`='"+endTime+"' WHERE `id`="+id;
+        const char* q1 = query1.c_str();
+        cout<<"query1 is: "<<q1<<endl;
+        qstate = mysql_query(conn,q1);
+
+        //query 2
+        string query2 = "SELECT * FROM `task` WHERE `id` ="+id;
+        const char* q2 = query2.c_str();
+        cout<<"query2 is: "<<q2<<endl;
+        qstate = mysql_query(conn,q2);
+        if(!qstate)
+            getTimeSpend = row[4];
+        else
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+
+
+        int getTimeSpendInt = atoi(getTimeSpend.c_str());
+        int startTimeInt = atoi(startTime.c_str());
+        int endTimeInt = atoi(endTime.c_str());
+        int resultInt = endTimeInt - startTimeInt;
+        int newTimeSpend = getTimeSpendInt + resultInt;
+        stringstream ri; ri<<newTimeSpend; string result = ri.str();
+
+        //query 3
+        string query3="UPDATE `task` SET `time_spend`='"+result+"' WHERE `id`="+id;
+        const char* q3 = query3.c_str();
+        cout<<"query is: "<<q3<<endl;
+        qstate = mysql_query(conn,q3);
+        if(!qstate)
+            cout<<"record updated successfully..."<<endl;
+        else
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+    }
+
+    void endTask(string id){
+        CustomTime c;
+        c.date();
+        c.Time();
+        string dateTime = c.date() + " " + c.Time();
+        string query ="UPDATE `task` SET `endtemp`= '"+dateTime+"' WHERE `id`="+id;
+        const char* q = query.c_str();
+        cout<<"query is: "<<q<<endl;
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+            cout<<"record uppdated successfully..."<<endl;
+        else
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+    }
+    // End ikram
+
+
+
+    //mohamad code
 
     Employee selectEmployeeById(string id){
         Employee e;
