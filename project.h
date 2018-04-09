@@ -7,10 +7,7 @@
 using namespace std;
 class Project{
     public:
-        string id;
-        string title;
-        string description;
-        string status;
+        string id, title, description, status;
     public:
         void enterId(){
             cout << "Enter project id: ";
