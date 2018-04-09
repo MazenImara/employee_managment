@@ -14,8 +14,8 @@ public:
     string title;
     string status;
     string time_spend;
-    string date_created;
-    string start;
+    string starttemp;
+    string endtemp;
     string project_id;
     string employee_id;
 public:
@@ -26,30 +26,12 @@ public:
         cout<<"\nEnter Title: ";cin>>title;
     }
     void show(){
-        cout<<"\nId: "<< id <<"\tTitle: "<< title <<"\tStatus: "<< status <<"\tTime Spend: "<< time_spend <<"\tDate Created: "<< date_created <<"\tProject id: "<< project_id <<"\tEmployee id: "<< employee_id <<endl;
+        cout<<"\nId: "<< id <<"\tTitle: "<< title <<"\tStatus: "<< status <<"\tTime Spend: "<< time_spend <<"\tEnd Temp "<< endtemp <<"\Start Temp "<< starttemp<<"\tProject id: "<< project_id <<"\tEmployee id: "<< employee_id <<endl;
     }
 
 
 
     };
 
-
-
-    void started(){
-        Task t;
-        cout<<"\nEnter id of the task: ";cin>>id;
-    }
-
-     // start Nidal
-   // void pause(string taskId){
-
-
-
-   // }
-    void ended(){
-        cout<<"\nEnter id of the task: ";cin>>id;
-    }
-
-};
 
 #endif // TASK_H_INCLUDED

@@ -88,8 +88,8 @@ public:
                 t.title = row[1];
                 t.status = row[2];
                 t.time_spend = row[3];
-                t.date_created = row[4];
-                t.start = row[5];
+                t.endtemp = row[4];
+                t.starttemp = row[5];
                 t.project_id = row[6];
                 t.employee_id =row[7];
             }
@@ -116,8 +116,8 @@ public:
                 t.title = row[1];
                 t.status = row[2];
                 t.time_spend = row[3];
-                t.date_created = row[4];
-                t.start = row[5];
+                t.endtemp = row[4];
+                t.starttemp = row[5];
                 t.project_id = row[6];
                 t.employee_id =row[7];
                 tasks.push_back(t);
@@ -131,7 +131,7 @@ public:
     }
     // End ikram
         void pause(Task t){
-        string query ="UPDATE `task` SET `status`='"+t.pause+"' WHERE `id` ="+t.id;
+        string query ="UPDATE `task` SET `status`= 'pause' WHERE `id` ="+t.id;
         const char* q = query.c_str();
         cout<<"query is: "<<q<<endl;
         qstate = mysql_query(conn,q);
