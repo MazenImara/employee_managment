@@ -9,7 +9,7 @@
 using namespace std;
 
 
-
+/*
 void showAllProjects(){
     Database db;
     Project p;
@@ -20,7 +20,7 @@ void showAllProjects(){
     }
     db.close();
 }
-
+*/
 void updateProject(){
     Database db;
     Project p;
@@ -71,7 +71,7 @@ void manageProject(){
     switch(menuChoice){
     case 1:
         cout << "================== All projects ==================" << endl;
-        showAllProjects();
+//        showAllProjects();
         updateProject();
         break;
     case 2:

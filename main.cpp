@@ -71,10 +71,9 @@ void ManageTaskMenu();
 void manageProjectMenu();
 void workTimesMenu();
 void showAllEmployee();
-void showAllProject()
-{
+void showAllProject();
+void showAllProjects();
 
-}
 
 void ShowAllTask();
 
@@ -90,9 +89,9 @@ int main()
 		PrintMessage("                      ", false, false);
 		PrintMessage("1. LOGIN              ", false, false);
 		PrintMessage("                      ", false, false);
-		PrintMessage("0. EXIT               ", false, false);
-		PrintMessage("                      ", false, false);
         PrintMessage("2. CREATE DATABASE    ", false, false);
+		PrintMessage("                      ", false, false);
+		PrintMessage("0. EXIT               ", false, false);
 		PrintMessage("                      ", false, false);
 
 
@@ -276,7 +275,7 @@ void workTimesMenu(){
     PrintMessage("                                  ", false, false);
 	PrintMessage("0.  LOGOUT                        ", false, false);
     PrintMessage("                                  ", false, false);
-	PrintMessage("Enter Your Choice (0-5)");
+	PrintMessage("Enter Your Choice (0-3)");
 	cout<< ">";	cin >> n;
 	switch (n)
 	{
@@ -307,6 +306,7 @@ void workTimesMenu(){
 
 void ManageProjectMenu()
 {
+    Database db;
     Project p;
     int n;
     system("cls");
@@ -328,7 +328,9 @@ void ManageProjectMenu()
 	    system("pause");
 	    break;
 	case 2:
-        //
+        p.enter();
+        p.status = "new";
+        db.insertProject(p);
         break;
     case 3:
         //
@@ -538,3 +540,13 @@ void showAllEmployee()
     db.close();
 }
 
+void showAllProjects(){
+    Database db;
+    Project p;
+    list<Project> projects;
+    projects = db.selectProjects();
+    for(p:projects){
+        p.show();
+    }
+    db.close();
+}
