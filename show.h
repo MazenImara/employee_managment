@@ -17,6 +17,7 @@ public:
     Employee e;
     Task t;
     Project p;
+    Day d;
     Database db;
     list<Employee> employess;
 
@@ -32,6 +33,28 @@ void Employee(){
     cout <<"|__________________________________________________________________________________________________________________________________|"<<endl;
 
 }
+
+void Days( long date1, long date2,string id){
+    Database db;
+    Day d1,d2;
+
+    int sum=0;
+                  cout <<" ____________________________________________________________________________________________________________________"<<endl;
+                  cout <<"|                                         Days's details for Employee                                                |"<<endl;
+                  cout <<"|____________________________________________________________________________________________________________________|"<<endl;
+                  cout <<"|"<<setw(20)<<"id"<<setw(20)<<"Date"<<setw(20)<<"startTime"<<setw(20)<<"endTime"<<setw(20)<<"timeSpend"<<setw(16)<<"Employee_id"<<"|"<< endl;
+                  list<Day> days;
+                  days = db.selectEmployeesWorkForPeriod(date1,date2,id);
+                  for ( d : days){
+                  cout <<"|"<<setw(20)<<d.id<<setw(20)<<d.date<<setw(20)<<d.start<<setw(20)<<d.endTime<<setw(20)<<d.timeSpend<<setw(16)<<d.employee_id<<"|"<<endl;
+
+                   sum = sum + d.timeSpend;
+                 }
+                  cout <<"|____________________________________________________________________________________________________________________|"<<endl;
+                  cout <<"|   the total timeSpend for this period  is =\t "<<setw(35)<<sum<<setw(34)<<"|"<<endl;
+                  cout <<"|____________________________________________________________________________________________________________________|"<<endl;
+}
+
 
 };
 
