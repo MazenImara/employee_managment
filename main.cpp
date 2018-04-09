@@ -7,8 +7,6 @@
 #include <gtime.h>
 #include <database.h>
 #include <gtime.h>
-#include <database.h>
-#include <task.h>
 #include <employee.h>
 #include <project.h>
 #include <projectMenu.h>
@@ -84,7 +82,6 @@ int main()
 {
     Database db;
     int n;
-    string courseId;
 	do {
 		system("cls");
 		PrintMessage("EMPLOYEE MANAGEMENT");
@@ -103,19 +100,21 @@ int main()
 		{
 		case 1:
             AdminMenu();
+		    break;
+
         case 2:
             //ShowAllTask();
 //            showAllEmployee();
             db.createDatabase();
             system("pause");
 		    break;
-        case 0: exit(0);break;
+
+        case 0: exit(0);
 		default: "\a"; break;
 		}
 
 
 	} while (n != 0);
-
 
 /*
 
@@ -144,9 +143,6 @@ int main()
 
     return 0;
 }
-
-
-
 
 void AdminMenu()
 {
