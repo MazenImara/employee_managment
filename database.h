@@ -130,6 +130,8 @@ public:
         return tasks;
     }
     // End ikram
+
+//Start Nidal
         void pause(Task t){
         string query ="UPDATE `task` SET `status`= 'pause' WHERE `id` ="+t.id;
         const char* q = query.c_str();
@@ -140,6 +142,7 @@ public:
         else
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
+    //End Nidal
     //mohamad code
     Employee selectEmployee(string id){
         Employee e;
