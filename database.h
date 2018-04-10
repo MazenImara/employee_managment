@@ -267,7 +267,7 @@ public:
         Day d;
        string date3= d.longToString(date1), date4= d.longToString(date2);
         list <Day> days;
-        string query = " select day.id,date, start_time ,end_time,time_spend ,employee_id from day left join employee on day.employee_id=employee.id having `date`>= '"+date3+"' and `date`<='"+date4+"'  order by employee_id";
+        string query = " select date, start_time ,end_time,time_spend ,employee_id from day left join employee on day.employee_id=employee.id having `date`>= '"+date3+"' and `date`<='"+date4+"'  order by employee_id";
                         // select date, start_time ,end_time,time_spend ,employee_id,time_spend from day left join employee on day.employee_id=employee.id having `date`>= '1514768400' and `date`<='1514768600'  order by employee_id;
       //  cout<<"query is "<<query ;
         const char* q = query.c_str();
@@ -277,12 +277,12 @@ public:
 
             while(row=mysql_fetch_row(res)){
                 Day d;
-                d.id            = row[0];
-                string date     = row[1];
-                string start    = row[2];
-                string endTime  = row[3];
-                string timeSpend= row[4];
-                d.employee_id   = row[5];
+
+                string date     = row[0];
+                string start    = row[1];
+                string endTime  = row[2];
+                string timeSpend= row[3];
+                d.employee_id   = row[4];
 
                 d.start    =d.stringToLong(start);
                 d.endTime  =d.stringToLong(endTime);

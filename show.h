@@ -5,6 +5,7 @@
 #include <project.h>
 #include <database.h>
 #include <list>
+#include <gtime.h>
 
 
 
@@ -39,20 +40,21 @@ void Days( long date1, long date2,string id){
     Day d1,d2;
 
     int sum=0;
-                  cout <<" ____________________________________________________________________________________________________________________"<<endl;
-                  cout <<"|                                         Days's details for Employee                                                |"<<endl;
-                  cout <<"|____________________________________________________________________________________________________________________|"<<endl;
-                  cout <<"|"<<setw(20)<<"id"<<setw(20)<<"Date"<<setw(20)<<"startTime"<<setw(20)<<"endTime"<<setw(20)<<"timeSpend"<<setw(16)<<"Employee_id"<<"|"<< endl;
+                  cout <<" ________________________________________________________________________________________________"<<endl;
+                  cout <<"|                               Days's details for Employee                                      |"<<endl;
+                  cout <<"|________________________________________________________________________________________________|"<<endl;
+                  cout <<"|"<<setw(20)<<"Date"<<setw(20)<<"startTime"<<setw(20)<<"endTime"<<setw(20)<<"timeSpend"<<setw(16)<<"Employee_id"<<"|"<< endl;
                   list<Day> days;
                   days = db.selectEmployeesWorkForPeriod(date1,date2,id);
                   for ( d : days){
-                  cout <<"|"<<setw(20)<<d.id<<setw(20)<<d.date<<setw(20)<<d.start<<setw(20)<<d.endTime<<setw(20)<<d.timeSpend<<setw(16)<<d.employee_id<<"|"<<endl;
+                                  CustomTime c1 =CustomTime(d.date),c2=CustomTime(d.start),c3=CustomTime(d.endTime);
+                  cout <<"|"<<setw(20)<<c1.date()<<setw(20)<<c2.Time()<<setw(20)<<c3.Time()<<setw(20)<<d.timeSpend<<setw(16)<<d.employee_id<<"|"<<endl;
 
                    sum = sum + d.timeSpend;
                  }
-                  cout <<"|____________________________________________________________________________________________________________________|"<<endl;
-                  cout <<"|   the total timeSpend for this period  is =\t "<<setw(35)<<sum<<setw(34)<<"|"<<endl;
-                  cout <<"|____________________________________________________________________________________________________________________|"<<endl;
+                  cout <<"|________________________________________________________________________________________________|"<<endl;
+                  cout <<"|   the total timeSpend for this period  is =\t "<<setw(25)<<sum<<setw(24)<<"|"<<endl;
+                  cout <<"|________________________________________________________________________________________________|"<<endl;
 }
 
 
