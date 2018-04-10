@@ -73,6 +73,8 @@ void workTimesMenu();
 void showAllEmployee();
 void showAllProject();
 void showAllProjects();
+void showSpecificTaskById();
+void getSpendTimeDetails();
 
 
 void ShowAllTask();
@@ -81,6 +83,9 @@ void ShowAllTask();
 int main()
 {
     Database db;
+    TaskDetails td;
+    Task t;
+    string id;
     int n;
 	do {
 		system("cls");
@@ -105,7 +110,9 @@ int main()
         case 2:
             //ShowAllTask();
 //            showAllEmployee();
-            db.createDatabase();
+
+            db.getSpendTimeDetails(id);
+            //db.createDatabase();
             system("pause");
 		    break;
 
@@ -473,3 +480,13 @@ void showAllProjects(){
     }
     db.close();
 }
+/*
+void showSpecificTaskById(Task t){
+    Database db;
+    list<Task> details = db.getTaskDetails(t.id);
+    Task t;
+    for(t:details){
+        cout<<"\n Id: "<<t.e.id<<"\tName: "<<t.e.name<<"\tSpend Time: "<<t.time_spend<<endl;
+    }
+}
+*/

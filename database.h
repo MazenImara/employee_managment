@@ -13,6 +13,7 @@
 #include <ctime>
 #include <gtime.h>
 #include <status.h>
+#include <taskdetails.h>
 
 
 using namespace std;
@@ -212,7 +213,7 @@ public:
     //show specific task by id
     Task selectTask(string id){
         Task t;
-        string query ="SELECT `id`, `title`, `status`, `time_spend`, `endtemp`, `starttemp`, `start`, `project_id`, `employee_id` FROM `task` WHERE `id`="+id;
+        string query ="SELECT * FROM `task` WHERE `id`="+id;
         const char* q = query.c_str();
         cout<<"query is: "<<q<<endl;
         qstate = mysql_query(conn,q);
@@ -237,8 +238,6 @@ public:
                 }
         return t;
     }
-
-    //show specific task by status
 
     list<Task>selectTasks(){
         list<Task>tasks;
@@ -270,6 +269,60 @@ public:
         return tasks;
     }
 
+    list<TaskDetails>getSpendTimeDetails(string id){
+        list<TaskDetails> details;
+        string query ="SELECT * FROM `taskdetails` WHERE `task_id`="+id;
+        const char* q = query.c_str();
+        cout<<"query is: "<<q<<endl;
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+        {
+            res = mysql_store_result(conn);
+            while(row=mysql_fetch_row(res))
+            {
+                TaskDetails td;
+                td.id = row[0];
+                td.taskId = row[1];
+                td.employeeId = row[2];
+                td.timeSpend = row[3];
+                details.push_back(td);
+            }
+        }
+        else
+        {
+            cout<<"query error: "<<mysql_error(conn)<<endl;
+        }
+        return details;
+    }
+
+    /*Task getTaskDetails(string id){
+        Task t;
+        string query ="SELECT * FROM `task` WHERE employee_id ="+id;
+        const char* q = query.c_str();
+        cout<<"query is: "<<q<<endl;
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+        {
+            res = mysql_store_result(conn);
+            while(row=mysql_fetch_row(res))
+            {
+                Task t;
+                t.id = row[0];
+                t.title = row[1];
+                t.status = row[2];
+                t.time_spend = row[3];
+                t.endtemp = row[4];
+                t.starttemp = row[5];
+                t.project_id = row[6];
+                t.employee_id =row[7];
+            }
+        }
+            else{
+                    cout<<"query error: "<<mysql_error(conn)<<endl;
+                }
+        return t;
+    }*/
+
 
     void startTask(string id){
         CustomTime c;
@@ -286,7 +339,7 @@ public:
 
     }
 
-    void pause(string id){
+    void pauseTask(string id){
         CustomTime c;
         c.date();
         c.Time();

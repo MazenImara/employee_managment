@@ -11,6 +11,7 @@ using namespace std;
 class Task{
 public:
     string id, title, status, time_spend, endtemp, starttemp, project_id, employee_id;
+    Employee e;
 
 public:
     void enterId(){
@@ -32,6 +33,7 @@ public:
         cout<<"\nId: "<< id <<"\tTitle: "<< title <<"\tStatus: "<< status <<"\tTime Spend: "<< time_spend <<"\tDate Created: "<< date_created <<"\tProject id: "<< project_id <<"\tEmployee id: "<< employee_id <<endl;
     }
     */
+
     void showAdd()
     {
         cout<<"\nId: "<< id <<"\tTitle: "<< title << endl;
