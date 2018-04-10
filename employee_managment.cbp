@@ -13,12 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add directory="C:/Users/Ikram/Desktop/employee_managment" />
-					<Add directory="C:/Users/Ikram/Desktop/employee_managment/include" />
 				</Compiler>
-				<Linker>
-					<Add library="C:/Users/Ikram/Desktop/employee_managment/include/libmysql.a" />
-				</Linker>
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/employee_managment" prefix_auto="1" extension_auto="1" />
@@ -36,17 +31,15 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
-			<Add directory="C:/Users/Storleden/Desktop/firstC++/employee_managment/" />
-			<Add directory="C:/Users/Storleden/Desktop/firstC++/employee_managment/include" />
+			<Add directory="C:/employee_managment/" />
+			<Add directory="C:/employee_managment/include" />
 		</Compiler>
 		<Linker>
-			<Add library="C:/Users/Storleden/Desktop/firstC++/employee_managment/include/libmysql.a" />
+			<Add library="C:/employee_managment/include/libmysql.a" />
 		</Linker>
 		<Unit filename="database.h" />
 		<Unit filename="day.h" />
 		<Unit filename="employee.h" />
-		<Unit filename="gtime.h" />
-		<Unit filename="inbtw.cpp" />
 		<Unit filename="inbtw.h" />
 		<Unit filename="login.h" />
 		<Unit filename="main.cpp" />

@@ -270,7 +270,6 @@ public:
         return tasks;
     }
 
-
     void startTask(string id){
         CustomTime c;
         c.date();
@@ -285,6 +284,7 @@ public:
             cout<<"query problem: "<<mysql_error(conn)<<endl;
 
     }
+
 
     void pause(string id){
         CustomTime c;
@@ -353,7 +353,6 @@ public:
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
     // End ikram
-
 
 
     //mohamad code
