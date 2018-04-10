@@ -53,16 +53,7 @@ void PrintMessage(string message, bool printTop = true, bool printBottom = true)
 	}
 }
 
-/*
-void manageEmployeeMenu();
-void employeeMenu();
-void manageProjectMenu();
-void projectUpdateMenu();
-void manageTaskMenu();
-*/
-
-
-
+//Headers
 void AdminMenu();
 void ManageEmployeeMenu();
 void EmployeeMenu();
@@ -81,6 +72,7 @@ void ShowAllTask();
 int main()
 {
     Database db;
+    Task t;
     int n;
 	do {
 		system("cls");
@@ -104,8 +96,10 @@ int main()
 
         case 2:
             //ShowAllTask();
-//            showAllEmployee();
-            db.createDatabase();
+            EmployeeMenu();
+
+            //showAllEmployee();
+            //db.createDatabase();
             system("pause");
 		    break;
 

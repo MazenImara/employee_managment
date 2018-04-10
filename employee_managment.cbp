@@ -13,11 +13,11 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
-					<Add directory="C:/Users/Ikram/Desktop/employee_managment" />
-					<Add directory="C:/Users/Ikram/Desktop/employee_managment/include" />
+					<Add directory="C:/Users/Storleden/Desktop/firstC++/employee_managment/" />
+					<Add directory="C:/Users/Storleden/Desktop/firstC++/employee_managment/include" />
 				</Compiler>
 				<Linker>
-					<Add library="C:/Users/Ikram/Desktop/employee_managment/include/libmysql.a" />
+					<Add library="C:/Users/Storleden/Desktop/firstC++/employee_managment/include/libmysql.a" />
 				</Linker>
 			</Target>
 			<Target title="Release">
