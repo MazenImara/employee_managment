@@ -215,7 +215,7 @@ void ShowAllTask();
 
 int main()
 {
-
+     Database db;
 
        //t.getTimestampDate("2018/04/6 13:10:00");
 
@@ -400,7 +400,7 @@ void ManageEmployeeMenu()
         system("cls");
         s.Employee();
         cout <<" ___________________________________________________________"<<endl;
-        cout <<"|    enter the id you need to show  the work's detail       |"<<endl;
+        cout <<"|    Enter the id you need to show  the work's detail       |"<<endl;
         cout <<"|___________________________________________________________|"<<endl;
 
         workTimesMenu();
@@ -423,56 +423,42 @@ void workTimesMenu(){
     int n;
     Employee e;
     Database db;
+    Show s;
     e.enterId();
     system("cls");
     e=db.selectEmployeeById(e.id);
-        e.show();
-    //system("cls");
-	PrintMessage(" show Works Times for Employee                ");
-    PrintMessage("                                              ", false, false);
-    PrintMessage("1.  Show work details for specification date  ", false, false);
-	PrintMessage("2.  Show the Tasks                            ", false, false);
-    PrintMessage("3.  Show Time off                             ", false, false);
-    PrintMessage("                                              ", false, false);
-	PrintMessage("0.  LOGOUT                                    ", false, false);
-    PrintMessage("                                              ", false, false);
+    e.show();
+	PrintMessage(" show Works Times for Employee          ");
+    PrintMessage("                                        ", false, false);
+    PrintMessage("1.  Show works details for date period  ", false, false);
+	PrintMessage("2.  Show the Tasks                      ", false, false);
+    PrintMessage("3.  Show Time off                       ", false, false);
+    PrintMessage("                                        ", false, false);
+	PrintMessage("0.  LOGOUT                              ", false, false);
+    PrintMessage("                                        ", false, false);
 	PrintMessage("Enter Your Choice (0-5)");
 	cout<< ">";	cin >> n;
 	switch (n)
 	{
 	case 1:{
        // Show work details
-       cout <<"enter the date period that you need to show work details"<<endl;
+       cout <<"+---------------------------------------------------------+"<<endl;
+       cout <<"|Enter the date period that you need to show work details |"<<endl;
+       cout <<"+---------------------------------------------------------+"<<endl;
        CustomTime t;
-       Day d1,d2;
-
-       Show s;
        string date1=e.getDate(),date2=e.getDate();
        date1 =date1+" "+ "00"+ ":" + "00" + ":" + "00";
        date2 =date2+" "+ "00"+ ":" + "00" + ":" + "00";
        long date3=t.getTimestampDate(date1);
        long date4=t.getTimestampDate(date2);
-
-       //db.selectEmployeesWorkForPeriod(date3,date4,e.id);
        s.Days(date3,date4,e.id);
-
-       /*
-            select date, start_time ,end_time, employee_id from day
-            left join employee on day.employee_id=employee.id
-            GROUP by employee_id
-            having `date`>= '1520000000' and `date`<= 1533333333 and employee_id=1
-            order by employee_id;
-
-
-      */
-
-
-        cin.get();
-        cin.ignore();
+       cin.get();
+       cin.ignore();
 	}
 	    break;
 	case 2:
 	    // Show the Tasks
+
         cin.get();
         cin.ignore();
 

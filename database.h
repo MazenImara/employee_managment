@@ -359,9 +359,10 @@ public:
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
 
-    //Day
+    //time off process
     /*
-    void insertDay(Day d){
+
+    void insertTimeOff(Day d){
         string start=d.longToString(d.start),endTime=d.longToString(d.endTime);
 
         string query = "INSERT INTO `time_off`( `from`,`to`,`employee_id`) VALUES ('"+start+"','"+endTime+"','"+d.employee_id+"')";
