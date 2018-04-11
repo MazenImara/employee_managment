@@ -115,7 +115,8 @@ int main()
             break;
 
         case 2:
-            createDatabase();
+            AdminMenu();
+            //createDatabase();
             system("pause");
 		    break;
 
