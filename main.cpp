@@ -217,58 +217,7 @@ void ShowAllTask();
 
 
 int main()
-{Database db;
- TimeOff timeOf,date;
-        //timeOf=db.selectTimeOff("6");
-   date =timeOf.enter("7");
-
-     //timeOf.from=c.getTimestampDate(date);
-     db.insertTimeOff(date);
-     cin.get();
-        cin.ignore();
-       /*cin>>c.year;
-       cin>>c.month;
-       cin>>c.day;
-       cin>>c.hour;
-       cin>>c.minut;
-       cin>>c.second;
-       stringstream ss;
-      ss << c.year << "/"<<c.month << "/"<<c.day <<" "<<c.hour<<":"<<c.minut<<":"<<c.second;
-       string s = ss.str();
-
-*/
-     //string  s=timOf.enter;
-
-//       long lo=c.getTimestampDate(s);
-      // cout <<lo<<endl;
-     //   cin>>lo;
-      // long lo=c.getTimestampDate("2018-4-9 13:15:1");
-      // cout <<lo<<endl;
-
-       //date1 =date1+" "+ "00"+ ":" + "00" + ":" + "00";
-      // date2 =date2+" "+ "00"+ ":" + "00" + ":" + "00";
-      // long from =t.getTimestampDate(timOf.from);
-       //long to   =t.getTimestampDate(timOf.to);
-       //db.insertTimeOff(timOf);
-
-      /*
-      cin>>c.year;
-       cin>>c.month;
-       cin>>c.day;
-       cin>>c.hour;
-       cin>>c.minut;
-       cin>>c.second;
-       string date =c.date() +" "+c.Time() ;//,date2=e.getDate();
-
-
-        string date1=e.getDate(),date2=e.getDate();
-       date1 =date1+" "+ "00"+ ":" + "00" + ":" + "00";
-       date2 =date2+" "+ "00"+ ":" + "00" + ":" + "00";
-       long date3=t.getTimestampDate(date1);
-       long date4=t.getTimestampDate(date2);
-       */
-       //t.getTimestampDate("2018/04/6 13:10:00");
-
+{
     int n;
     string courseId;
 	do {
@@ -310,19 +259,6 @@ int main()
  // test Mohamad
 
 
- /*
-CustomTime c;
- c.getTimestampDate("2018/10/11 23:15:13");
-Employee e;
-e.getTime();
-
-    CustomTime c;
-CustomTime( );
-   cout << c.date() << "  " << c.Time() << endl;
-     c.getTimestampDate("2018/10/11 23:15:13");
-
-    c.getTimestampDate();
-*/
 
 
 //ent test Mohamad
@@ -517,7 +453,7 @@ void workTimesMenu(){
         // Show Time off
 
         TimeOff timeOf;
-        timeOf=db.selectTimeOff("6");
+        timeOf=db.selectTimeOff(e.id);
 
         timeOf.show();
         cin.get();
