@@ -41,3 +41,26 @@ void createDatabase(){
 }
 // end gab
 
+//Ikram
+void pauseTask(){
+    Task t;
+    Database db;
+    t.enterId();
+    db.pauseTask(t.id);
+}
+
+void endTask(){
+    Task t;
+    Database db;
+    t.enterId();
+    db.endTask(t.id);
+}
+
+void startTask(){
+    Task t;
+    Database db;
+    t.enterId();
+    db.startTask(t.id);
+}
+//end Ikram
+

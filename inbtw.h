@@ -10,5 +10,11 @@ void SetEmployeTask();
 void createDatabase();
 // end gab
 
+//Ikram
+void pauseTask();
+void endTask();
+void startTask();
+//end Ikram
+
 
 #endif // INBTW_H_INCLUDED
