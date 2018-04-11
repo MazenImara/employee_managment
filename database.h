@@ -336,7 +336,7 @@ public:
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
 
-    /*void pauseTask(string id){
+    void pauseTask(string id){
         CustomTime c;
         Day d;
         time_t timeStamp=time(NULL);
@@ -344,9 +344,6 @@ public:
         string getTimeSpend = d.longToString(timeStamp);
         string startTime = d.longToString(timeStamp);
         string endTime = d.longToString(timeStamp);
-        //string getTimeSpend;
-        //string startTime;
-
 
 
         string query ="SELECT * FROM `task` WHERE `id`="+id;
@@ -392,7 +389,7 @@ public:
         int startTimeInt = atoi(startTime.c_str());
         int endTimeInt = atoi(endTime.c_str());
         int resultInt = endTimeInt - startTimeInt;
-        //int newTimeStamp = getTimeStampInt + resultInt;
+        int newTimeStamp = getTimeStampInt + resultInt;
         stringstream re;    re<<resultInt;   string result = re.str();
 
         string query3 ="UPDATE `task` SET `time_spend`='"+result+"' WHERE `id`="+id;
@@ -403,13 +400,7 @@ public:
             cout<<"record updated successfully..."<<endl;
         else
             cout<<"query problem: "<<mysql_error(conn)<<endl;
-            cout<<resultInt<<endl;
-            cout<<getTimeStampInt<<endl;
-            cout<<startTimeInt<<endl;
-            cout<<endTimeInt<<endl;
-            //cout<<newTimeStamp<<endl;
-            cout<<getTimeSpend<<endl;
-    }*/
+    }
 
     void endTask(string id){
         CustomTime c;
