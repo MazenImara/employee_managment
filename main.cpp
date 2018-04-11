@@ -1,3 +1,4 @@
+//#include <timeOff.h>
 #include <iostream>
 #include <string>
 #include <login.h>
@@ -11,6 +12,8 @@
 #include <project.h>
 #include <projectMenu.h>
 #include <show.h>
+#include <timoff.h>
+
 
 using namespace std;
 
@@ -214,9 +217,56 @@ void ShowAllTask();
 
 
 int main()
-{
-     Database db;
+{Database db;
+ TimeOff timeOf,date;
+        //timeOf=db.selectTimeOff("6");
+   date =timeOf.enter("7");
 
+     //timeOf.from=c.getTimestampDate(date);
+     db.insertTimeOff(date);
+     cin.get();
+        cin.ignore();
+       /*cin>>c.year;
+       cin>>c.month;
+       cin>>c.day;
+       cin>>c.hour;
+       cin>>c.minut;
+       cin>>c.second;
+       stringstream ss;
+      ss << c.year << "/"<<c.month << "/"<<c.day <<" "<<c.hour<<":"<<c.minut<<":"<<c.second;
+       string s = ss.str();
+
+*/
+     //string  s=timOf.enter;
+
+//       long lo=c.getTimestampDate(s);
+      // cout <<lo<<endl;
+     //   cin>>lo;
+      // long lo=c.getTimestampDate("2018-4-9 13:15:1");
+      // cout <<lo<<endl;
+
+       //date1 =date1+" "+ "00"+ ":" + "00" + ":" + "00";
+      // date2 =date2+" "+ "00"+ ":" + "00" + ":" + "00";
+      // long from =t.getTimestampDate(timOf.from);
+       //long to   =t.getTimestampDate(timOf.to);
+       //db.insertTimeOff(timOf);
+
+      /*
+      cin>>c.year;
+       cin>>c.month;
+       cin>>c.day;
+       cin>>c.hour;
+       cin>>c.minut;
+       cin>>c.second;
+       string date =c.date() +" "+c.Time() ;//,date2=e.getDate();
+
+
+        string date1=e.getDate(),date2=e.getDate();
+       date1 =date1+" "+ "00"+ ":" + "00" + ":" + "00";
+       date2 =date2+" "+ "00"+ ":" + "00" + ":" + "00";
+       long date3=t.getTimestampDate(date1);
+       long date4=t.getTimestampDate(date2);
+       */
        //t.getTimestampDate("2018/04/6 13:10:00");
 
     int n;
@@ -463,11 +513,16 @@ void workTimesMenu(){
         cin.ignore();
 
         break;
-    case 3:
+    case 3:{
         // Show Time off
 
+        TimeOff timeOf;
+        timeOf=db.selectTimeOff("6");
+
+        timeOf.show();
         cin.get();
         cin.ignore();
+    }
         break;
    	case 0:return;
 	default: cout << "\a";

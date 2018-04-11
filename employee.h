@@ -74,7 +74,7 @@ public:
         stringstream smi;   smi << minut;    string sminut = smi.str();
         stringstream ss;    ss << second;    string ssecond = ss.str();
 
-        string FullDate = dateY + "/" + dateM + "/" + dateD + " " + shour + ":" + sminut + ":" + ssecond;
+        string FullDate = dateY + "-" + dateM + "-" + dateD + " " + shour + ":" + sminut + ":" + ssecond;
 
     cout <<FullDate;
         return FullDate;
@@ -99,7 +99,7 @@ public:
         stringstream sd;    sd << day;       string dateD = sd.str();
 
 
-        string date = dateY + "/" + dateM + "/" + dateD ;
+        string date = dateY + "-" + dateM + "-" + dateD ;
 
 
 
