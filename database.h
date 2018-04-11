@@ -177,7 +177,7 @@ public:
 
     // Start ikram
     void insertTask(Task t){
-        string query ="INSERT INTO `task`(`title`) VALUES ('"+t.title+"')";
+        string query ="INSERT INTO `task`(`title`, `status`,`project_id`) VALUES ('"+t.title+"', '"+t.status+"','"+t.project_id+"')";
         const char* q = query.c_str();
         cout<<"query is: "<<q<<endl;
         qstate = mysql_query(conn,q);
@@ -212,7 +212,7 @@ public:
     //show specific task by id
     Task selectTask(string id){
         Task t;
-        string query ="SELECT `id`, `title`, `status`, `time_spend`, `endtemp`, `starttemp`, `start`, `project_id`, `employee_id` FROM `task` WHERE `id`="+id;
+        string query ="SELECT * FROM `task` WHERE `id`="+id;
         const char* q = query.c_str();
         cout<<"query is: "<<q<<endl;
         qstate = mysql_query(conn,q);
@@ -624,11 +624,14 @@ public:
             string query="insert into admin(employee_id) values("+employeeId+")";
             const char* q = query.c_str();
             qstate = mysql_query(conn,q);
-            if(!qstate)
-                cout<<"Project inserted successfully..."<<endl;
-            else
-                cout<<"query problem: "<<mysql_error(conn)<<endl;
         }
+    }
+
+    void setEmployeTask(string tid,string eid)
+    {
+        string query ="UPDATE `task` SET `employee_id`='"+eid+"' WHERE `id` ="+tid;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
     }
 
     bool isAdmin(string employeeId)

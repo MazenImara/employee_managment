@@ -58,7 +58,7 @@ void AdminMenu();
 void ManageEmployeeMenu();
 void EmployeeMenu();
 void ManageProjectMenu();
-void ManageTaskMenu();
+void ManageTaskMenu(string ProId);
 void manageProjectMenu();
 void workTimesMenu();
 void showAllEmployee();
@@ -72,7 +72,7 @@ void ShowAllTask();
 int main()
 {
     Database db;
-    Task t;
+	Loging l;
     int n;
 	do {
 		system("cls");
@@ -86,13 +86,34 @@ int main()
 		PrintMessage("                      ", false, false);
 
 
-		PrintMessage("Please Select your option (0-1): ");
+		PrintMessage("Please Select your option (0-2): ");
 		cout<< ">";	cin >> n;
 		switch (n)
 		{
 		case 1:
-            AdminMenu();
-		    break;
+            while(!l.loged)
+            {
+                system("cls");
+                l.login();
+            }
+            if(l.loged)
+            {
+                if(l.e.isAdmin())
+                {
+                    AdminMenu();
+                    l.logout();
+                }
+                else
+                {
+                    EmployeeMenu();
+                    l.logout();
+                }
+            }
+            else{
+                l.logout();
+            };
+            //AdminMenu();
+            break;
 
         case 2:
             //ShowAllTask();
@@ -112,26 +133,7 @@ int main()
 
 /*
 
-    Loging l;
-    while(!l.loged){
-        cin.get();
-        cin.ignore();
-        system("cls");
-        l.login();
-    }
-    if(l.loged){
-        if(l.e.isAdmin()){
-            //adminMenu(l);
-            cout<< "admin"<< endl;
-            l.e.show();
-        }
-        else{
-            //employeeMenu(l);
-            cout<< "employee"<< endl;
-            l.e.show();
-            //l.e.setAdmin();
-        }
-    }
+
 
     */
 
@@ -140,6 +142,7 @@ int main()
 
 void AdminMenu()
 {
+    Loging l;
     int n;
     system("cls");
 	PrintMessage("ADMIN MANAGE EMPLOYEE");
@@ -160,7 +163,9 @@ void AdminMenu()
         ManageEmployeeMenu();
         break;
 
-   	case 0:return;
+   	case 0:
+   	    l.logout();
+        return;
 	default: cout << "\a";
 
 	}
@@ -183,7 +188,7 @@ void ManageEmployeeMenu()
     PrintMessage("4.  Show all Employees         ", false, false);
     PrintMessage("5.  Sign Employee as Admin     ", false, false);
     PrintMessage("                               ", false, false);
-	PrintMessage("0.  LOGOUT                     ", false, false);
+	PrintMessage("0.  Back to Admin Menu         ", false, false);
     PrintMessage("                               ", false, false);
 	PrintMessage("Enter Your Choice (0-5)");
 	cout<< ">";	cin >> n;
@@ -243,7 +248,8 @@ void ManageEmployeeMenu()
 	    break;
     case 5 :{
         //Sign Employee as Admin
-
+        e.enterId();
+        SetAdmin(e.id);
 
     }
    	case 0:return;
@@ -310,23 +316,27 @@ void ManageProjectMenu()
     PrintMessage("3.  Deleted Project            ", false, false);
     PrintMessage("4.  Update Project             ", false, false);
     PrintMessage("                               ", false, false);
-	PrintMessage("0.  LOGOUT                     ", false, false);
+	PrintMessage("0.  Back to Admin Menu         ", false, false);
     PrintMessage("                               ", false, false);
 	PrintMessage("Enter Your Choice (0-4)");
 	cout<< ">";	cin >> n;
 	switch (n)
 	{
 	case 1:
-	    ManageTaskMenu();
-	    system("pause");
+	    //show and enter task menu
+        showAllProjects();
+        p.enterId();
+	    ManageTaskMenu(p.id);
 	    break;
 	case 2:
+	    //create project
         p.enter();
         p.status = "new";
         db.insertProject(p);
         break;
     case 3:
-        //
+        //delete project
+        p.enterId();
 	    break;
    	case 0:return;
 	default: cout << "\a";
@@ -335,7 +345,7 @@ void ManageProjectMenu()
 	ManageProjectMenu();
 }
 
-void ManageTaskMenu()
+void ManageTaskMenu(string ProId)
 {
     Task t;
     Database db;
@@ -349,7 +359,7 @@ void ManageTaskMenu()
     PrintMessage("4.  Show All Task              ", false, false);
     PrintMessage("5.  Sign Employee To Task      ", false, false);
     PrintMessage("                               ", false, false);
-	PrintMessage("0.  LOGOUT                     ", false, false);
+	PrintMessage("0.  Back to Manage Project     ", false, false);
     PrintMessage("                               ", false, false);
 	PrintMessage("Enter Your Choice (0-5)");
 	cout<< ">";	cin >> n;
@@ -358,7 +368,9 @@ void ManageTaskMenu()
 	case 1:
 	    //add Task
 	    t.enter();
-	    db.insertTask(t);
+	    t.status = "New";
+	    t.project_id = ProId;
+        db.insertTask(t);
 	    t.showAdd();
 	    system("pause");
 	    break;
@@ -382,18 +394,21 @@ void ManageTaskMenu()
 	    system("pause");
 	    break;
     case 5:
-        //
+        //Sign Employee to Task
+        t.setEmployeTask();
 	    break;
    	case 0:return;
 	default: cout << "\a";
 
 	}
-	ManageTaskMenu();
+	ManageTaskMenu(ProId);
 }
 
 void EmployeeMenu()
 {
+    Loging l;
     Employee e;
+    Task t;
     int n;
     system("cls");
     ShowAllTask();
@@ -413,6 +428,9 @@ void EmployeeMenu()
 	{
 	case 1:
         //Start Task
+        t.enterId();
+        t.getTask(t.id);
+        system("pause");
 	    break;
 	case 2:
         //Pause
@@ -424,7 +442,9 @@ void EmployeeMenu()
         //Manage Time off
         break;
 
-   	case 0:return;
+   	case 0:
+        l.logout();
+        return;
 	default: cout << "\a";
 
 	}
@@ -467,3 +487,4 @@ void showAllProjects(){
     }
     db.close();
 }
+

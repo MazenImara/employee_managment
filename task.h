@@ -4,6 +4,7 @@
 #include <string>
 #include <windows.h>
 #include <gtime.h>
+#include <inbtw.h>
 
 using namespace std;
 
@@ -11,6 +12,7 @@ using namespace std;
 class Task{
 public:
     string id, title, status, time_spend, endtemp, starttemp, project_id, employee_id;
+
 
 
 public:
@@ -44,6 +46,22 @@ public:
     {
         cout<<"\nId: "<< id <<"\tTitle: "<< title << endl;
     }
+
+    void getTask(string id)
+    {
+        GetTask(id);
+    }
+
+    void setEmployeTask()
+    {
+        SetEmployeTask();
+    }
+
+
+    /*void start()
+    {
+        getTask(id);
+    }*/
 };
 
 
