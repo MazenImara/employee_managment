@@ -21,6 +21,9 @@ void showAllProjects(){
     db.close();
 }
 */
+
+
+
 void updateProject(){
     Database db;
     Project p;
@@ -102,6 +105,23 @@ void manageProjectMenu(){
         cout << "Invalid choice" << endl;
         manageProjectMenu();
     }
+}
+
+//show tasks for a specific project
+void showProjectTasks(string project_id){
+    Database db;
+    Task t;
+    Employee e;
+    list<Task> tasks;
+    //list<Employee> employees;
+    tasks = db.selectProjectTasks(project_id);
+    for(t:tasks){
+        t.show();
+        cout << "========== Employee work on this task=============" << endl;
+        e = db.selectEmployeeById(t.employee_id);
+        e.show();
+    }
+    db.close();
 }
 
 

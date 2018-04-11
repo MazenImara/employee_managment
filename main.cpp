@@ -64,13 +64,16 @@ void workTimesMenu();
 void showAllEmployee();
 void showAllProject();
 void showAllProjects();
+void showProjectTasks(string pID);
 
 
 void ShowAllTask();
 
 
+
 int main()
 {
+<<<<<<< HEAD
     Database db;
 	Loging l;
     int n;
@@ -130,6 +133,45 @@ int main()
 
 
 	} while (n != 0);
+=======
+    showProjectTasks("1");
+//    Database db;
+//    int n;
+//    string courseId;
+//	do {
+//		system("cls");
+//		PrintMessage("EMPLOYEE MANAGEMENT");
+//		PrintMessage("                      ", false, false);
+//		PrintMessage("1. LOGIN              ", false, false);
+//		PrintMessage("                      ", false, false);
+//        PrintMessage("2. CREATE DATABASE    ", false, false);
+//		PrintMessage("                      ", false, false);
+//		PrintMessage("0. EXIT               ", false, false);
+//		PrintMessage("                      ", false, false);
+//
+//
+//		PrintMessage("Please Select your option (0-1): ");
+//		cout<< ">";	cin >> n;
+//		switch (n)
+//		{
+//		case 1:
+//            AdminMenu();
+//		    break;
+//
+//        case 2:
+//            //ShowAllTask();
+////            showAllEmployee();
+//            db.createDatabase();
+//            system("pause");
+//		    break;
+//
+//        case 0: exit(0);
+//		default: "\a"; break;
+//		}
+//
+//
+//	} while (n != 0);
+>>>>>>> c75b4fb0a98e85091e44a4494790fccda85bc3ab
 
 /*
 

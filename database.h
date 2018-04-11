@@ -132,7 +132,7 @@ public:
 
         //create day
         {
-        query="CREATE TABLE employee_managment.day(`id` int not null AUTO_INCREMENT, `date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, `start_time` int, `end_time` int, `time_spend` INT DEFAULT '0', `employee_id` int, PRIMARY KEY (id));";
+        query="CREATE TABLE employee_managment.day(`id` int not null AUTO_INCREMENT, `date` int, `start_time` int, `end_time` int, `time_spend` INT DEFAULT '0', `employee_id` int, PRIMARY KEY (id));";
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -612,6 +612,36 @@ public:
         }
         return projects;
 
+    }
+
+    list<Task>selectProjectTasks( string project_id){
+        list<Task>tasks;
+        string query ="SELECT * FROM `task` WHERE project_id="+project_id;
+        const char* q = query.c_str();
+        cout<<"query is: "<<q<<endl;
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+        {
+            res = mysql_store_result(conn);
+            while(row=mysql_fetch_row(res))
+            {
+                Task t;
+                t.id = row[0];
+                t.title = row[1];
+                t.status = row[2];
+                t.time_spend = row[3];
+                t.endtemp = row[4];
+                t.starttemp = row[5];
+                t.project_id = row[6];
+                t.employee_id =row[7];
+                tasks.push_back(t);
+
+            }
+        }
+            else{
+                    cout<<"query error: "<<mysql_error(conn)<<endl;
+                }
+        return tasks;
     }
 
     // end hamzA
