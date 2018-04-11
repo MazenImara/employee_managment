@@ -64,17 +64,13 @@ void workTimesMenu();
 void showAllEmployee();
 void showAllProject();
 void showAllProjects();
-void showProjectTasks(string pID);
 
 
 void ShowAllTask();
 
 
-
 int main()
 {
-<<<<<<< HEAD
-    Database db;
 	Loging l;
     int n;
 	do {
@@ -119,11 +115,7 @@ int main()
             break;
 
         case 2:
-            //ShowAllTask();
-            EmployeeMenu();
-
-            //showAllEmployee();
-            //db.createDatabase();
+            createDatabase();
             system("pause");
 		    break;
 
@@ -133,50 +125,8 @@ int main()
 
 
 	} while (n != 0);
-=======
-    showProjectTasks("1");
-//    Database db;
-//    int n;
-//    string courseId;
-//	do {
-//		system("cls");
-//		PrintMessage("EMPLOYEE MANAGEMENT");
-//		PrintMessage("                      ", false, false);
-//		PrintMessage("1. LOGIN              ", false, false);
-//		PrintMessage("                      ", false, false);
-//        PrintMessage("2. CREATE DATABASE    ", false, false);
-//		PrintMessage("                      ", false, false);
-//		PrintMessage("0. EXIT               ", false, false);
-//		PrintMessage("                      ", false, false);
-//
-//
-//		PrintMessage("Please Select your option (0-1): ");
-//		cout<< ">";	cin >> n;
-//		switch (n)
-//		{
-//		case 1:
-//            AdminMenu();
-//		    break;
-//
-//        case 2:
-//            //ShowAllTask();
-////            showAllEmployee();
-//            db.createDatabase();
-//            system("pause");
-//		    break;
-//
-//        case 0: exit(0);
-//		default: "\a"; break;
-//		}
-//
-//
-//	} while (n != 0);
->>>>>>> c75b4fb0a98e85091e44a4494790fccda85bc3ab
 
 /*
-
-
-
     */
 
     return 0;
@@ -280,9 +230,8 @@ void ManageEmployeeMenu()
         system("cls");
         s.Employee();
         cout <<" ___________________________________________________________"<<endl;
-        cout <<"|    Enter the id you nedd to show his work times           |"<<endl;
+        cout <<"|    Enter the id you need to show  the work's detail       |"<<endl;
         cout <<"|___________________________________________________________|"<<endl;
-
         workTimesMenu();
         cin.get();
         cin.ignore();
@@ -300,42 +249,61 @@ void ManageEmployeeMenu()
 	}
 	ManageEmployeeMenu();
 }
+
 void workTimesMenu(){
     int n;
     Employee e;
     Database db;
+    Show s;
     e.enterId();
     system("cls");
     e=db.selectEmployeeById(e.id);
     e.show();
-	PrintMessage(" show Works Times for Employee    ");
-    PrintMessage("                                  ", false, false);
-    PrintMessage("1.  Show work details             ", false, false);
-	PrintMessage("2.  Show the Tasks                ", false, false);
-    PrintMessage("3.  Show Time off                 ", false, false);
-    PrintMessage("                                  ", false, false);
-	PrintMessage("0.  LOGOUT                        ", false, false);
-    PrintMessage("                                  ", false, false);
-	PrintMessage("Enter Your Choice (0-3)");
+	PrintMessage(" show Works Times for Employee          ");
+    PrintMessage("                                        ", false, false);
+    PrintMessage("1.  Show works details for date period  ", false, false);
+	PrintMessage("2.  Show the Tasks                      ", false, false);
+    PrintMessage("3.  Show Time off                       ", false, false);
+    PrintMessage("                                        ", false, false);
+	PrintMessage("0.  LOGOUT                              ", false, false);
+    PrintMessage("                                        ", false, false);
+	PrintMessage("Enter Your Choice (0-5)");
 	cout<< ">";	cin >> n;
 	switch (n)
 	{
-	case 1:
+	case 1:{
        // Show work details
-        cin.get();
-        cin.ignore();
+       cout <<"+---------------------------------------------------------+"<<endl;
+       cout <<"|Enter the date period that you need to show work details |"<<endl;
+       cout <<"+---------------------------------------------------------+"<<endl;
+       CustomTime t;
+       string date1=e.getDate(),date2=e.getDate();
+       date1 =date1+" "+ "00"+ ":" + "00" + ":" + "00";
+       date2 =date2+" "+ "00"+ ":" + "00" + ":" + "00";
+       long date3=t.getTimestampDate(date1);
+       long date4=t.getTimestampDate(date2);
+       s.Days(date3,date4,e.id);
+       cin.get();
+       cin.ignore();
+	}
 	    break;
 	case 2:
 	    // Show the Tasks
+
         cin.get();
         cin.ignore();
 
         break;
-    case 3:
+    case 3:{
         // Show Time off
 
+        TimeOff timeOf;
+        timeOf=db.selectTimeOff(e.id);
+
+        timeOf.show();
         cin.get();
         cin.ignore();
+    }
         break;
    	case 0:return;
 	default: cout << "\a";
@@ -529,4 +497,3 @@ void showAllProjects(){
     }
     db.close();
 }
-

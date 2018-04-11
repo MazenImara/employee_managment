@@ -91,8 +91,8 @@ public:
 
     tStart = mktime(&whenStart);
 
-    std::cout << tStart << std::endl;
-
+   // std::cout << tStart << std::endl;
+      return tStart;
     }
 
     long getTimestampDate(){
