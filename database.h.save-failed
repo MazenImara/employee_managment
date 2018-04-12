@@ -31,7 +31,7 @@ public:
         else
             cout<<"conn object problem: "<<mysql_error(conn);
 
-        conn = mysql_real_connect(conn,"localhost","root","password","employee_managment",0,NULL,0);
+        conn = mysql_real_connect(conn,"localhost","root","","employee_managment",0,NULL,0);
 
         if(conn)
             cout<<"connect to data base  successfully..."<<endl;
@@ -56,7 +56,7 @@ public:
         cout<<"connection object ok, conn="<<conn<<endl;
     else
         cout<<"conn object problem: "<<mysql_error(conn);
-    conn = mysql_real_connect(conn,"localhost","root","password",NULL,0,NULL,0);
+    conn = mysql_real_connect(conn,"localhost","root","",NULL,0,NULL,0);
 
     if(conn)
         cout<<"test without database  ok, conn="<<conn<<endl;
@@ -167,34 +167,6 @@ public:
         qstate = mysql_query(conn,q);
         if(!qstate){
             cout<< "Admin Tabel created successfully\n";
-        }
-        else{
-            cout<<"query error: "<<mysql_error(conn)<<endl;
-        }
-        //end admin
-
-         //insert employee
-        {
-        query="INSERT INTO employee_managment.employee(`id`, `name`, `email`, `password`, `address`, `phone`) VALUES (1,'admin','admin@mail.com','admin','Norrkoping','071234567');";
-        }
-         q = query.c_str();
-        qstate = mysql_query(conn,q);
-        if(!qstate){
-            cout<< "employee inserted successfully\n";
-        }
-        else{
-            cout<<"query error: "<<mysql_error(conn)<<endl;
-        }
-        //end employee
-
-        //insert admin
-        {
-        query="INSERT INTO employee_managment.admin(`id`, `employee_id`) VALUES (1,1);";
-        }
-         q = query.c_str();
-        qstate = mysql_query(conn,q);
-        if(!qstate){
-            cout<< "Admin inserted  successfully\n";
         }
         else{
             cout<<"query error: "<<mysql_error(conn)<<endl;
@@ -850,36 +822,6 @@ public:
     list<Task>selectProjectTasks( string project_id){
         list<Task>tasks;
         string query ="SELECT * FROM `task` WHERE project_id="+project_id;
-        const char* q = query.c_str();
-        cout<<"query is: "<<q<<endl;
-        qstate = mysql_query(conn,q);
-        if(!qstate)
-        {
-            res = mysql_store_result(conn);
-            while(row=mysql_fetch_row(res))
-            {
-                Task t;
-                t.id = row[0];
-                t.title = row[1];
-                t.status = row[2];
-                t.time_spend = row[3];
-                t.endtemp = row[4];
-                t.starttemp = row[5];
-                t.project_id = row[6];
-                t.employee_id =row[7];
-                tasks.push_back(t);
-
-            }
-        }
-            else{
-                    cout<<"query error: "<<mysql_error(conn)<<endl;
-                }
-        return tasks;
-    }
-
-    list<Task>selectEmployeeTasks( string employee_id){
-        list<Task>tasks;
-        string query ="SELECT * FROM `task` WHERE employee_id="+employee_id;
         const char* q = query.c_str();
         cout<<"query is: "<<q<<endl;
         qstate = mysql_query(conn,q);

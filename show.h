@@ -6,6 +6,7 @@
 #include <database.h>
 #include <list>
 #include <gtime.h>
+#include <timoff.h>
 
 
 
@@ -20,7 +21,9 @@ public:
     Project p;
     Day d;
     Database db;
+    TimeOff timeOf;
     list<Employee> employess;
+    list<TimeOff> timesOff;
 
 void Employee(){
     cout <<" __________________________________________________________________________________________________________________________________"<<endl;
@@ -36,27 +39,50 @@ void Employee(){
 }
 
 void Days( long date1, long date2,string id){
-    Database db;
-    Day d1,d2;
-
     int sum=0;
-                  cout <<" ________________________________________________________________________________"<<endl;
-                  cout <<"|                       Days's details for Employee                              |"<<endl;
-                  cout <<"|________________________________________________________________________________|"<<endl;
-                  cout <<"|"<<setw(20)<<"Date"<<setw(20)<<"startTime"<<setw(20)<<"endTime"<<setw(20)<<"timeSpend"<<"|"<< endl;
-                  list<Day> days;
-                  days = db.selectEmployeesWorkForPeriod(date1,date2,id);
-                  for ( d : days){
-                                  CustomTime c1 =CustomTime(d.date),c2=CustomTime(d.start),c3=CustomTime(d.endTime);
-                  cout <<"|"<<setw(20)<<c1.date()<<setw(20)<<c2.Time()<<setw(20)<<c3.Time()<<setw(20)<<d.timeSpend<<"|"<<endl;
-
-                   sum = sum + d.timeSpend;
-                 }
-                  cout <<"|________________________________________________________________________________|"<<endl;
-                  cout <<"|   the total timeSpend for this period  is =\t "<<setw(17)<<sum<<setw(16)<<"|"<<endl;
-                  cout <<"|________________________________________________________________________________|"<<endl;
+    cout <<" ________________________________________________________________________________"<<endl;
+    cout <<"|                       Days's details for Employee                              |"<<endl;
+    cout <<"|________________________________________________________________________________|"<<endl;
+    cout <<"|"<<setw(20)<<"Date"<<setw(20)<<"startTime"<<setw(20)<<"endTime"<<setw(20)<<"timeSpend"<<"|"<< endl;
+    list<Day> days;
+    days = db.selectEmployeesWorkForPeriod(date1,date2,id);
+    for ( d : days){
+        CustomTime c1 =CustomTime(d.date),c2=CustomTime(d.start),c3=CustomTime(d.endTime);
+        cout <<"|"<<setw(20)<<c1.date()<<setw(20)<<c2.Time()<<setw(20)<<c3.Time()<<setw(20)<<d.timeSpend<<"|"<<endl;
+        sum = sum + d.timeSpend;
+    }
+    cout <<"|________________________________________________________________________________|"<<endl;
+    cout <<"|   the total timeSpend for this period  is =\t "<<setw(17)<<sum<<setw(16)<<"|"<<endl;
+    cout <<"|________________________________________________________________________________|"<<endl;
 }
+void TimeOff(string id){
+    cout <<" ___________________________________________________________"<<endl;
+    cout <<"|                       Your TimesOff                       |"<<endl;
+    cout <<"|___________________________________________________________|"<<endl;
+    cout <<"|"<<setw(15)<<"From"<<setw(30)<<"To"<<setw(15)<<"|"<< endl;
+    cout <<"|___________________________________________________________|"<<endl;
 
+    timesOff = db.selectTimesOff(id);
+    for ( timeOf : timesOff){
+        CustomTime c1 =CustomTime(timeOf.from),c2=CustomTime(timeOf.to);
+        cout <<"|"<<setw(10)<<c1.date()<<"  "<<setw(10)<<c1.Time()<<setw(20)<<c2.date()<<"  "<<setw(10)<<c2.Time()<<setw(6)<<"|"<<endl;
+    }
+    cout <<"|___________________________________________________________|"<<endl;
+}
+void AllTimesOff(string id){
+    cout <<" _____________________________________________________________________"<<endl;
+    cout <<"|                               Your TimesOff                         |"<<endl;
+    cout <<"|_____________________________________________________________________|"<<endl;
+    cout <<"|"<<setw(5)<<"ID"<<setw(20)<<"From"<<setw(30)<<"To"<<"              |"<< endl;
+    cout <<"|_____________________________________________________________________|"<<endl;
+
+    timesOff = db.selectTimesOff(id);
+    for ( timeOf : timesOff){
+        CustomTime c1 =CustomTime(timeOf.from),c2=CustomTime(timeOf.to);
+        cout <<"|"<<setw(5)<<timeOf.id<<setw(15)<<c1.date()<<"  "<<setw(10)<<c1.Time()<<setw(20)<<c2.date()<<"  "<<setw(10)<<c2.Time()<<setw(6)<<"|"<<endl;
+    }
+    cout <<"|_____________________________________________________________________|"<<endl;
+}
 
 };
 
