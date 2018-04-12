@@ -42,25 +42,19 @@ void createDatabase(){
 // end gab
 
 //Ikram
-void pauseTask(){
-    Task t;
+void pauseTask(string id){
     Database db;
-    t.enterId();
-    db.pauseTask(t.id);
+    db.pauseTask(id);
 }
 
-void endTask(){
-    Task t;
+void endTask(string id){
     Database db;
-    t.enterId();
-    db.endTask(t.id);
+    db.endTask(id);
 }
 
-void startTask(){
-    Task t;
+void startTask(string id){
     Database db;
-    t.enterId();
-    db.startTask(t.id);
+    db.startTask(id);
 }
 //end Ikram
 

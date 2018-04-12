@@ -11,9 +11,9 @@ void createDatabase();
 // end gab
 
 //Ikram
-void pauseTask();
-void endTask();
-void startTask();
+void pauseTask(std::string id);
+void endTask(std::string id);
+void startTask(std::string id);
 //end Ikram
 
 
