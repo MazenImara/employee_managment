@@ -73,6 +73,11 @@ void ShowAllTask();
 
 int main()
 {
+    /*Show s;
+    s.TaskForEmployee("3");
+    cin.get();
+        cin.ignore();
+   */
     int n;
 	do {
 		system("cls");
@@ -289,12 +294,13 @@ void workTimesMenu(){
        cin.ignore();
 	}
 	    break;
-	case 2:
+	case 2:{
 	    // Show the Tasks
-
+        // selectEmployeeTasks( string employee_id){
+        s.TaskForEmployee(e.id);
         cin.get();
         cin.ignore();
-
+    }
         break;
     case 3:{
         // Show Time off
@@ -586,3 +592,4 @@ void showAllProjects(){
     }
     db.close();
 }
+
