@@ -82,22 +82,23 @@ void AllTimesOff(string id){
         CustomTime c1 =CustomTime(timeOf.from),c2=CustomTime(timeOf.to);
         cout <<"|"<<setw(5)<<timeOf.id<<setw(15)<<c1.date()<<"  "<<setw(10)<<c1.Time()<<setw(20)<<c2.date()<<"  "<<setw(10)<<c2.Time()<<setw(6)<<"|"<<endl;
     }
-    cout <<"|________________________________________________________________________________________________________|"<<endl;
+    cout <<"|______________________________________________________________________________________________________________________________________________________|"<<endl;
 }
 void  TaskForEmployee(string employee_id){
-    cout <<" ________________________________________________________________________________________________________"<<endl;
+    cout <<" ______________________________________________________________________________________________________________________________________________________"<<endl;
     cout <<"|                       Your Tasks                       |"<<endl;
-    cout <<"|_______________________________________________________________________________________________________|"<<endl;
-    cout <<"|"<<setw(15)<<"Title"<<setw(30)<<"Status"<<setw(15)<<"StartTemp"<<setw(30)<<"EndTemp"<<setw(15)<<"TimeSpend"<<setw(30)<<"ProjectId"<<setw(15)<<"|"<< endl;
-    cout <<"|_______________________________________________________________________________________________________|"<<endl;
+    cout <<"|______________________________________________________________________________________________________________________________________________________|"<<endl;
+    cout <<"|"<<setw(10)<<"Title"<<setw(10)<<"Status"<<setw(25)<<"StartTemp"<<setw(30)<<"EndTemp"<<setw(25)<<"TimeSpend"<<setw(30)<<"ProjectId"<<setw(15)<<"|"<< endl;
+    cout <<"|______________________________________________________________________________________________________________________________________________________|"<<endl;
 
     tasks = db.selectEmployeeTasks(employee_id);
     for ( t : tasks){
-       // CustomTime c1 =CustomTime(t.starttemp),c2=CustomTime(t.endtemp);
-       // cout <<"|"<<setw(10)<<t.title<<setw(30)<<t.status<<setw(15)<<c1.date()<<"  "<<setw(10)<<c1.Time()<<setw(20)<<c2.date()<<"  "<<setw(10)<<c2.Time()<<setw(15)<<t.time_spend<<setw(30)<<t.project_id<<setw(15)<<"|"<< endl;
-         cout <<"|"<<setw(10)<<t.title<<setw(30)<<t.status<<setw(15)<<t.starttemp<<setw(10)<<t.endtemp<<setw(15)<<t.time_spend<<setw(30)<<t.project_id<<setw(15)<<"|"<< endl;
+           long starttemp=d.stringToLong(t.starttemp),endtemp=d.stringToLong(t.endtemp);
+        CustomTime c1 =CustomTime(starttemp),c2=CustomTime(endtemp);
+        cout <<"|"<<setw(10)<<t.title<<setw(10)<<t.status<<setw(25)<<c1.date()<<"  "<<setw(20)<<c1.Time()<<setw(20)<<c2.date()<<"  "<<setw(10)<<c2.Time()<<setw(15)<<t.time_spend<<setw(30)<<t.project_id<<setw(15)<<"|"<< endl;
+       //  cout <<"|"<<setw(10)<<t.title<<setw(30)<<t.status<<setw(15)<<t.starttemp<<setw(10)<<t.endtemp<<setw(15)<<t.time_spend<<setw(30)<<t.project_id<<setw(15)<<"|"<< endl;
     }
-    cout <<"|_______________________________________________________________________________________________________|"<<endl;
+    cout <<"|______________________________________________________________________________________________________________________________________________________|"<<endl;
 
     }
 
