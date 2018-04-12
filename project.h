@@ -26,7 +26,18 @@ class Project{
             cin >> description;
             cout << endl;
         }
-
+        void Add()
+        {
+            GetInsertProject();
+        }
+        void Delete(string id)
+        {
+            GetDeleteProject(id);
+        }
+        void Update()
+        {
+            GetUpdateProject();
+        }
 };
 
 #endif // PROJECT_H_INCLUDED

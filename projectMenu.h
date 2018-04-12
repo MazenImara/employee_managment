@@ -52,12 +52,12 @@ void updateProject(){
         default:
             cout << "Invalid choice" << endl;
             updateProject();
-        }
+        }/*
     case 2:
         p.enterId();
         p = db.selectProject(p.id);
         db.deleteProject(p);
-        break;
+        break;*/
     default:
         cout << "Invalid choice" << endl;
         updateProject();

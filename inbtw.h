@@ -5,16 +5,27 @@
 // gab
 void SetAdmin(std::string employeeId);
 bool IsAdmin(std::string employeeId);
-void GetTask(std::string taskId);
 void SetEmployeTask();
 void createDatabase();
-// end gab
 
-//Ikram
+//Task ONLY
+void GetTask(std::string taskId);
+void GetInsertTask(std::string id);
+void GetDeleteTask(std::string id);
+void GetUpdateTask();
+void startTask(std::string id);
 void pauseTask(std::string id);
 void endTask(std::string id);
-void startTask(std::string id);
-//end Ikram
+//Task end
+
+//Project ONLY
+void GetInsertProject();
+void GetDeleteProject(std::string id);
+void GetUpdateProject();
+
+
+// end gab
+
 
 
 #endif // INBTW_H_INCLUDED

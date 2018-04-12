@@ -31,7 +31,7 @@ public:
         else
             cout<<"conn object problem: "<<mysql_error(conn);
 
-        conn = mysql_real_connect(conn,"localhost","root","password","employee_managment",0,NULL,0);
+        conn = mysql_real_connect(conn,"localhost","root","","employee_managment",0,NULL,0);
 
         if(conn)
             cout<<"connect to data base  successfully..."<<endl;
@@ -230,12 +230,7 @@ public:
     void updateTask(Task t){
         string query ="UPDATE `task` SET `title`='"+t.title+"' WHERE `id` ="+t.id;
         const char* q = query.c_str();
-        cout<<"query is: "<<q<<endl;
         qstate = mysql_query(conn,q);
-        if(!qstate)
-            cout<<"record updated successfully..."<<endl;
-        else
-            cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
 
     //show specific task by id
@@ -743,7 +738,7 @@ public:
         }
 
         void updateProject(Project p){
-            string query="UPDATE `project` SET `title`='"+p.title+"',`description`='"+p.description+"',`status`='"+p.status+"' WHERE id="+p.id;
+            string query="UPDATE `project` SET `title`='"+p.title+"',`description`='"+p.description+"' WHERE id="+p.id;
             const char* q = query.c_str();
             qstate = mysql_query(conn,q);
             if(!qstate)
@@ -752,8 +747,8 @@ public:
                 cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
 
-        void deleteProject(Project p){
-            string query="DELETE FROM `project` WHERE id="+p.id;
+        void deleteProject(string id){
+            string query="DELETE FROM `project` WHERE id="+id;
             const char* q = query.c_str();
             qstate = mysql_query(conn,q);
             if(!qstate)

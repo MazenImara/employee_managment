@@ -333,14 +333,17 @@ void ManageProjectMenu()
 	    break;
 	case 2:
 	    //create project
-        p.enter();
-        p.status = "new";
-        db.insertProject(p);
+        p.Add();
         break;
     case 3:
         //delete project
         p.enterId();
+        p.Delete(p.id);
 	    break;
+    case 4:
+        //update Project
+        p.Update();
+        break;
    	case 0:return;
 	default: cout << "\a";
 
@@ -370,30 +373,22 @@ void ManageTaskMenu(string ProId)
 	{
 	case 1:
 	    //add Task
-	    t.enter();
-	    t.status = "New";
-	    t.project_id = ProId;
-        db.insertTask(t);
+	    t.Add(ProId);
 	    t.showAdd();
 	    system("pause");
 	    break;
 	case 2:
 	    //Del Task
         t.enterId();
-        db.deleteTask(t.id);
-        system("pause");
+        t.Delete(t.id);
         break;
     case 3:
         //update Task
-        t.enterId();
-        t.enter();
-        db.updateTask(t);
-        system("pause");
+        t.Update();
 	    break;
     case 4:
         //show all Task
         ShowAllTask();
-
 	    system("pause");
 	    break;
     case 5:
@@ -428,7 +423,7 @@ void EmployeeMenu()
 	PrintMessage("Enter Your Choice (0-4)");
 	cout<< ">";	cin >> n;
 	switch (n)
-	{/*
+	{
 	case 1:
         //Start Task
         t.enterId();
@@ -444,7 +439,7 @@ void EmployeeMenu()
         //Finish
         t.enterId();
         t.ended(t.id);
-	    break;*/
+	    break;
 	case 4:
         //Manage Time off
         break;

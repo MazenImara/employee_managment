@@ -57,16 +57,31 @@ public:
         SetEmployeTask();
     }
 
+    void Add(string id)
+    {
+        GetInsertTask(id);
+    }
 
-    void start()
+    void Delete(string id)
+    {
+        GetDeleteTask(id);
+    }
+
+    void Update()
+    {
+        GetUpdateTask();
+    }
+
+
+    void start(string id)
     {
         startTask(id);
     }
-    void pause()
+    void pause(string id)
     {
         pauseTask(id);
     }
-    void ended()
+    void ended(string id)
     {
         endTask(id);
     }
