@@ -172,6 +172,34 @@ public:
             cout<<"query error: "<<mysql_error(conn)<<endl;
         }
         //end admin
+
+         //insert employee
+        {
+        query="INSERT INTO employee_managment.employee(`id`, `name`, `email`, `password`, `address`, `phone`) VALUES (1,'admin','admin@mail.com','admin','Norrkoping','071234567');";
+        }
+         q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate){
+            cout<< "employee inserted successfully\n";
+        }
+        else{
+            cout<<"query error: "<<mysql_error(conn)<<endl;
+        }
+        //end employee
+
+        //insert admin
+        {
+        query="INSERT INTO employee_managment.admin(`id`, `employee_id`) VALUES (1,1);";
+        }
+         q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate){
+            cout<< "Admin inserted  successfully\n";
+        }
+        else{
+            cout<<"query error: "<<mysql_error(conn)<<endl;
+        }
+        //end admin
         mysql_close(conn);
 
     }
