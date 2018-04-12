@@ -124,6 +124,23 @@ void showProjectTasks(string project_id){
     db.close();
 }
 
+//show tasks and project for a specific employee
+void showEmployeeTasksAndProject(string employee_id){
+    Database db;
+    Task t;
+    Project p;
+    list<Task> tasks;
+    //list<Employee> employees;
+    tasks = db.selectEmployeeTasks(employee_id);
+    for(t:tasks){
+        t.show();
+        cout << "========== Project name=============" << endl;
+        p = db.selectProject(t.project_id);
+        p.show();
+    }
+    db.close();
+}
+
 
 
 #endif // PROJECTMENU_H_INCLUDED
