@@ -5,6 +5,7 @@
 #include <project.h>
 #include <database.h>
 #include <list>
+#include <gtime.h>
 
 
 
@@ -17,6 +18,7 @@ public:
     Employee e;
     Task t;
     Project p;
+    Day d;
     Database db;
     list<Employee> employess;
 
@@ -32,6 +34,29 @@ void Employee(){
     cout <<"|__________________________________________________________________________________________________________________________________|"<<endl;
 
 }
+
+void Days( long date1, long date2,string id){
+    Database db;
+    Day d1,d2;
+
+    int sum=0;
+                  cout <<" ________________________________________________________________________________"<<endl;
+                  cout <<"|                       Days's details for Employee                              |"<<endl;
+                  cout <<"|________________________________________________________________________________|"<<endl;
+                  cout <<"|"<<setw(20)<<"Date"<<setw(20)<<"startTime"<<setw(20)<<"endTime"<<setw(20)<<"timeSpend"<<"|"<< endl;
+                  list<Day> days;
+                  days = db.selectEmployeesWorkForPeriod(date1,date2,id);
+                  for ( d : days){
+                                  CustomTime c1 =CustomTime(d.date),c2=CustomTime(d.start),c3=CustomTime(d.endTime);
+                  cout <<"|"<<setw(20)<<c1.date()<<setw(20)<<c2.Time()<<setw(20)<<c3.Time()<<setw(20)<<d.timeSpend<<"|"<<endl;
+
+                   sum = sum + d.timeSpend;
+                 }
+                  cout <<"|________________________________________________________________________________|"<<endl;
+                  cout <<"|   the total timeSpend for this period  is =\t "<<setw(17)<<sum<<setw(16)<<"|"<<endl;
+                  cout <<"|________________________________________________________________________________|"<<endl;
+}
+
 
 };
 

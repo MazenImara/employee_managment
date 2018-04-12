@@ -13,7 +13,16 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+<<<<<<< HEAD
 				</Compiler>
+=======
+					<Add directory="C:/Users/Hamza/Documents/CodeBlocks/employee_managment" />
+					<Add directory="C:/Users/Hamza/Documents/CodeBlocks/employee_managment/include" />
+				</Compiler>
+				<Linker>
+					<Add library="C:/Users/Hamza/Documents/CodeBlocks/employee_managment/include/libmysql.a" />
+				</Linker>
+>>>>>>> b173b3ac19f0e0e73b5b59c397ca69ee6351e3e6
 			</Target>
 			<Target title="Release">
 				<Option output="bin/Release/employee_managment" prefix_auto="1" extension_auto="1" />
