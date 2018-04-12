@@ -68,7 +68,6 @@ void showAllProjects();
 
 void ShowAllTask();
 
-
 int main()
 {
 	Loging l;
@@ -122,13 +121,7 @@ int main()
         case 0: exit(0);
 		default: "\a"; break;
 		}
-
-
 	} while (n != 0);
-
-/*
-    */
-
     return 0;
 }
 
@@ -435,19 +428,23 @@ void EmployeeMenu()
 	PrintMessage("Enter Your Choice (0-4)");
 	cout<< ">";	cin >> n;
 	switch (n)
-	{
+	{/*
 	case 1:
         //Start Task
         t.enterId();
-        t.getTask(t.id);
+        t.start(t.id);
         system("pause");
 	    break;
 	case 2:
         //Pause
+        t.enterId();
+        t.pause(t.id);
         break;
 	case 3:
         //Finish
-	    break;
+        t.enterId();
+        t.ended(t.id);
+	    break;*/
 	case 4:
         //Manage Time off
         break;
