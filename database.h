@@ -345,28 +345,25 @@ public:
     }*/
 
 
-    void startTask(string id){
+    void startTask(string taskId, string eId){
         CustomTime c;
         Day d;
-        time_t timeStamp=time(NULL);
-        string getTimestamp = d.longToString(timeStamp);
-        string query ="UPDATE `task` SET `status`='Started',`starttemp`='"+getTimestamp+"' WHERE id="+id;
+        long current = CustomTime().getTimestampDate();
+        string getTimestamp = d.longToString(current);
+        string query ="UPDATE `task` SET `status`='Started',`starttemp`='"+getTimestamp+"', `employee_id`='"+eId+"' WHERE id="+taskId;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
-        if(!qstate)
-            cout<<"record started successfully..."<<endl;
-        else
-            cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
 
+
     void pauseTask(string id){
-        CustomTime c;
         Day d;
-        time_t timeStamp=time(NULL);
-        string getTimestamp = d.longToString(timeStamp);
-        string getTimeSpend = d.longToString(timeStamp);
-        string startTime = d.longToString(timeStamp);
-        string endTime = d.longToString(timeStamp);
+        CustomTime c;
+
+        string startTime;
+        string getTimeSpend;
+        long current = CustomTime().getTimestampDate();
+        string getTimestamp = d.longToString(current);
 
 
         string query ="SELECT * FROM `task` WHERE `id`="+id;
@@ -377,6 +374,7 @@ public:
             res = mysql_store_result(conn);
             while(row=mysql_fetch_row(res))
             {
+                getTimeSpend = row[3];
                 startTime = row[5];
             }
         }
@@ -390,16 +388,38 @@ public:
         const char* q1 = query1.c_str();
         qstate = mysql_query(conn,q1);
 
+        long GetTimeSpend = atol(getTimeSpend.c_str());
+        long getStartTime = atol(startTime.c_str());
+        long result = current - getStartTime;
+        long newResult = result + GetTimeSpend;
 
-        string query2 ="SELECT * FROM `task` WHERE `id`="+id;
-        const char* q2 = query2.c_str();
-        qstate = mysql_query(conn,q2);
+        c = CustomTime(newResult);
+        stringstream re;    re<<newResult;   string lastResult = re.str();
+
+        string query3 ="UPDATE `task` SET `time_spend`='"+lastResult+"' WHERE `id`="+id;
+        const char* q3 = query3.c_str();
+        qstate = mysql_query(conn,q3);
+    }
+
+    void endTask(string id){
+        Day d;
+        CustomTime c;
+
+        string startTime;
+        string getTimeSpend;
+        long current = CustomTime().getTimestampDate();
+        string getTimestamp = d.longToString(current);
+
+        string query ="SELECT * FROM `task` WHERE `id`="+id;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
         if(!qstate)
         {
             res = mysql_store_result(conn);
             while(row=mysql_fetch_row(res))
             {
                 getTimeSpend = row[3];
+                startTime = row[5];
             }
         }
         else
@@ -407,36 +427,21 @@ public:
             cout<<"query problem: "<<mysql_error(conn)<<endl;
         }
 
+        string query1="UPDATE `task` SET `status`='Ended',`endtemp`='"+getTimestamp+"' WHERE `id`="+id;
+        const char* q1 = query1.c_str();
+        qstate = mysql_query(conn,q1);
 
-        int getTimeStampInt = atoi(getTimestamp.c_str());
-        int startTimeInt = atoi(startTime.c_str());
-        int endTimeInt = atoi(endTime.c_str());
-        int resultInt = endTimeInt - startTimeInt;
-        int newTimeStamp = getTimeStampInt + resultInt;
-        stringstream re;    re<<resultInt;   string result = re.str();
+        long GetTimeSpend = atol(getTimeSpend.c_str());
+        long getStartTime = atol(startTime.c_str());
+        long result = current - getStartTime;
+        long newResult = result + GetTimeSpend;
 
-        string query3 ="UPDATE `task` SET `time_spend`='"+result+"' WHERE `id`="+id;
+        c = CustomTime(newResult);
+        stringstream re;    re<<newResult;   string lastResult = re.str();
+
+        string query3 ="UPDATE `task` SET `time_spend`='"+lastResult+"' WHERE `id`="+id;
         const char* q3 = query3.c_str();
-        //cout<<"query is: "<<q3<<endl;
         qstate = mysql_query(conn,q3);
-        if(!qstate)
-            cout<<"record updated successfully..."<<endl;
-        else
-            cout<<"query problem: "<<mysql_error(conn)<<endl;
-    }
-
-    void endTask(string id){
-        CustomTime c;
-        Day d;
-        time_t timeStamp=time(NULL);
-        string getTimestamp = d.longToString(timeStamp);
-        string query ="UPDATE `task` SET `status`='Ended',`endtemp`='"+getTimestamp+"' WHERE id="+id;
-        const char* q = query.c_str();
-        qstate = mysql_query(conn,q);
-        if(!qstate)
-            cout<<"record uppdated successfully..."<<endl;
-        else
-            cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
     // End ikram
 
