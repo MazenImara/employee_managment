@@ -6,6 +6,8 @@
 #include <database.h>
 #include <gtime.h>
 
+//mohamad code
+
 using namespace std;
 class Employee{
 public:

@@ -5,7 +5,7 @@
 #include <string>
 using namespace std;
 
-
+//mohamad code
 
 class Day{
 public:
@@ -42,9 +42,6 @@ public:
            stringstream dd;
            dd << c.year << "/"<<c.month << "/"<<c.day ;
            string d = dd.str();
-
-           //cout <<"|     1- from (date) by form year/month/day =\t                |"<<endl;
-           //cout <<"|______________________________________________________________|"<<endl;
            cout <<"            "; cin >>d ;
            string date =d+" "+ "00"+ ":" + "00" + ":" + "00";
            long date1=c.getTimestampDate(date);
