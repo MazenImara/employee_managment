@@ -73,11 +73,6 @@ void ShowAllTask();
 
 int main()
 {
-    Show s;
-    s.TaskForEmployee("3");
-    cin.get();
-        cin.ignore();
-
     int n;
 	do {
 		system("cls");

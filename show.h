@@ -9,10 +9,6 @@
 #include <timoff.h>
 
 
-
-
-
-
 using namespace std;
 class Show{
 public:
@@ -85,23 +81,23 @@ void AllTimesOff(string id){
     cout <<"|______________________________________________________________________________________________________________________________________________________|"<<endl;
 }
 void  TaskForEmployee(string employee_id){
-    cout <<" ______________________________________________________________________________________________________________________________________________________"<<endl;
-    cout <<"|                       Your Tasks                       |"<<endl;
-    cout <<"|______________________________________________________________________________________________________________________________________________________|"<<endl;
-    cout <<"|"<<setw(10)<<"Title"<<setw(10)<<"Status"<<setw(25)<<"StartTemp"<<setw(30)<<"EndTemp"<<setw(25)<<"TimeSpend"<<setw(30)<<"ProjectId"<<setw(15)<<"|"<< endl;
+    cout <<"+------------------------------------------------------------------------------------------------------------------------------------------------------+"<<endl;
+    cout <<"|                                                        Your Tasks                                                                                    |"<<endl;
+    cout <<"+------------------------------------------------------------------------------------------------------------------------------------------------------+"<<endl;
+    cout <<"|"<<setw(10)<<"Title"<<setw(10)<<"Status"<<setw(20)<<"StartTemp"<<setw(30)<<"EndTemp"<<setw(25)<<"TimeSpend"<<setw(30)<<"ProjectId"<<setw(26)<<"|"<< endl;
     cout <<"|______________________________________________________________________________________________________________________________________________________|"<<endl;
 
     tasks = db.selectEmployeeTasks(employee_id);
     for ( t : tasks){
            long starttemp=d.stringToLong(t.starttemp),endtemp=d.stringToLong(t.endtemp);
         CustomTime c1 =CustomTime(starttemp),c2=CustomTime(endtemp);
-        cout <<"|"<<setw(10)<<t.title<<setw(10)<<t.status<<setw(25)<<c1.date()<<"  "<<setw(20)<<c1.Time()<<setw(20)<<c2.date()<<"  "<<setw(10)<<c2.Time()<<setw(15)<<t.time_spend<<setw(30)<<t.project_id<<setw(15)<<"|"<< endl;
-       //  cout <<"|"<<setw(10)<<t.title<<setw(30)<<t.status<<setw(15)<<t.starttemp<<setw(10)<<t.endtemp<<setw(15)<<t.time_spend<<setw(30)<<t.project_id<<setw(15)<<"|"<< endl;
+        cout <<"|"<<setw(10)<<t.title<<setw(10)<<t.status<<setw(15)<<c1.date()<<"  "<<setw(8)<<c1.Time()<<setw(20)<<c2.date()<<"  "<<setw(8)<<c2.Time()<<setw(16)<<t.time_spend<<setw(30)<<t.project_id<<setw(30)<<"|"<< endl;
     }
     cout <<"|______________________________________________________________________________________________________________________________________________________|"<<endl;
 
     }
 
 };
+     //Mohamad code
 
 #endif // SHOW_H_INCLUDED
