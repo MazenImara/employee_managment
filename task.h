@@ -32,8 +32,8 @@ public:
        cout <<" __________________________________________________________________________________________________________________________________"<<endl;
        cout <<"|                                                      Task's details                                                              |"<<endl;
        cout <<"|__________________________________________________________________________________________________________________________________|"<<endl;
-       cout <<"|"<<setw(5)<<"id"<<setw(8)<<"Title"<<setw(10)<<"Status"<<setw(15)<<"Time Spend"<<setw(30)<<"Start temp"<<setw(30)<<"End Temp"<<setw(30)<<"Employe Id"<<setw(20)<<"Project id"<<setw(11)<<"|"<< endl;
-       cout <<"|"<<setw(4)<<id<<setw(8)<<title<<setw(12)<<status<<setw(10)<<time_spend<<setw(30)<<starttemp<<setw(30)<<endtemp<<setw(30)<<employee_id<<setw(20)<<project_id<<setw(11)<<"|"<<endl;
+       cout <<"|"<<setw(10)<<"id"<<setw(15)<<"Title"<<setw(10)<<"Status"<<setw(15)<<"Time Spend"<<setw(30)<<"Start temp"<<setw(30)<<"End Temp"<<"|"<< endl;
+       cout <<"|"<<setw(9)<<id<<setw(15)<<title<<setw(12)<<status<<setw(10)<<time_spend<<setw(30)<<starttemp<<setw(30)<<endtemp<<"|"<<endl;
        cout <<"|__________________________________________________________________________________________________________________________________|"<<endl;
 
     }
@@ -71,7 +71,6 @@ public:
     {
         GetUpdateTask();
     }
-
 
     void start(string id)
     {

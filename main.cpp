@@ -72,11 +72,6 @@ void ShowAllTask();
 
 int main()
 {
-    Show s;
-    s.TaskForEmployee("3");
-    cin.get();
-        cin.ignore();
-
     int n;
 	do {
 		system("cls");
@@ -361,7 +356,6 @@ void ManageProjectMenu()
 void ManageTaskMenu(string ProId)
 {
     Task t;
-    Database db;
     int n;
     system("cls");
 	PrintMessage("MANAGE TASK");
@@ -379,13 +373,13 @@ void ManageTaskMenu(string ProId)
 	switch (n)
 	{
 	case 1:
-	    //add Task
+	    //create Task
 	    t.Add(ProId);
 	    t.showAdd();
 	    system("pause");
 	    break;
 	case 2:
-	    //Del Task
+	    //Delete Task
         t.enterId();
         t.Delete(t.id);
         break;
@@ -413,7 +407,6 @@ void EmployeeMenu()
 {
 
     Employee e;
-    Database db;
     Task t;
     int n;
     system("cls");
@@ -436,7 +429,6 @@ void EmployeeMenu()
         //Start Task
         t.enterId();
         t.start(t.id);
-        system("pause");
 	    break;
 	case 2:
         //Pause
@@ -475,7 +467,7 @@ void TimeOffMenu(){
     PrintMessage("3.  Update TimeOff             ", false, false);
     PrintMessage("4.  Delete  TimeOff            ", false, false);
     PrintMessage("                               ", false, false);
-    PrintMessage("0.  Back to Menu     ", false, false);
+    PrintMessage("0.  Back to Menu               ", false, false);
     PrintMessage("                               ", false, false);
     PrintMessage("Enter Your Choice (0-5)");
     cout<< ">";	cin >> n;

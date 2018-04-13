@@ -33,7 +33,7 @@ public:
         cout <<setw(20)<<"Enter password =\t";cin >>password;cout <<endl;
     }
 
-    void setAdmin(){
+    void setAdmin(  ){
         SetAdmin(id);
     }
     bool isAdmin(){
