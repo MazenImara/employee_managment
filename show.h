@@ -40,12 +40,12 @@ void Days( long date1, long date2,string id){
     cout <<" ________________________________________________________________________________"<<endl;
     cout <<"|                       Days's details for Employee                              |"<<endl;
     cout <<"|________________________________________________________________________________|"<<endl;
-    cout <<"|"<<setw(20)<<"Date"<<setw(20)<<"startTime"<<setw(20)<<"endTime"<<setw(20)<<"timeSpend"<<"|"<< endl;
+    cout <<"|"<<setw(18)<<"Date"<<setw(23)<<"startTime"<<setw(18)<<"endTime"<<setw(18)<<"timeSpend"<<setw(4)<<"  |"<< endl;
     list<Day> days;
     days = db.selectEmployeesWorkForPeriod(date1,date2,id);
     for ( d : days){
         CustomTime c1 =CustomTime(d.date),c2=CustomTime(d.start),c3=CustomTime(d.endTime);
-        cout <<"|"<<setw(20)<<c1.date()<<setw(20)<<c2.Time()<<setw(20)<<c3.Time()<<setw(20)<<d.timeSpend<<"|"<<endl;
+        cout <<"|"<<setw(20)<<c1.date()<<setw(20)<<c2.Time()<<setw(20)<<c3.Time()<<setw(15)<<d.timeSpend<<setw(6)<<" |"<<endl;
         sum = sum + d.timeSpend;
     }
     cout <<"|________________________________________________________________________________|"<<endl;
@@ -70,15 +70,15 @@ void AllTimesOff(string id){
     cout <<" _____________________________________________________________________"<<endl;
     cout <<"|                               Your TimesOff                         |"<<endl;
     cout <<"|_____________________________________________________________________|"<<endl;
-    cout <<"|"<<setw(5)<<"ID"<<setw(20)<<"From"<<setw(30)<<"To"<<"              |"<< endl;
+    cout <<"|"<<setw(5)<<"ID"<<setw(18)<<"From"<<setw(32)<<"To"<<"              |"<< endl;
     cout <<"|_____________________________________________________________________|"<<endl;
 
     timesOff = db.selectTimesOff(id);
     for ( timeOf : timesOff){
         CustomTime c1 =CustomTime(timeOf.from),c2=CustomTime(timeOf.to);
-        cout <<"|"<<setw(5)<<timeOf.id<<setw(15)<<c1.date()<<"  "<<setw(10)<<c1.Time()<<setw(20)<<c2.date()<<"  "<<setw(10)<<c2.Time()<<setw(6)<<"|"<<endl;
+        cout <<"|"<<setw(5)<<timeOf.id<<setw(15)<<c1.date()<<"  "<<setw(6)<<c1.Time()<<setw(24)<<c2.date()<<"  "<<setw(6)<<c2.Time()<<setw(10)<<"|"<<endl;
     }
-    cout <<"|______________________________________________________________________________________________________________________________________________________|"<<endl;
+    cout <<"|_____________________________________________________________________|"<<endl;
 }
 void  TaskForEmployee(string employee_id){
     cout <<"+------------------------------------------------------------------------------------------------------------------------------------------------------+"<<endl;

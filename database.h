@@ -574,7 +574,6 @@ public:
     }
     list<Day> selectEmployeesWorkForPeriod(long date1,long date2 ,string id){
 
-
         Day d;
        string date3= d.longToString(date1), date4= d.longToString(date2);
         list <Day> days;
