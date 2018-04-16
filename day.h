@@ -5,7 +5,7 @@
 #include <string>
 using namespace std;
 
-//mohamad code
+//MOHAMAD CODE
 
 class Day{
 public:

@@ -6,9 +6,10 @@
 #include <database.h>
 #include <gtime.h>
 
-//mohamad code
+//MOHAMAD CODE
 
 using namespace std;
+
 class Employee{
 public:
     string id,name,email,password,address,phone;
@@ -68,7 +69,6 @@ public:
         hour   = c.hour;
         minut  = c.minut;
         second = c.second;
-
         stringstream sy;    sy << year;      string dateY = sy.str();
         stringstream sm;    sm << month;     string dateM = sm.str();
         stringstream sd;    sd << day;       string dateD = sd.str();
@@ -78,7 +78,7 @@ public:
 
         string FullDate = dateY + "/" + dateM + "/" + dateD + " " + shour + ":" + sminut + ":" + ssecond;
 
-    cout <<FullDate;
+        cout <<FullDate;
         return FullDate;
     }
     string getDate(){
@@ -95,25 +95,13 @@ public:
         year   = c.year;
         month  = c.month;
         day    = c.day;
-
         stringstream sy;    sy << year;      string dateY = sy.str();
         stringstream sm;    sm << month;     string dateM = sm.str();
         stringstream sd;    sd << day;       string dateD = sd.str();
 
-
         string date = dateY + "/" + dateM + "/" + dateD ;
-
-
-
         return date;
     }
-  /*  string getDateString(){
-        CustomTime c;
-        string date;
-        cout <<"enter the date by form year/month/day :"<<endl;
-        cin  >> date;
-    }
-  */
 };
 
 
