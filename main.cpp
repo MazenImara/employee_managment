@@ -69,7 +69,35 @@ void showAllProjects();
 
 
 void ShowAllTask();
+/*
+int main()
+{
+    Task t;
+    Database db;
+    db.startTask("1","1");
+   // db.endTask("1");
+    t = db.selectTask("1");
+    CustomTime c (stringToLong(t.time_spend));
+    cout << c.hour << ":" << c.minut;
+}
 
+*/
+
+/*
+int main()
+{
+    Task t;
+    Database db;
+    t.enterId();
+    t = db.selectTask(t.id);
+    long timestamp = stringToLong(t.time_spend);
+    timestamp = timestamp - 3600;
+    CustomTime ct(timestamp);
+    cout<< ct.hour<< ":" << ct.minut;
+
+
+}
+*/
 int main()
 {
     int n;
@@ -111,12 +139,10 @@ int main()
             else{
                 l.logout();
             };
-            //AdminMenu();
             break;
 
         case 2:
-            AdminMenu();
-            //createDatabase();
+            createDatabase();
             system("pause");
 		    break;
 
@@ -216,8 +242,7 @@ void ManageEmployeeMenu()
         if (choice=="y" || choice=="Y"){
             db.deleteEmployee(e.id);
         }
-        cin.get();
-        cin.ignore();
+        system("pause");
     }
 	    break;
     case 4:{
@@ -310,7 +335,6 @@ void workTimesMenu(){
 
 void ManageProjectMenu()
 {
-    Database db;
     Project p;
     int n;
     system("cls");
@@ -427,8 +451,9 @@ void EmployeeMenu()
 	{
 	case 1:
         //Start Task
+        cout<< "for task ";
         t.enterId();
-        t.start(t.id);
+        t.start(t.id, l.e.id);
 	    break;
 	case 2:
         //Pause
@@ -531,10 +556,7 @@ void TimeOffMenu(){
             cin.ignore();
            break;
        }
-       case 0:
-
-           l.logout();
-           return;
+       case 0: return;
 	  default: cout << "\a";
     }
      TimeOffMenu();

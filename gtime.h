@@ -96,10 +96,7 @@ public:
     }
 
     long getTimestampDate(){
-
         time_t result = time(NULL);
-
-        cout << result << endl;
     }
    /* long longTimestamp()
     {
@@ -108,7 +105,6 @@ public:
         long mylong = atol(c.getTimestampDate().c_str());
     }*/
 };
-
 
 
 

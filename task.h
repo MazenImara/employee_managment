@@ -9,18 +9,21 @@
 using namespace std;
 
 
-class Task{
-public:
-    string id, title, status, time_spend, endtemp, starttemp, project_id, employee_id;
+class Task
+{
+    public:
+    string id, title, status, timeSpend, endTemp, startTemp, projectId, employeeId;
 
 
 
-public:
-    void enterId(){
-        cout<<"\nEnter id: ";cin>>id;
-        }
-    void enter(){
-        cout<<"\nEnter Title: ";cin>>title;
+    public:
+    void enterId()
+    {
+        cout << "\nEnter id: "; cin >> id;
+    }
+    void enter()
+    {
+        cout << "\nEnter Title: "; cin >> title;
     }
     /*
     void show(){
@@ -28,23 +31,24 @@ public:
         PrintMessage("ID  |  Title  |  Status  |  Timespend  |  Start Temp  |  End Temp  |  Project Id  |  Employee",false,false);
     } */
 
-    void show(){
-       cout <<" __________________________________________________________________________________________________________________________________"<<endl;
-       cout <<"|                                                      Task's details                                                              |"<<endl;
-       cout <<"|__________________________________________________________________________________________________________________________________|"<<endl;
-       cout <<"|"<<setw(10)<<"id"<<setw(15)<<"Title"<<setw(10)<<"Status"<<setw(15)<<"Time Spend"<<setw(30)<<"Start temp"<<setw(30)<<"End Temp"<<"|"<< endl;
-       cout <<"|"<<setw(9)<<id<<setw(15)<<title<<setw(12)<<status<<setw(10)<<time_spend<<setw(30)<<starttemp<<setw(30)<<endtemp<<"|"<<endl;
-       cout <<"|__________________________________________________________________________________________________________________________________|"<<endl;
+    void show()
+    {
+        cout << " __________________________________________________________________________________________________________________________________" << endl;
+        cout << "|                                                      Task's details                                                              |" << endl;
+        cout << "|__________________________________________________________________________________________________________________________________|" << endl;
+        cout << "|" << setw(10) << "id" << setw(15) << "Title" << setw(10) << "Status" << setw(15) << "Time Spend" << setw(30) << "Start temp" << setw(30) << "End Temp" << "|" << endl;
+        cout << "|" << setw(9) << id << setw(15) << title << setw(12) << status << setw(10) << timeSpend << setw(30) << startTemp << setw(30) << endTemp << "|" << endl;
+        cout << "|__________________________________________________________________________________________________________________________________|" << endl;
 
     }
 
     /*void show(){
-        cout<<"\nId: "<< id <<"\tTitle: "<< title <<"\tStatus: "<< status <<"\tTime Spend: "<< time_spend <<"\tDate Created: "<< date_created <<"\tProject id: "<< project_id <<"\tEmployee id: "<< employee_id <<endl;
+        cout<<"\nId: "<< id <<"\tTitle: "<< title <<"\tStatus: "<< status <<"\tTime Spend: "<< timeSpend <<"\tDate Created: "<< date_created <<"\tProject id: "<< projectId <<"\tEmployee id: "<< employeeId <<endl;
     }*/
 
     void showAdd()
     {
-        cout<<"\nId: "<< id <<"\tTitle: "<< title << endl;
+        cout << "\nId: " << id << "\tTitle: " << title << endl;
     }
 
     void getTask(string id)
@@ -72,9 +76,9 @@ public:
         GetUpdateTask();
     }
 
-    void start(string id)
+    void start(string TId, string EId)
     {
-        startTask(id);
+        startTask(TId, EId);
     }
     void pause(string id)
     {

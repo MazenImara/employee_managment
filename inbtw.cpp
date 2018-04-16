@@ -60,9 +60,9 @@ void GetUpdateTask()
     db.updateTask(t);
 }
 
-void startTask(string id){
+void startTask(string TId, string EId){
     Database db;
-    db.startTask(id);
+    db.startTask(TId, EId);
 }
 
 void pauseTask(string id){
@@ -112,5 +112,16 @@ void createDatabase(){
 
 
 // end gab
+
+// mazen
+    string longToString(long  number){
+        std::stringstream ss;
+        ss << number;
+        return ss.str();
+    }
+    long stringToLong(string str){
+        return atol(str.c_str());
+     }
+// end mazen
 
 

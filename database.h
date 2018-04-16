@@ -119,7 +119,7 @@ public:
 
         //create task
         {
-        query="CREATE TABLE employee_managment.task(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255) DEFAULT 'NONE', `status` VARCHAR(255) DEFAULT 'NONE', `time_spend` INT DEFAULT '0', `endtemp` TIMESTAMP, `starttemp` TIMESTAMP , `project_id` int not null, `employee_id` int not null, PRIMARY KEY (id));";
+        query="CREATE TABLE employee_managment.task(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255) DEFAULT 'NONE', `status` VARCHAR(255) DEFAULT 'NONE', `time_spend` VARCHAR(255) DEFAULT 'NONE', `endtemp` VARCHAR(255) DEFAULT 'NONE', `starttemp` VARCHAR(255) DEFAULT 'NONE' , `project_id` int not null, `employee_id` int not null, PRIMARY KEY (id));";
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -344,15 +344,40 @@ public:
         return t;
     }*/
 
-
+    //Ikram + Gab
     void startTask(string taskId, string eId){
         CustomTime c;
         Day d;
-        long current = CustomTime().getTimestampDate();
-        string getTimestamp = d.longToString(current);
-        string query ="UPDATE `task` SET `status`='Started',`starttemp`='"+getTimestamp+"', `employee_id`='"+eId+"' WHERE id="+taskId;
+        string checkStatus;
+        string query ="SELECT * FROM `task` WHERE `id`="+taskId;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
+        if(!qstate)
+        {
+            res = mysql_store_result(conn);
+            while(row=mysql_fetch_row(res))
+            {
+                checkStatus = row[2];
+            }
+        }
+        else
+        {
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+        }
+
+        long current = CustomTime().getTimestampDate();
+        string getTimestamp = d.longToString(current);
+        if(checkStatus == "Ended")
+        {
+            cout << "Its already Ended, Start a New Task instead" << endl;
+        }
+        else
+        {
+        string query2 ="UPDATE `task` SET `status`='Started',`starttemp`='"+getTimestamp+"', `employee_id`='"+eId+"' WHERE id="+taskId;
+        const char* q2 = query2.c_str();
+        qstate = mysql_query(conn,q2);
+        }
+        cout << "muu" << endl;
     }
 
 
@@ -360,6 +385,7 @@ public:
         Day d;
         CustomTime c;
 
+        string checkStatus;
         string startTime;
         string getTimeSpend;
         long current = CustomTime().getTimestampDate();
@@ -374,6 +400,7 @@ public:
             res = mysql_store_result(conn);
             while(row=mysql_fetch_row(res))
             {
+                checkStatus = row[2];
                 getTimeSpend = row[3];
                 startTime = row[5];
             }
@@ -383,10 +410,16 @@ public:
             cout<<"query problem: "<<mysql_error(conn)<<endl;
         }
 
-
+        if(checkStatus == "Paused" || checkStatus == "Ended")
+        {
+            cout << "Its already in pause, Start the Task instead" << endl;
+        }
+        else
+        {
         string query1="UPDATE `task` SET `status`='Paused',`endtemp`='"+getTimestamp+"' WHERE `id`="+id;
         const char* q1 = query1.c_str();
         qstate = mysql_query(conn,q1);
+        }
 
         long GetTimeSpend = atol(getTimeSpend.c_str());
         long getStartTime = atol(startTime.c_str());
@@ -394,17 +427,29 @@ public:
         long newResult = result + GetTimeSpend;
 
         c = CustomTime(newResult);
+
         stringstream re;    re<<newResult;   string lastResult = re.str();
 
-        string query3 ="UPDATE `task` SET `time_spend`='"+lastResult+"' WHERE `id`="+id;
+        string FullDate = c.date() + " " + c.Time();
+        cout << c.Time()  << endl;
+
+        if(checkStatus == "Paused" || checkStatus == "Ended")
+        {
+
+        }
+        else
+        {
+        string query3 ="UPDATE `task` SET `time_spend`="+lastResult+" WHERE `id`="+id;
         const char* q3 = query3.c_str();
         qstate = mysql_query(conn,q3);
+        }
+        cout << result << endl;
     }
 
     void endTask(string id){
         Day d;
         CustomTime c;
-
+        string checkStatus;
         string startTime;
         string getTimeSpend;
         long current = CustomTime().getTimestampDate();
@@ -418,6 +463,7 @@ public:
             res = mysql_store_result(conn);
             while(row=mysql_fetch_row(res))
             {
+                checkStatus = row[2];
                 getTimeSpend = row[3];
                 startTime = row[5];
             }
@@ -426,10 +472,16 @@ public:
         {
             cout<<"query problem: "<<mysql_error(conn)<<endl;
         }
-
+        if(checkStatus == "Paused" || checkStatus == "Ended")
+        {
+            cout << "Its already Ended, Start a New Task instead" << endl;
+        }
+        else
+        {
         string query1="UPDATE `task` SET `status`='Ended',`endtemp`='"+getTimestamp+"' WHERE `id`="+id;
         const char* q1 = query1.c_str();
         qstate = mysql_query(conn,q1);
+        }
 
         long GetTimeSpend = atol(getTimeSpend.c_str());
         long getStartTime = atol(startTime.c_str());
@@ -438,10 +490,13 @@ public:
 
         c = CustomTime(newResult);
         stringstream re;    re<<newResult;   string lastResult = re.str();
-
+        if(checkStatus == "Paused" || checkStatus == "Ended"){}
+        else
+        {
         string query3 ="UPDATE `task` SET `time_spend`='"+lastResult+"' WHERE `id`="+id;
         const char* q3 = query3.c_str();
         qstate = mysql_query(conn,q3);
+        }
     }
     // End ikram
 

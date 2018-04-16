@@ -13,7 +13,7 @@ void GetTask(std::string taskId);
 void GetInsertTask(std::string id);
 void GetDeleteTask(std::string id);
 void GetUpdateTask();
-void startTask(std::string id);
+void startTask(std::string TId,std::string EId);
 void pauseTask(std::string id);
 void endTask(std::string id);
 //Task end
@@ -22,7 +22,8 @@ void endTask(std::string id);
 void GetInsertProject();
 void GetDeleteProject(std::string id);
 void GetUpdateProject();
-
+long stringToLong(std::string str);
+long longToString(std::string str);
 
 // end gab
 
