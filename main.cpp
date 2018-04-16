@@ -329,7 +329,7 @@ void ManageProjectMenu()
     PrintMessage("                               ", false, false);
 	PrintMessage("1.  Show Project/Enter Task    ", false, false);
     PrintMessage("2.  Add Project                ", false, false);
-    PrintMessage("3.  Deleted Project            ", false, false);
+    PrintMessage("3.  Delete Project            ", false, false);
     PrintMessage("4.  Update Project             ", false, false);
     PrintMessage("                               ", false, false);
 	PrintMessage("0.  Back to Admin Menu         ", false, false);
@@ -352,6 +352,7 @@ void ManageProjectMenu()
         //delete project
         p.enterId();
         p.Delete(p.id);
+        system("pause");
 	    break;
     case 4:
         //update Project
@@ -386,7 +387,6 @@ void ManageTaskMenu(string ProId)
 	case 1:
 	    //create Task
 	    t.Add(ProId);
-	    system("pause");
 	    break;
 	case 2:
 	    //Delete Task
