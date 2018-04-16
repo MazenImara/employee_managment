@@ -118,7 +118,7 @@ void showProjectTasks(string project_id){
     for(t:tasks){
         t.show();
         cout << "========== Employee work on this task=============" << endl;
-        e = db.selectEmployeeById(t.employee_id);
+        e = db.selectEmployeeById(t.employeeId);
         e.show();
     }
     db.close();
@@ -135,7 +135,7 @@ void showEmployeeTasksAndProject(string employee_id){
     for(t:tasks){
         t.show();
         cout << "========== Project name=============" << endl;
-        p = db.selectProject(t.project_id);
+        p = db.selectProject(t.projectId);
         p.show();
     }
     db.close();

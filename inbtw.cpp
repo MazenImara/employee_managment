@@ -43,7 +43,7 @@ void GetInsertTask(string ProjectId)
     Database db;
     t.enter();
     t.status = "New";
-    t.project_id = ProjectId;
+    t.projectId = ProjectId;
     db.insertTask(t);
 }
 void GetDeleteTask(string taskId)
