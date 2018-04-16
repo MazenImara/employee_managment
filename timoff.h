@@ -5,6 +5,8 @@
 #include <list>
 using namespace std;
 
+//MOHAMAD CODE
+
 class TimeOff {
 public:
     string  id;
@@ -17,7 +19,7 @@ public:
            CustomTime c;
            timeOf.employeeId=id;
 
-           cout <<" _______________________________________________________"<<endl;
+           cout <<"+-------------------------------------------------------+"<<endl;
            cout <<"|       Enter your time off  Date&Time (FROM - TO)      |"<<endl;
            cout <<"|_______________________________________________________|"<<endl;
 
@@ -64,7 +66,7 @@ public:
     }
      void show(){
         // TimeOff timeOf;
-         cout <<" ___________________________________________________________"<<endl;
+         cout <<"+-----------------------------------------------------------+"<<endl;
          cout <<"|                   Time Off's details                      |"<<endl;
          cout <<"|___________________________________________________________|"<<endl;
          cout <<"|"<<setw(15)<<"From"<<setw(30)<<"To"<<setw(15)<<"|"<< endl;

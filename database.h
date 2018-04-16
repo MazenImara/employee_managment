@@ -504,6 +504,7 @@ public:
 
     //mohamad code
 
+    // Employee process.
     Employee selectEmployeeById(string id){
         Employee e;
         string query = "select * from  employee where id=" + id;
@@ -618,8 +619,9 @@ public:
         }
         return e;
     }
-    list<Day> selectEmployeesWorkForPeriod(long date1,long date2 ,string id){
 
+    //day process.
+    list<Day> selectEmployeesWorkForPeriod(long date1,long date2 ,string id){
 
         Day d;
        string date3= d.longToString(date1), date4= d.longToString(date2);
@@ -718,7 +720,6 @@ public:
     }
 
     //time off process
-
 
     void insertTimeOff(TimeOff timeOf){
         Day d;
