@@ -12,12 +12,12 @@ public:
     string  id;
     long from ;
     long to ;
-    string  employee_id;
+    string  employeeId;
 public:
     TimeOff enter(string id){
            TimeOff timeOf;
            CustomTime c;
-           timeOf.employee_id=id;
+           timeOf.employeeId=id;
 
            cout <<"+-------------------------------------------------------+"<<endl;
            cout <<"|       Enter your time off  Date&Time (FROM - TO)      |"<<endl;

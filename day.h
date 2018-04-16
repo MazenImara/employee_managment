@@ -9,7 +9,7 @@ using namespace std;
 
 class Day{
 public:
-    string id,employee_id;
+    string id,employeeId;
     long  date ,start,endTime,temp;
     int timeSpend;
 public:

@@ -60,8 +60,7 @@ public:
         cout <<"|"<<setw(15)<<"From"<<setw(30)<<"To"<<setw(15)<<"|"<< endl;
         cout <<"|___________________________________________________________|"<<endl;
         int i=0;
-        long matrix1[30],matrix2[30],matrix3[30];
-        long matrix[30][30];
+        long matrix[100][100];
         long temp,temp1,temp2;
         timesOff = db.selectTimesOff(id);
         for ( timeOf : timesOff){
@@ -95,8 +94,7 @@ public:
         cout <<"|"<<setw(5)<<"ID"<<setw(18)<<"From"<<setw(32)<<"To"<<"              |"<< endl;
         cout <<"|_____________________________________________________________________|"<<endl;
         int i=0;
-        long matrix1[30],matrix2[30],matrix3[30];
-        long matrix[30][30];
+        long matrix[100][100];
         long temp,temp1,temp2;
         timesOff = db.selectTimesOff(id);
         for ( timeOf : timesOff){
@@ -127,18 +125,18 @@ public:
         cout <<"|_____________________________________________________________________|"<<endl;
     }
 
-    void  TaskForEmployee(string employee_id){
+    void  TaskForEmployee(string employeeId){
         cout <<"+------------------------------------------------------------------------------------------------------------------------------------------------------+"<<endl;
         cout <<"|                                                        Your Tasks                                                                                    |"<<endl;
         cout <<"+------------------------------------------------------------------------------------------------------------------------------------------------------+"<<endl;
         cout <<"|"<<setw(10)<<"Title"<<setw(10)<<"Status"<<setw(20)<<"StartTemp"<<setw(30)<<"EndTemp"<<setw(25)<<"TimeSpend"<<setw(30)<<"ProjectId"<<setw(26)<<"|"<< endl;
         cout <<"|______________________________________________________________________________________________________________________________________________________|"<<endl;
 
-        tasks = db.selectEmployeeTasks(employee_id);
+        tasks = db.selectEmployeeTasks(employeeId);
         for ( t : tasks){
-               long starttemp=d.stringToLong(t.starttemp),endtemp=d.stringToLong(t.endtemp);
-            CustomTime c1 =CustomTime(starttemp),c2=CustomTime(endtemp);
-            cout <<"|"<<setw(10)<<t.title<<setw(10)<<t.status<<setw(15)<<c1.date()<<"  "<<setw(8)<<c1.Time()<<setw(20)<<c2.date()<<"  "<<setw(8)<<c2.Time()<<setw(16)<<t.time_spend<<setw(30)<<t.project_id<<setw(30)<<"|"<< endl;
+               long startTemp=d.stringToLong(t.startTemp),endTemp=d.stringToLong(t.endTemp);
+            CustomTime c1 =CustomTime(startTemp),c2=CustomTime(endTemp);
+            cout <<"|"<<setw(10)<<t.title<<setw(10)<<t.status<<setw(15)<<c1.date()<<"  "<<setw(8)<<c1.Time()<<setw(20)<<c2.date()<<"  "<<setw(8)<<c2.Time()<<setw(16)<<t.timeSpend<<setw(30)<<t.projectId<<setw(30)<<"|"<< endl;
         }
         cout <<"|______________________________________________________________________________________________________________________________________________________|"<<endl;
 

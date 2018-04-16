@@ -366,7 +366,7 @@ void ManageTaskMenu(string ProId)
 	    //add Task
 	    t.enter();
 	    t.status = "New";
-	    t.project_id = ProId;
+	    t.projectId = ProId;
         db.insertTask(t);
 	    t.showAdd();
 	    system("pause");

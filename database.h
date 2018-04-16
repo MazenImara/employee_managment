@@ -206,7 +206,7 @@ public:
 
     // Start ikram
     void insertTask(Task t){
-        string query ="INSERT INTO `task`(`title`, `status`,`project_id`) VALUES ('"+t.title+"', '"+t.status+"','"+t.project_id+"')";
+        string query ="INSERT INTO `task`(`title`, `status`,`project_id`) VALUES ('"+t.title+"', '"+t.status+"','"+t.projectId+"')";
         const char* q = query.c_str();
         cout<<"query is: "<<q<<endl;
         qstate = mysql_query(conn,q);
@@ -252,11 +252,11 @@ public:
                 t.id = row[0];
                 t.title = row[1];
                 t.status = row[2];
-                t.time_spend = row[3];
-                t.endtemp = row[4];
-                t.starttemp = row[5];
-                t.project_id = row[6];
-                t.employee_id =row[7];
+                t.timeSpend = row[3];
+                t.endTemp = row[4];
+                t.startTemp = row[5];
+                t.projectId = row[6];
+                t.employeeId =row[7];
             }
         }
             else{
@@ -280,11 +280,11 @@ public:
                 t.id = row[0];
                 t.title = row[1];
                 t.status = row[2];
-                t.time_spend = row[3];
-                t.endtemp = row[4];
-                t.starttemp = row[5];
-                t.project_id = row[6];
-                t.employee_id =row[7];
+                t.timeSpend = row[3];
+                t.endTemp = row[4];
+                t.startTemp = row[5];
+                t.projectId = row[6];
+                t.employeeId =row[7];
                 tasks.push_back(t);
 
             }
@@ -593,13 +593,13 @@ public:
                 string start    = row[1];
                 string endTime  = row[2];
                 string timeSpend= row[3];
-                d.employee_id   = row[4];
+                d.employeeId   = row[4];
 
                 d.start    =d.stringToLong(start);
                 d.endTime  =d.stringToLong(endTime);
                 d.date     =d.stringToLong(date);
                 d.timeSpend=d.stringToLong(timeSpend);
-                 if (id==d.employee_id){
+                 if (id==d.employeeId){
                       days.push_back(d);
                  }
             }
@@ -613,7 +613,7 @@ public:
     void insertDay(Day d){
         string start=d.longToString(d.start),endTime=d.longToString(d.endTime),date=d.longToString(d.date),timeSpend=d.longToString(d.timeSpend);
 
-        string query = "INSERT INTO `day`( `start`,`end_time`,`time_spend`,`employee_id`,`date`) VALUES ('"+start+"','"+endTime+"','"+timeSpend+"','"+d.employee_id+"','"+date+"')";
+        string query = "INSERT INTO `day`( `start`,`end_time`,`time_spend`,`employee_id`,`date`) VALUES ('"+start+"','"+endTime+"','"+timeSpend+"','"+d.employeeId+"','"+date+"')";
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate)
@@ -634,7 +634,7 @@ public:
                 string timeSpend;//=d.longToString(d.timeSpend),
                 string date; //=d.longToString(d.date);
                 d.id           =row[0];
-                d.employee_id  =row[1];
+                d.employeeId  =row[1];
                 date           =row[2];
                 start          =row[3];
                 endTime        =row[4];
@@ -654,7 +654,7 @@ public:
 
         string start=d.longToString(d.start),endTime=d.longToString(d.endTime),timeSpend=d.longToString(d.timeSpend),date=d.longToString(d.date);
 
-        string query = "update  `day` set `start` ="+start+",`endtime` ="+endTime+",`employee_id`="+d.employee_id+",`date`="+date+" ,`timeSpend`="+timeSpend+" where id="+d.id;
+        string query = "update  `day` set `start` ="+start+",`endtime` ="+endTime+",`employee_id`="+d.employeeId+",`date`="+date+" ,`timeSpend`="+timeSpend+" where id="+d.id;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate)
@@ -679,7 +679,7 @@ public:
         Day d;
         string from=d.longToString(timeOf.from),to=d.longToString(timeOf.to);
 
-        string query = "INSERT INTO `time_off`( `from`,`to`,`employee_id`) VALUES ('"+from+"','"+to+"','"+timeOf.employee_id+"')";
+        string query = "INSERT INTO `time_off`( `from`,`to`,`employee_id`) VALUES ('"+from+"','"+to+"','"+timeOf.employeeId+"')";
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate)
@@ -700,7 +700,7 @@ public:
                timeOf.id           = row[0];
                string from         = row[1];
                string to           = row[2];
-               timeOf.employee_id  = row[3];
+               timeOf.employeeId  = row[3];
 
                 timeOf.from    =d.stringToLong(from);
                 timeOf.to      =d.stringToLong(to);
@@ -715,7 +715,7 @@ public:
        Day d;
         string from=d.longToString(timeOf.from),to=d.longToString(timeOf.to);
 
-        string query = "update  `time_off` set `from` ="+from+",`to` ="+to+",`employee_id`="+timeOf.employee_id+" where id="+timeOf.id;
+        string query = "update  `time_off` set `from` ="+from+",`to` ="+to+",`employee_id`="+timeOf.employeeId+" where id="+timeOf.id;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate)
@@ -748,7 +748,7 @@ public:
                 timeOf.id           = row[0];
                 string from         = row[1];
                 string to           = row[2];
-                timeOf.employee_id  = row[3];
+                timeOf.employeeId  = row[3];
 
                 timeOf.from    =d.stringToLong(from);
                 timeOf.to      =d.stringToLong(to);
@@ -863,11 +863,11 @@ public:
                 t.id = row[0];
                 t.title = row[1];
                 t.status = row[2];
-                t.time_spend = row[3];
-                t.endtemp = row[4];
-                t.starttemp = row[5];
-                t.project_id = row[6];
-                t.employee_id =row[7];
+                t.timeSpend = row[3];
+                t.endTemp = row[4];
+                t.startTemp = row[5];
+                t.projectId = row[6];
+                t.employeeId =row[7];
                 tasks.push_back(t);
 
             }
@@ -893,11 +893,11 @@ public:
                 t.id = row[0];
                 t.title = row[1];
                 t.status = row[2];
-                t.time_spend = row[3];
-                t.endtemp = row[4];
-                t.starttemp = row[5];
-                t.project_id = row[6];
-                t.employee_id =row[7];
+                t.timeSpend = row[3];
+                t.endTemp = row[4];
+                t.startTemp = row[5];
+                t.projectId = row[6];
+                t.employeeId =row[7];
                 tasks.push_back(t);
 
             }
