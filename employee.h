@@ -6,7 +6,10 @@
 #include <database.h>
 #include <gtime.h>
 
+//MOHAMAD CODE
+
 using namespace std;
+
 class Employee{
 public:
     string id,name,email,password,address,phone;
@@ -33,7 +36,7 @@ public:
         cout <<setw(20)<<"Enter password =\t";cin >>password;cout <<endl;
     }
 
-    void setAdmin(){
+    void setAdmin(  ){
         SetAdmin(id);
     }
     bool isAdmin(){
@@ -44,7 +47,7 @@ public:
         ss << number;
         return ss.str();
     }
-    string getTime(){
+    string getFullTime(){
         CustomTime c;
         cout <<"enter the date by form year/month/day :"<<endl;
         cin  >> c.year ,cout<<"/",cin>>c.month, cout<<"/",cin>>c.day ,cout <<endl;
@@ -66,7 +69,6 @@ public:
         hour   = c.hour;
         minut  = c.minut;
         second = c.second;
-
         stringstream sy;    sy << year;      string dateY = sy.str();
         stringstream sm;    sm << month;     string dateM = sm.str();
         stringstream sd;    sd << day;       string dateD = sd.str();
@@ -74,20 +76,31 @@ public:
         stringstream smi;   smi << minut;    string sminut = smi.str();
         stringstream ss;    ss << second;    string ssecond = ss.str();
 
-        string FullDate = dateY + "-" + dateM + "-" + dateD + " " + shour + ":" + sminut + ":" + ssecond;
+        string FullDate = dateY + "/" + dateM + "/" + dateD + " " + shour + ":" + sminut + ":" + ssecond;
 
-  /*
-        string year= longToString(c.year);
-        string month= longToString(c.month);
-        string day= longToString(c.day);
-        string  hour= longToString(c.hour);
-        string minut= longToString(c.minut);
-        string second= longToString(c.second);
-        string date=year+"/"+month+"/"+day+" "+hour+":"+minut+":"+second;
-        //c.timeStamp= c.CustomTime(date);
-    */
-    cout <<FullDate;
+        cout <<FullDate;
         return FullDate;
+    }
+    string getDate(){
+        CustomTime c;
+        cout <<"enter the date by form year/month/day :"<<endl;
+        cin  >> c.year ,cout<<"/",cin>>c.month, cout<<"/",cin>>c.day ,cout <<endl;
+
+        time_t timeStamp=time(NULL);
+        struct tm nowLocal=*localtime(&timeStamp);
+        int day = nowLocal.tm_mday;
+        int month = nowLocal.tm_mon+1;
+        int year = nowLocal.tm_year+1900;
+
+        year   = c.year;
+        month  = c.month;
+        day    = c.day;
+        stringstream sy;    sy << year;      string dateY = sy.str();
+        stringstream sm;    sm << month;     string dateM = sm.str();
+        stringstream sd;    sd << day;       string dateD = sd.str();
+
+        string date = dateY + "/" + dateM + "/" + dateD ;
+        return date;
     }
 };
 

@@ -84,22 +84,19 @@ public:
     whenStart.tm_year = yy - 1900;
     whenStart.tm_mon = month - 1;
     whenStart.tm_mday = dd;
-    whenStart.tm_hour = hh+1;
-    whenStart.tm_min = mm+60;
+    whenStart.tm_hour = hh;
+    whenStart.tm_min = mm;
     whenStart.tm_sec = ss;
     whenStart.tm_isdst = -1;
 
     tStart = mktime(&whenStart);
 
-    std::cout << tStart << std::endl;
-
+   // std::cout << tStart << std::endl;
+      return tStart;
     }
 
     long getTimestampDate(){
-
         time_t result = time(NULL);
-
-        cout << result << endl;
     }
    /* long longTimestamp()
     {
@@ -108,7 +105,6 @@ public:
         long mylong = atol(c.getTimestampDate().c_str());
     }*/
 };
-
 
 
 

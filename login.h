@@ -10,7 +10,7 @@ class Loging{
 public:
     Employee e;
     bool loged = false;
-    Loging(){
+   /* Loging(){
         e.enterLogin();
         Database db;
         e = db.getLoginEmployee(e);
@@ -21,7 +21,7 @@ public:
             loged = true;
         }
 
-    }
+    }*/
     void login(){
         e.enterLogin();
         Database db;
@@ -34,9 +34,9 @@ public:
         }
     }
     void logout(){
-        loged = false;
         Employee E;
         e = E;
+        loged = false;
     }
 };
 

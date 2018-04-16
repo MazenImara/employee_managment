@@ -4,23 +4,35 @@
 #include <string>
 #include <windows.h>
 #include <gtime.h>
+#include <inbtw.h>
 
 
 using namespace std;
 
 
+
 class Task{
 public:
     string id, title, status, timeSpend, endTemp, startTemp, projectId, employeeId;
-    //Employee e;
 
-public:
-    void enterId(){
-        cout<<"\nEnter id: ";cin>>id;
-        }
-    void enter(){
-        cout<<"\nEnter Title: ";cin>>title;
+
+
+    public:
+    void enterId()
+    {
+        cout << "\nEnter id: "; cin >> id;
     }
+    void enter()
+    {
+        cout << "\nEnter Title: "; cin >> title;
+    }
+    /*
+    void show(){
+        PrintMessage("Task's Details");
+        PrintMessage("ID  |  Title  |  Status  |  Timespend  |  Start Temp  |  End Temp  |  Project Id  |  Employee",false,false);
+    } */
+
+
     void show(){
        cout <<" __________________________________________________________________________________________________________________________________"<<endl;
        cout <<"|                                                      Task's details                                                              |"<<endl;
@@ -30,8 +42,47 @@ public:
        cout <<"|__________________________________________________________________________________________________________________________________|"<<endl;
     }
 
-    void showAdd(){
-        cout<<"\nId: "<< id <<"\tTitle: "<< title << endl;
+    void showAdd()
+    {
+        cout << "\nId: " << id << "\tTitle: " << title << endl;
+    }
+
+    void getTask(string id)
+    {
+        GetTask(id);
+    }
+
+    void setEmployeTask()
+    {
+        SetEmployeTask();
+    }
+
+    void Add(string id)
+    {
+        GetInsertTask(id);
+    }
+
+    void Delete(string id)
+    {
+        GetDeleteTask(id);
+    }
+
+    void Update()
+    {
+        GetUpdateTask();
+    }
+
+    void start(string TId, string EId)
+    {
+        startTask(TId, EId);
+    }
+    void pause(string id)
+    {
+        pauseTask(id);
+    }
+    void ended(string id)
+    {
+        endTask(id);
     }
 };
 
