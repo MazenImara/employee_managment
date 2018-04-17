@@ -295,7 +295,7 @@ void createDatabase(){
     Employee getSelectEmployeeById(string id){
         Database db;
         Employee e;
-        e=db.selectEmployeeByEmail(id);
+        e=db.selectEmployeeById(id);
         return e;
     }
     void getUpdateEmployee(Employee e){

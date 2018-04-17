@@ -254,6 +254,7 @@ void ManageEmployeeMenu()
 	    break;
     case 4:{
         //Show all Employees
+        string id;
         system("cls");
         showEmployee();
         cout <<" ___________________________________________________________"<<endl;
@@ -303,6 +304,7 @@ void workTimesMenu(string id){
 	    break;
 	case 2:{
 	    // Show the Tasks
+	    cout <<"employyeid"<<e.id;
         showTaskForEmployee(e.id);
         system("pause");
     }
