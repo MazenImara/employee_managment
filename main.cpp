@@ -334,7 +334,7 @@ void ManageProjectMenu()
 	}
 	ManageProjectMenu();
 }
-
+//updating the cases for task from ikram
 void ManageTaskMenu(string ProId)
 {
     Task t;
@@ -356,25 +356,30 @@ void ManageTaskMenu(string ProId)
 	{
 	case 1:
 	    //create Task
-	    t.Add(ProId);
+	    t.add(ProId);
+	    t.showTask(t.id);
+	    system("pause");
 	    break;
 	case 2:
 	    //Delete Task
         t.enterId();
-        t.Delete(t.id);
+        t.deleteT(t.id);
+        system("pause");
         break;
     case 3:
         //update Task
-        t.Update();
+        t.update();
+        system("pause");
 	    break;
     case 4:
-        //show all Task
-        ShowAllTask();
+        //show all Tasks
+        t.showAll();
 	    system("pause");
 	    break;
     case 5:
         //Sign Employee to Task
         t.setEmployeTask();
+        system("pause");
 	    break;
    	case 0:return;
 	default: cout << "\a";
@@ -382,6 +387,7 @@ void ManageTaskMenu(string ProId)
 	}
 	ManageTaskMenu(ProId);
 }
+//ending updating by ikram
 
 void EmployeeMenu()
 {
@@ -407,7 +413,6 @@ void EmployeeMenu()
 	{
 	case 1:
         //Start Task
-        cout<< "for task ";
         t.enterId();
         t.start(t.id, l.e.id);
 	    break;
@@ -514,7 +519,8 @@ void TimeOffMenu(){
      TimeOffMenu();
 }
 
- void ShowAllTask()
+//change place to inbtw by ikram
+ /*void ShowAllTask()
  {
     Database db ;
     list<Task> ts =  db.selectTasks();
@@ -523,7 +529,7 @@ void TimeOffMenu(){
         t.show();
     }
       db.close();
-}
+}*/
 
 void showAllEmployee()
 {
