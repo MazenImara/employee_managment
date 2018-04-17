@@ -66,11 +66,9 @@ void showAllEmployee();
 void showAllProject();
 void showAllProjects();
 
-void getInsertEmployee(Employee e);
-Employee getSelectEmployeeByEmail(string email);
-Employee getSelectEmployeeById(string id);
-void getUpdateEmployee(Employee e);
-void getDeleteEmployee(string id);
+Employee selectEmployeeByEmail(std::string email);
+Employee selectEmployeeById(std::string id);
+
 
 
 
@@ -214,47 +212,25 @@ void ManageEmployeeMenu()
 	{
 	case 1:{
 	    //Create Employee
-	    e.enter();
-	    getInsertEmployee(e);
-	    e=getSelectEmployeeByEmail(e.email);
-	    e.show();
+//	    e.enter();
+	    insertEmployee();
         system("pause");
 	}
 	    break;
 	case 2:{
         //Update Employee
-        showEmployee();
-        e.enterId();
-        e=getSelectEmployeeById(e.id);
-        e.show();
-        cout <<" ________________________"<<endl;
-        cout <<"|    enter new details   |"<<endl;
-        cout <<"|________________________|"<<endl;
-        e.enter();
-        getUpdateEmployee(e);
+        updateEmployee();
         system("pause");
 	}
         break;
     case 3:{
         //Delete Employee
-        showEmployee();
-        e.enterId();
-        e=getSelectEmployeeById(e.id);
-        e.show();
-        cout <<" __________________________"<<endl;
-        cout <<"|  are you sure press Y/N  |"<<endl;
-        cout <<"|__________________________|"<<endl;
-        string  choice;
-        cin>>choice ;
-        if (choice=="y" || choice=="Y"){
-            getDeleteEmployee(e.id);
-        }
+        deleteEmployee();
         system("pause");
     }
 	    break;
     case 4:{
         //Show all Employees
-        string id;
         system("cls");
         showEmployee();
         cout <<" ___________________________________________________________"<<endl;
@@ -280,7 +256,7 @@ void workTimesMenu(string id){
     int n;
     Employee e;
     Day d;
-    e=getSelectEmployeeById(id);
+    e=selectEmployeeById(id);
     e.show();
 	PrintMessage(" show Works Times for Employee          ");
     PrintMessage("                                        ", false, false);
@@ -304,7 +280,6 @@ void workTimesMenu(string id){
 	    break;
 	case 2:{
 	    // Show the Tasks
-	    cout <<"employyeid"<<e.id;
         showTaskForEmployee(e.id);
         system("pause");
     }
@@ -495,7 +470,7 @@ void TimeOffMenu(){
        case 2:{
            //Add timeOff.
            timeOf=timeOf.enter(l.e.id);
-           getInsertTimeOff(timeOf);
+           insertTimeOff(timeOf);
            showTimeOff(l.e.id);
            system("pause");
            break;
@@ -511,13 +486,13 @@ void TimeOffMenu(){
            cout <<"|     id="; cin>>id;
            cout <<"+-------------------------------------------+"<<endl;
            system("cls");
-           timeOf=getSelectTimeOff(id);
+           timeOf=selectTimeOff(id);
            timeOf.show();
            cout <<" ________________________"<<endl;
            cout <<"|  Enter New details     |"<<endl;
            timeOf=timeOf.enter(l.e.id);
            timeOf.id=id;
-           getUpdateTimeOff(timeOf);
+           updateTimeOff(timeOf);
            system("pause");
            break;
        }
@@ -529,14 +504,14 @@ void TimeOffMenu(){
             cout <<"+-----------------------------------------------------------+"<<endl;
             cout <<"          id="; cin>>timeOf.id; cout<<endl;
             cout <<"+-----------------------------------------------------------+"<<endl;
-            timeOf=getSelectTimeOff(timeOf.id);
+            timeOf=selectTimeOff(timeOf.id);
             timeOf.show();
             cout <<"+--------------------------+"<<endl;
             cout <<"|  Are you sure press(Y/N) |"<<endl;
             cout <<"+--------------------------+"<<endl;
             cin>>choice;
             if (choice=="y" || choice=="Y"){
-            getDeleteTimeOff(timeOf.id);
+            deleteTimeOff(timeOf.id);
             }
             system("pause");
            break;

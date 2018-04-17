@@ -263,48 +263,73 @@ void createDatabase(){
         cout <<"|______________________________________________________________________________________________________________________________________________________|"<<endl;
 
     }
-    void getInsertTimeOff(TimeOff timeOf){
+    void insertTimeOff(TimeOff timeOf){
         Database db;
         db.insertTimeOff(timeOf);
     }
-    TimeOff getSelectTimeOff(string id){
+    TimeOff selectTimeOff(string id){
         TimeOff timeOf;
         Database db;
         timeOf=db.selectTimeOff(id);
         return timeOf;
     }
 
-    void getUpdateTimeOff(TimeOff timeOf){
+    void updateTimeOff(TimeOff timeOf){
         Database db;
         db.updateTimeOff(timeOf);
     }
-    void getDeleteTimeOff(string id){
+    void deleteTimeOff(string id){
         Database db;
         db.deleteTimeOff(id);
     }
-    void getInsertEmployee(Employee e){
+    void insertEmployee(){
+        Employee e;
+        e.enter();
         Database db;
         db.insertEmployee(e);
+        e=db.selectEmployeeByEmail(e.email);
+	    e.show();
     }
-    Employee getSelectEmployeeByEmail(string email){
+    Employee selectEmployeeByEmail(string email){
         Database db;
         Employee e;
         e=db.selectEmployeeByEmail(email);
         return e;
     }
-    Employee getSelectEmployeeById(string id){
+    Employee selectEmployeeById(string id){
         Database db;
         Employee e;
         e=db.selectEmployeeById(id);
         return e;
     }
-    void getUpdateEmployee(Employee e){
+    void updateEmployee(){
+        Employee e;
         Database db;
+        showEmployee();
+        e.enterId();
+        e=selectEmployeeById(e.id);
+        e.show();
+        cout <<" ________________________"<<endl;
+        cout <<"|    enter new details   |"<<endl;
+        cout <<"|________________________|"<<endl;
+        e.enter();
         db.updateEmployee(e);
     }
-    void getDeleteEmployee(string id){
+    void deleteEmployee(){
         Database db;
-        db.deleteEmployee(id);
+        Employee e;
+        showEmployee();
+        e.enterId();
+        e=selectEmployeeById(e.id);
+        e.show();
+        cout <<" __________________________"<<endl;
+        cout <<"|  are you sure press Y/N  |"<<endl;
+        cout <<"|__________________________|"<<endl;
+        string  choice;
+        cin>>choice ;
+        if (choice=="y" || choice=="Y"){
+        db.deleteEmployee(e.id);
+        }
     }
 
   //end MOHAMAD.

@@ -928,7 +928,6 @@ public:
         list<Task>tasks;
         string query ="SELECT * FROM `task` WHERE employee_id="+employeeId;
         const char* q = query.c_str();
-        cout<<"query is: "<<q<<endl;
         qstate = mysql_query(conn,q);
         if(!qstate)
         {
