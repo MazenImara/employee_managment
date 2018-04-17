@@ -133,7 +133,7 @@ public:
 
         //create day
         {
-        query="CREATE TABLE employee_managment.day(`id` int not null AUTO_INCREMENT, `date` int, `startTime` int, `endTime` int, `timeSpend` INT DEFAULT '0', `employee_id` int, PRIMARY KEY (id));";
+        query="CREATE TABLE employee_managment.day(`id` int not null AUTO_INCREMENT, `date` VARCHAR(255), `startTime` VARCHAR(255), `endTime` VARCHAR(255), `timeSpend` INT DEFAULT '0', `employee_id` int, PRIMARY KEY (id));";
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -502,7 +502,7 @@ public:
 
 
 
-    //mohamad code
+    //MOHAMAD code
 
     // Employee process.
     Employee selectEmployeeById(string id){
