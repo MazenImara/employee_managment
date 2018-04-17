@@ -346,7 +346,7 @@ void ManageProjectMenu()
 	    break;
 	case 2:
 	    //create project
-        p.Add();
+        p.add();
         break;
     case 3:
         //delete project
@@ -356,7 +356,7 @@ void ManageProjectMenu()
 	    break;
     case 4:
         //update Project
-        p.Update();
+        p.update();
         break;
    	case 0:return;
 	default: cout << "\a";
@@ -386,7 +386,7 @@ void ManageTaskMenu(string ProId)
 	{
 	case 1:
 	    //create Task
-	    t.Add(ProId);
+	    t.add(ProId);
 	    break;
 	case 2:
 	    //Delete Task
@@ -395,7 +395,7 @@ void ManageTaskMenu(string ProId)
         break;
     case 3:
         //update Task
-        t.Update();
+        t.update();
 	    break;
     case 4:
         //show all Task

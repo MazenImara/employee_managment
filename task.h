@@ -48,7 +48,7 @@ public:
 
     void getTask(string id)
     {
-        GetTask(id);
+        getTask(id);
     }
 
     void setEmployeTask()
@@ -56,19 +56,19 @@ public:
         SetEmployeTask();
     }
 
-    void Add(string id)
+    void add(string id)
     {
-        GetInsertTask(id);
+        insertTask(id);
     }
 
     void Delete(string id)
     {
-        GetDeleteTask(id);
+        deleteTask(id);
     }
 
-    void Update()
+    void update()
     {
-        GetUpdateTask();
+        updateTask();
     }
 
     void start(string TId, string EId)

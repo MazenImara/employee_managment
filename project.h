@@ -26,17 +26,17 @@ class Project{
             cin >> description;
             cout << endl;
         }
-        void Add()
+        void add()
         {
-            GetInsertProject();
+            insertProject();
         }
         void Delete(string id)
         {
-            GetDeleteProject(id);
+            deleteProject(id);
         }
-        void Update()
+        void update()
         {
-            GetUpdateProject();
+            updateProject();
         }
 };
 

@@ -9,19 +9,19 @@ void SetEmployeTask();
 void createDatabase();
 
 //Task ONLY
-void GetTask(std::string taskId);
-void GetInsertTask(std::string id);
-void GetDeleteTask(std::string id);
-void GetUpdateTask();
+void getTask(std::string taskId);
+void insertTask(std::string id);
+void deleteTask(std::string id);
+void updateTask();
 void startTask(std::string TId,std::string EId);
 void pauseTask(std::string id);
 void endTask(std::string id);
 //Task end
 
 //Project ONLY
-void GetInsertProject();
-void GetDeleteProject(std::string id);
-void GetUpdateProject();
+void insertProject();
+void deleteProject(std::string id);
+void updateProject();
 long stringToLong(std::string str);
 long longToString(std::string str);
 

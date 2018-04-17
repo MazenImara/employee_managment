@@ -29,7 +29,7 @@ bool IsAdmin(string employeeId){
 
 
 //Task ONLY
-void GetTask(string taskId)
+void getTask(string taskId)
 {
     Task t;
     Database db;
@@ -37,7 +37,7 @@ void GetTask(string taskId)
     t.show();
 }
 
-void GetInsertTask(string ProjectId)
+void insertTask(string ProjectId)
 {
     Task t;
     Database db;
@@ -46,12 +46,12 @@ void GetInsertTask(string ProjectId)
     t.projectId = ProjectId;
     db.insertTask(t);
 }
-void GetDeleteTask(string taskId)
+void deleteTask(string taskId)
 {
     Database db;
     db.deleteTask(taskId);
 }
-void GetUpdateTask()
+void updateTask()
 {
     Task t;
     Database db;
@@ -79,7 +79,7 @@ void endTask(string id){
 //Task End
 
 //Project ONLY
-void GetInsertProject()
+void insertProject()
 {
     Project p;
     Database db;
@@ -88,13 +88,13 @@ void GetInsertProject()
     db.insertProject(p);
 }
 
-void GetDeleteProject(string id)
+void deleteProject(string id)
 {
     Database db;
     db.deleteProject(id);
 }
 
-void GetUpdateProject()
+void updateProject()
 {
     Project p;
     Database db;
