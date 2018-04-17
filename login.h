@@ -32,7 +32,6 @@ public:
         else{
 
             loged = true;
-
         }
     }
     void logout(){

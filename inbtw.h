@@ -28,10 +28,11 @@ long longToString(std::string str);
 // end gab
 
 //MOHAMAD
+void showDays( long date1,long date2,std::string id);
 void showTaskForEmployee(std::string employeeId);
 void showTimesOffWithId(std::string id);
 void showTimeOff(std::string id);
-void showDays( long date1,long date2,std::string id);
+
 void showEmployee();
 void insertTimeOff(TimeOff timeOf);
 void updateTimeOff(TimeOff timeOf);

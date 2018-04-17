@@ -72,6 +72,7 @@ Employee selectEmployeeById(std::string id);
 
 
 
+
 void ShowAllTask();
 /*
 int main()
@@ -137,6 +138,8 @@ int main()
                 }
                 else
                 {
+                    Database db;
+                    db.insertStartEmployeeDay(l.e.id);
                     EmployeeMenu();
                     l.logout();
                 }

@@ -598,9 +598,9 @@ public:
         }
         return employees;
     }
-    Employee getLoginEmployee(Employee em){
-        Employee e;
-        string query = "SELECT * FROM `employee` WHERE `email` = '"+em.email+"' AND `password`= '"+em.password+"'";
+    Employee getLoginEmployee(Employee e){
+
+        string query = "SELECT * FROM `employee` WHERE `email` = '"+e.email+"' AND `password`= '"+e.password+"'";
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate){
@@ -659,7 +659,24 @@ public:
     void insertDay(Day d){
         string start=d.longToString(d.start),endTime=d.longToString(d.endTime),date=d.longToString(d.date),timeSpend=d.longToString(d.timeSpend);
 
-        string query = "INSERT INTO `day`( `start`,`endTime`,`timeSpend`,`employee_id`,`date`) VALUES ('"+start+"','"+endTime+"','"+timeSpend+"','"+d.employeeId+"','"+date+"')";
+        string query = "INSERT INTO `day`( `start_time`,`end_time`,`timeSpend`,`employee_id`,`date`) VALUES ('"+start+"','"+endTime+"','"+timeSpend+"','"+d.employeeId+"','"+date+"')";
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+            cout<<"record inserted successfully..."<<endl;
+        else
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+    }
+    void insertStartEmployeeDay(string employeeId){
+        CustomTime c;
+        Day d;
+         long current = CustomTime().getTimestampDate();
+        string getTimestamp = d.longToString(current);
+
+        long  currentdate = CustomTime().getTimestampDate();
+        string getTimestampDate = d.longToString(currentdate);
+
+        string query = "INSERT INTO `day`( `start_time`,`end_time`,`employee_id`,`date`) VALUES ('"+getTimestamp+"','none','"+employeeId+"','"+getTimestampDate+"')";
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate)
