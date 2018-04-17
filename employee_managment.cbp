@@ -31,11 +31,11 @@
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
-			<Add directory="C:/Users/Hamza/Documents/CodeBlocks/employee_managment" />
-			<Add directory="C:/Users/Hamza/Documents/CodeBlocks/employee_managment/include" />
+			<Add directory="C:/employee_managment/" />
+			<Add directory="C:/employee_managment/include" />
 		</Compiler>
 		<Linker>
-			<Add library="C:/Users/Hamza/Documents/CodeBlocks/employee_managment/include/libmysql.a" />
+			<Add library="C:/employee_managment/include/libmysql.a" />
 		</Linker>
 		<Unit filename="database.h" />
 		<Unit filename="day.h" />
