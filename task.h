@@ -46,9 +46,9 @@ public:
         cout << "\nId: " << id << "\tTitle: " << title << endl;
     }
 
-    void getTask(string id)
+    void selectTask(string id)
     {
-        getTask(id);
+        selectTask(id);
     }
 
     void setEmployeTask()

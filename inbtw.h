@@ -9,7 +9,7 @@ void SetEmployeTask();
 void createDatabase();
 
 //Task ONLY
-void getTask(std::string taskId);
+void selectTask(std::string taskId);
 void insertTask(std::string id);
 void deleteTask(std::string id);
 void updateTask();

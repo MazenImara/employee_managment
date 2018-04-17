@@ -29,7 +29,7 @@ bool IsAdmin(string employeeId){
 
 
 //Task ONLY
-void getTask(string taskId)
+void selectTask(string taskId)
 {
     Task t;
     Database db;
