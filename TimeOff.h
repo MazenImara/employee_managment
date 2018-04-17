@@ -12,7 +12,7 @@ public:
     string  id;
     long from ;
     long to ;
-    string  employee_id;
+    string  employeeId;
 public:
     /*void enter(){
         cout <<"Enter your time off by form (y/m/d h:m:s) "<<endl;

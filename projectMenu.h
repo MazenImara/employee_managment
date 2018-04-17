@@ -52,12 +52,12 @@ void updateProject(){
         default:
             cout << "Invalid choice" << endl;
             updateProject();
-        }
+        }/*
     case 2:
         p.enterId();
         p = db.selectProject(p.id);
         db.deleteProject(p);
-        break;
+        break;*/
     default:
         cout << "Invalid choice" << endl;
         updateProject();
@@ -118,9 +118,26 @@ void showProjectTasks(string project_id){
     for(t:tasks){
         t.show();
         cout << "========== Employee work on this task=============" << endl;
-        e = db.selectEmployeeById(t.employee_id);
+        e = db.selectEmployeeById(t.employeeId);
         e.show();
 
+    }
+    db.close();
+}
+
+//show tasks and project for a specific employee
+void showEmployeeTasksAndProject(string employee_id){
+    Database db;
+    Task t;
+    Project p;
+    list<Task> tasks;
+    //list<Employee> employees;
+    tasks = db.selectEmployeeTasks(employee_id);
+    for(t:tasks){
+        t.show();
+        cout << "========== Project name=============" << endl;
+        p = db.selectProject(t.projectId);
+        p.show();
     }
     db.close();
 }
