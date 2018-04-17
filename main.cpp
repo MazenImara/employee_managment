@@ -64,8 +64,6 @@ void workTimesMenu();
 void showAllEmployee();
 void showAllProject();
 void showAllProjects();
-
-
 void ShowAllTask();
 
 
@@ -93,7 +91,9 @@ int main()
             while(!l.loged)
             {
                 system("cls");
-                l.login();
+
+
+  l.login();
             }
             if(l.loged)
             {
@@ -194,6 +194,7 @@ void ManageEmployeeMenu()
 	    e.show();
         cin.get();
         cin.ignore();
+
 	}
 	    break;
 	case 2:{

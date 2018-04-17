@@ -15,7 +15,6 @@
 #include <timoff.h>
 #include <taskdetails.h>
 
-
 using namespace std;
 
 class Database{
@@ -267,8 +266,6 @@ public:
         return tasks;
     }
 
-<<<<<<< HEAD
-=======
     /*list<TaskDetails>getSpendTimeDetails(string id){
         list<TaskDetails> details;
         string query ="SELECT * FROM `taskdetails` WHERE `task_id`="+id;
@@ -323,8 +320,6 @@ public:
         return t;
     }*/
 
-
->>>>>>> b173b3ac19f0e0e73b5b59c397ca69ee6351e3e6
     void startTask(string id){
         CustomTime c;
         Day d;
@@ -339,12 +334,7 @@ public:
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
 
-<<<<<<< HEAD
-
-    void pause(string id){
-=======
     void pauseTask(string id){
->>>>>>> b173b3ac19f0e0e73b5b59c397ca69ee6351e3e6
         CustomTime c;
         Day d;
         time_t timeStamp=time(NULL);
@@ -500,7 +490,7 @@ public:
     }
     list<Employee> selectEmployees(){
         list <Employee> employees;
-        string query = "select * from  `employee`" ;
+        string query = "select * from `employee`" ;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate){

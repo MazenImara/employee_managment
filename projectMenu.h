@@ -120,6 +120,7 @@ void showProjectTasks(string project_id){
         cout << "========== Employee work on this task=============" << endl;
         e = db.selectEmployeeById(t.employee_id);
         e.show();
+
     }
     db.close();
 }

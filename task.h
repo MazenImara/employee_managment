@@ -14,10 +14,7 @@ public:
     string id, title, status, time_spend, endtemp, starttemp, project_id, employee_id;
 
 
-<<<<<<< HEAD
-=======
 
->>>>>>> b173b3ac19f0e0e73b5b59c397ca69ee6351e3e6
 public:
     void enterId(){
         cout<<"\nEnter id: ";cin>>id;
