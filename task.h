@@ -10,7 +10,6 @@
 using namespace std;
 
 
-
 class Task{
 public:
     string id, title, status, timeSpend, endTemp, startTemp, projectId, employeeId;
@@ -25,14 +24,20 @@ public:
         cout << "\nEnter title of the task: "; cin >> title;
     }
 
+    void enterNewTitle()
+    {
+        cout << "\nEnter the new title of the task: "; cin >> title;
+    }
+
     void show()
     {
-        cout << " __________________________________________________________________________________________________________________________________"<<endl;
-        cout << "|                                                      Task's details                                                              |"<<endl;
-        cout << "|__________________________________________________________________________________________________________________________________|"<<endl;
-        cout << "|"<<setw(5)<<"id"<<setw(10)<<"Title"<<setw(17)<<"Status"<<setw(20)<<"Time Spend"<<setw(17)<<"Start temp"<<setw(20)<<"End Temp"<<setw(20)<<"Project Id"<<setw(16)<<"Employee Id"<<setw(6)<<"|"<<endl;
-        cout << "|"<<setw(4)<<id<<setw(15)<<title<<setw(15)<<status<<setw(15)<<timeSpend<<setw(18)<<startTemp<<setw(25)<<endTemp<<setw(10)<<projectId<<setw(17)<<employeeId<<setw(12)<<"|"<<endl;
-        cout << "|__________________________________________________________________________________________________________________________________|"<<endl;
+        cout<<" __________________________________________________________________________________________________________________________________"<<endl;
+        cout<<"|                                                                                                                                  |"<<endl;
+        cout<<"|                                                      Task's details                                                              |"<<endl;
+        cout<<"|__________________________________________________________________________________________________________________________________|"<<endl;
+        cout<<"|"<<setw(5)<<"id"<<setw(10)<<"Title"<<setw(17)<<"Status"<<setw(20)<<"Time Spend"<<setw(17)<<"Start temp"<<setw(20)<<"End Temp"<<setw(20)<<"Project Id"<<setw(16)<<"Employee Id"<<setw(6)<<"|"<<endl;
+        cout<<"|"<<setw(4)<<id<<setw(15)<<title<<setw(15)<<status<<setw(15)<<timeSpend<<setw(18)<<startTemp<<setw(25)<<endTemp<<setw(10)<<projectId<<setw(17)<<employeeId<<setw(12)<<"|"<<endl;
+        cout<<"|__________________________________________________________________________________________________________________________________|"<<endl;
 
     }
 
@@ -46,14 +51,9 @@ public:
         inbtwShowTask(id);
     }
 
-    void setEmployeTask()
+    void add(string projectId)
     {
-        inbtwSignEmployeeToTask();
-    }
-
-    void add(string id)
-    {
-        inbtwInsertTask(id);
+        inbtwInsertTask(projectId);
     }
 
     void deleteT(string id)
@@ -66,22 +66,24 @@ public:
         inbtwUpdateTask();
     }
 
-    void showAll()
+    void signEmployeToTask(string id, string employeeId)
     {
-        inbtwShowAllTasks();
+        inbtwSignEmployeeToTask(id , employeeId);
     }
 
-    void start(string TId, string EId)
+    void start(string taskId, string employeeId)
     {
-        startTask(TId, EId);
+        inbtwStartTask(taskId, employeeId);
     }
+
     void pause(string id)
     {
-        pauseTask(id);
+        inbtwPauseTask(id);
     }
+
     void ended(string id)
     {
-        endTask(id);
+        inbtwEndTask(id);
     }
 };
 

@@ -60,11 +60,10 @@ void EmployeeMenu();
 void ManageProjectMenu();
 void ManageTaskMenu(string ProId);
 void TimeOffMenu();
-void manageProjectMenu();
 void workTimesMenu(string id);
 void showAllEmployee();
 void showAllProject();
-void showAllProjects();
+
 void inbtwInsertEmployee();
 void inbtwUpdateEmployee();
 void inbtwDeleteEmployee();
@@ -75,7 +74,7 @@ void inbtwShowTaskForEmployee(string id);
 void inbtwShowTimeOff(string id);
 
 
-void ShowAllTask();
+
 /*
 int main()
 {
@@ -310,13 +309,14 @@ void ManageProjectMenu()
 	{
 	case 1:
 	    //show and enter task menu
-        showAllProjects();
+        inbtwShowAllProjects();
         p.enterId();
 	    ManageTaskMenu(p.id);
 	    break;
 	case 2:
 	    //create project
         p.Add();
+        system("pause");
         break;
     case 3:
         //delete project
@@ -327,6 +327,7 @@ void ManageProjectMenu()
     case 4:
         //update Project
         p.Update();
+        system("pause");
         break;
    	case 0:return;
 	default: cout << "\a";
@@ -337,6 +338,7 @@ void ManageProjectMenu()
 //updating the cases for task from ikram
 void ManageTaskMenu(string ProId)
 {
+    Employee e;
     Task t;
     int n;
     system("cls");
@@ -357,7 +359,6 @@ void ManageTaskMenu(string ProId)
 	case 1:
 	    //create Task
 	    t.add(ProId);
-	    t.showTask(t.id);
 	    system("pause");
 	    break;
 	case 2:
@@ -373,15 +374,15 @@ void ManageTaskMenu(string ProId)
 	    break;
     case 4:
         //show all Tasks
-        t.showAll();
+        inbtwShowAllTasks();
 	    system("pause");
 	    break;
     case 5:
         //Sign Employee to Task
-        t.setEmployeTask();
+        t.signEmployeToTask(t.id, t.employeeId);
         system("pause");
 	    break;
-   	case 0:return;
+   	case 0: return;
 	default: cout << "\a";
 
 	}
@@ -396,7 +397,7 @@ void EmployeeMenu()
     Task t;
     int n;
     system("cls");
-    ShowAllTask();
+    inbtwShowAllTasks();
 
 	PrintMessage("EMPLOYEE MENU");
     PrintMessage("                               ", false, false);
@@ -415,16 +416,19 @@ void EmployeeMenu()
         //Start Task
         t.enterId();
         t.start(t.id, l.e.id);
+        system("pause");
 	    break;
 	case 2:
         //Pause
         t.enterId();
         t.pause(t.id);
+        system("pause");
         break;
 	case 3:
         //Finish
         t.enterId();
         t.ended(t.id);
+        system("pause");
 	    break;
 	case 4:{
         //Manage Time off
@@ -519,17 +523,7 @@ void TimeOffMenu(){
      TimeOffMenu();
 }
 
-//change place to inbtw by ikram
- /*void ShowAllTask()
- {
-    Database db ;
-    list<Task> ts =  db.selectTasks();
-    Task t;
-    for(t:ts){
-        t.show();
-    }
-      db.close();
-}*/
+
 
 void showAllEmployee()
 {
@@ -546,14 +540,5 @@ void showAllEmployee()
     db.close();
 }
 
-void showAllProjects(){
-    Database db;
-    Project p;
-    list<Project> projects;
-    projects = db.selectProjects();
-    for(p:projects){
-        p.show();
-    }
-    db.close();
-}
+
 

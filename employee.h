@@ -14,7 +14,7 @@ class Employee{
 public:
     string id,name,email,password,address,phone;
     void enterId(){
-        cout <<"enter id =\t";cin >>id;cout <<endl;
+        cout <<"enter id of the employee =\t";cin >>id;cout <<endl;
     }
     void enter(){
         cout <<setw(20)<<"Enter name     =\t";cin >>name;cout <<endl;

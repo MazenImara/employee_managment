@@ -20,6 +20,11 @@ bool IsAdmin(string employeeId){
     return is;
 }
 
+void createDatabase(){
+    Database db;
+    db.createDatabase();
+
+}
 
 //Task updated by ikram
 void inbtwShowTask(string taskId)
@@ -30,13 +35,13 @@ void inbtwShowTask(string taskId)
     t.show();
 }
 
-void inbtwInsertTask(string ProjectId)
+void inbtwInsertTask(string projectId)
 {
     Task t;
     Database db;
     t.enter();
     t.status = "New";
-    t.projectId = ProjectId;
+    t.projectId = projectId;
     db.insertTask(t);
 }
 
@@ -51,7 +56,7 @@ void inbtwUpdateTask()
     Task t;
     Database db;
     t.enterId();
-    t.enter();
+    t.enterNewTitle();
     db.updateTask(t);
 }
 
@@ -64,7 +69,7 @@ void inbtwShowAllTasks(){
     }
 }
 
-void inbtwSignEmployeeToTask(){
+void inbtwSignEmployeeToTask(string taskId, string employeeId){
     Database db;
     Task t;
     Employee e;
@@ -76,17 +81,18 @@ void inbtwSignEmployeeToTask(){
     db.close();
 }
 //end updating
-void startTask(string TId, string EId){
+
+void inbtwStartTask(string taskId, string employeeId){
     Database db;
-    db.startTask(TId, EId);
+    db.startTask(taskId, employeeId);
 }
 
-void pauseTask(string id){
+void inbtwPauseTask(string id){
     Database db;
     db.pauseTask(id);
 }
 
-void endTask(string id){
+void inbtwEndTask(string id){
     Database db;
     db.endTask(id);
 }
@@ -94,7 +100,19 @@ void endTask(string id){
 
 
 //Project ONLY
-void GetInsertProject()
+//updated by ikram
+void inbtwShowAllProjects(){
+    Database db;
+    Project p;
+    list<Project> projects;
+    projects = db.selectProjects();
+    for(p:projects){
+        p.show();
+    }
+    db.close();
+}
+
+void inbtwInsertProject()
 {
     Project p;
     Database db;
@@ -103,13 +121,13 @@ void GetInsertProject()
     db.insertProject(p);
 }
 
-void GetDeleteProject(string id)
+void inbtwDeleteProject(string id)
 {
     Database db;
     db.deleteProject(id);
 }
 
-void GetUpdateProject()
+void inbtwUpdateProject()
 {
     Project p;
     Database db;
@@ -118,12 +136,8 @@ void GetUpdateProject()
     db.updateProject(p);
 }
 //Project End
+//end updating
 
-void createDatabase(){
-    Database db;
-    db.createDatabase();
-
-}
 
 
 // end gab

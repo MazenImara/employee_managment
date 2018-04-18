@@ -14,29 +14,42 @@ class Project{
             cin >> id;
         }
 
-        void show(){
+        /*void show(){
             cout << "id: " << id << "\t\ttitle: " << title << "\t\tdescription: " << description << "\t\tstatus: " << status << endl;
+        }*/
+
+        void show(){
+            cout <<" _______________________________________________________________________________________________"<<endl;
+            cout <<"|                                                                                               |"<<endl;
+            cout <<"|                                         Project's details                                     |"<<endl;
+            cout <<"|_______________________________________________________________________________________________|"<<endl;
+            cout <<"|"<<setw(10)<<"id"<<setw(20)<<"Title"<<setw(30)<<"Description"<<setw(20)<<"Status"<<setw(16)<<"|"<<endl;
+            cout <<"|"<<setw(10)<<id<<setw(20)<<title<<setw(30)<<description<<setw(20)<<status<<setw(16)<<"|"<<endl;
+            cout <<"|_______________________________________________________________________________________________|"<<endl;
         }
 
         void enter(){
             cout << "Enter project details" << endl;
             cout << "Title: ";
             cin >> title;
-            cout << "\ndescription: ";
+            cout << "\nDescription: ";
             cin >> description;
             cout << endl;
         }
+
         void Add()
         {
-            GetInsertProject();
+            inbtwInsertProject();
         }
+
         void Delete(string id)
         {
-            GetDeleteProject(id);
+            inbtwDeleteProject(id);
         }
+
         void Update()
         {
-            GetUpdateProject();
+            inbtwUpdateProject();
         }
 };
 
