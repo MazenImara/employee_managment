@@ -72,52 +72,11 @@ Employee selectEmployeeById(std::string id);
 
 
 
-
-
 void ShowAllTask();
-/*
+
 int main()
 {
-    Task t;
-    Database db;
-    db.startTask("1","1");
-   // db.endTask("1");
-    t = db.selectTask("1");
-    CustomTime c (stringToLong(t.time_spend));
-    cout << c.hour << ":" << c.minut;
-}
-
-*/
-
-/*
-int main()
-{
-<<<<<<< HEAD
-    Task t;
-    Database db;
-    t.enterId();
-    t = db.selectTask(t.id);
-    long timestamp = stringToLong(t.time_spend);
-    timestamp = timestamp - 3600;
-    CustomTime ct(timestamp);
-    cout<< ct.hour<< ":" << ct.minut;
-
-
-}
-*/
-int main()
-{ /*
-    CustomTime c;
-    cout<<c.date2()<<endl;
-    string  date =c.date2()+" "+ "00"+ ":" + "00" + ":" + "00";
-    cout<<"date"<<c.getTimestampDate(date)<<endl;
-    system("pause");
-    */
     int n;
-    Database db;
-    Day d;
-    bool found=false;
-    CustomTime c;
 	do {
 		system("cls");
 		PrintMessage("EMPLOYEE MANAGEMENT");
@@ -128,8 +87,6 @@ int main()
 		PrintMessage("                      ", false, false);
 		PrintMessage("0. EXIT               ", false, false);
 		PrintMessage("                      ", false, false);
-
-
 		PrintMessage("Please Select your option (0-2): ");
 		cout<< ">";	cin >> n;
 
@@ -143,43 +100,21 @@ int main()
             }
             if(l.loged)
             {
-                if(l.e.isAdmin())
-                {
+                if(l.e.isAdmin()){
+                   temp=employeeLoginRecord(l.e.id);
                     AdminMenu();
                     l.logout();
                 }
-                else
-                {
-                   list<Day> days;
-                   days =db.selectDayByEmployeeIdAndByDate(l.e.id);
-                    long current = CustomTime().getTimestampDate();
-                   for (d:days){
-                          string  currentDate =c.date2()+" "+ "00"+ ":" + "00" + ":" + "00";
-                          long currentTimeStampDate=c.getTimestampDate(currentDate);
-
-                      if (currentTimeStampDate == d.date){
-                          temp =current;
-                          found=true;
-                      }
-
-                  }
-                    //if((d.id.empty())){
-                    if(found ==false){
-                            long current = CustomTime().getTimestampDate();
-                            db.insertStartEmployeeDay(l.e.id);
-                             temp =current;
-
-                   }
-
-                   EmployeeMenu();
+                else{
+                    temp=employeeLoginRecord(l.e.id);
+                    EmployeeMenu();
                     l.logout();
-
+                }
             }
-           }
             else{
                 l.logout();
-           }
-           }
+            }
+        }
             break;
 
         case 2:
@@ -196,9 +131,6 @@ int main()
 
 void AdminMenu()
 {
-    Database db;
-    Day d;
-    CustomTime c;
     int n;
     system("cls");
 	PrintMessage("ADMIN MANAGE EMPLOYEE");
@@ -220,7 +152,8 @@ void AdminMenu()
         break;
 
    	case 0:{
-            l.logout();
+   	    employeeLogoutRecord(l.e.id,temp);
+        l.logout();
         }
         return;
 	default: cout << "\a";
@@ -251,7 +184,6 @@ void ManageEmployeeMenu()
 	{
 	case 1:{
 	    //Create Employee
-//	    e.enter();
 	    insertEmployee();
         system("pause");
 	}
@@ -433,10 +365,6 @@ void ManageTaskMenu(string ProId)
 
 void EmployeeMenu()
 {
-
-    Employee e;
-    Day d;
-    CustomTime c;
     Task t;
     int n;
     system("cls");
@@ -476,26 +404,12 @@ void EmployeeMenu()
 	    TimeOffMenu();
 	}
         break;
-   	case 0:
-        {
-   	     Database db;
-            string  currentDate =c.date2()+" "+ "00"+ ":" + "00" + ":" + "00";
-            long currentTimeStampDate=c.getTimestampDate(currentDate);
-            list<Day> days;
-            days=db.selectDayByEmployeeIdAndByDate(l.e.id);
+   	case 0:{
 
-            long curentTime = CustomTime().getTimestampDate();
 
-            for(d :days){
-                    if(d.date==currentTimeStampDate){
-                        long sub=curentTime-temp;
-                        d.timeSpend=d.timeSpend+sub;
-                        d.endTime=curentTime;
-                        db.updeteEndEmployeeDay(d);
-                    }
-   	        }
-           l.logout();
-        }
+        employeeLogoutRecord(l.e.id,temp);
+        l.logout();
+    }
         return;
 
 	default: cout << "\a";
@@ -505,7 +419,6 @@ void EmployeeMenu()
 }
 void TimeOffMenu(){
     TimeOff timeOf;
-    Database db;
     int n;
     string choice;
     system("cls");

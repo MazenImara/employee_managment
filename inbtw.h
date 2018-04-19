@@ -41,6 +41,8 @@ TimeOff selectTimeOff(std::string id);
 void insertEmployee();
 void updateEmployee();
 void deleteEmployee();
+long employeeLoginRecord(std:: string id);
+void employeeLogoutRecord(std::string id,long temp);
 
 //end MOHAMAD.
 
