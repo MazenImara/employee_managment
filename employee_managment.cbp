@@ -13,8 +13,13 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+<<<<<<< HEAD
 					<Add directory="C:/Users/Ikram/Desktop/employee_managment/include" />
 					<Add directory="C:/Users/Ikram/Desktop/employee_managment/" />
+=======
+					<Add directory="C:/employee_managment/include" />
+					<Add directory="C:/employee_managment/" />
+>>>>>>> test20
 				</Compiler>
 				<Linker>
 					<Add library="C:/employee_managment/include/libmysql.a" />

@@ -1,7 +1,7 @@
 #ifndef INBTW_H_INCLUDED
 #define INBTW_H_INCLUDED
+#include <timoff.h>
 
-//all updated by ikram
 // gab
 void SetAdmin(std::string employeeId);
 bool IsAdmin(std::string employeeId);
@@ -29,6 +29,24 @@ long longToString(std::string str);
 //project end
 // end gab
 
+//MOHAMAD
+void showDays( long date1,long date2,std::string id);
+void showTaskForEmployee(std::string employeeId);
+void showTimesOffWithId(std::string id);
+void showTimeOff(std::string id);
 
+void showEmployee();
+void insertTimeOff(TimeOff timeOf);
+void updateTimeOff(TimeOff timeOf);
+void deleteTimeOff(std::string id);
+TimeOff selectTimeOff(std::string id);
+void insertEmployee();
+void updateEmployee();
+void deleteEmployee();
+void signEmployeeAsAdmin();
+long employeeLoginRecord(std:: string id);
+void employeeLogoutRecord(std::string id,long temp);
+
+//end MOHAMAD.
 
 #endif // INBTW_H_INCLUDED
