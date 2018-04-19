@@ -206,7 +206,7 @@ public:
 
     // Start ikram
     void insertTask(Task t){
-        string query ="INSERT INTO `task`(`title`, `status`,`project_id`) VALUES ('"+t.title+"', '"+t.status+"','"+t.projectId+"')";
+        string query ="INSERT INTO `task`(`title`, `status`,`project_id`, `timeSpend`, `endTemp`, `startTemp`) VALUES ('"+t.title+"', '"+t.status+"','"+t.projectId+"', 0, 0, 0)";
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate)

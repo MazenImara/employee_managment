@@ -48,6 +48,18 @@ public:
     }
 
 
+    string fullDateTime(){
+        stringstream sy;    sy << year;     string dateY = sy.str();
+        stringstream sm;    sm << month;    string dateM = sm.str();
+        stringstream sd;    sd << day;      string dateD = sd.str();
+        stringstream sh;    sh << hour;       string shour = sh.str();
+        stringstream smi;    smi << minut;      string sminut = smi.str();
+        stringstream ss;    ss << second;     string ssecond = ss.str();
+
+        string fullDateTime = dateY + "-" + dateM + "-" + dateD + " " + shour + ":" + sminut + ":" + ssecond;
+        return fullDateTime;
+    }
+
     string  date()
     {
         stringstream sy;    sy << year;     string dateY = sy.str();
@@ -69,6 +81,7 @@ public:
 
         return time;
     }
+
 
     long getTimestampDate(string date){
 
