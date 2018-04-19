@@ -15,6 +15,7 @@
 using namespace std;
 
 Loging l;
+long temp=0;
 
 void PrintMessage(string message, bool printTop = true, bool printBottom = true)
 {
@@ -73,38 +74,12 @@ void inbtwShowWorkDetails(string id);
 void inbtwShowTaskForEmployee(string id);
 void inbtwShowTimeOff(string id);
 
+Employee selectEmployeeByEmail(std::string email);
+Employee selectEmployeeById(std::string id);
 
 
-/*
-int main()
-{
-    Task t;
-    Database db;
-    db.startTask("1","1");
-   // db.endTask("1");
-    t = db.selectTask("1");
-    CustomTime c (stringToLong(t.time_spend));
-    cout << c.hour << ":" << c.minut;
-}
+void ShowAllTask();
 
-*/
-
-/*
-int main()
-{
-<<<<<<< HEAD
-    Task t;
-    Database db;
-    t.enterId();
-    t = db.selectTask(t.id);
-    long timestamp = stringToLong(t.time_spend);
-    timestamp = timestamp - 3600;
-    CustomTime ct(timestamp);
-    cout<< ct.hour<< ":" << ct.minut;
-
-
-}
-*/
 int main()
 {
     int n;
@@ -118,13 +93,12 @@ int main()
 		PrintMessage("                      ", false, false);
 		PrintMessage("0. EXIT               ", false, false);
 		PrintMessage("                      ", false, false);
-
-
 		PrintMessage("Please Select your option (0-2): ");
 		cout<< ">";	cin >> n;
-		switch (n)
-		{
-		case 1:
+
+		switch (n){
+		case 1:{
+
             while(!l.loged)
             {
                 system("cls");
@@ -132,20 +106,21 @@ int main()
             }
             if(l.loged)
             {
-                if(l.e.isAdmin())
-                {
+                if(l.e.isAdmin()){
+                   temp=employeeLoginRecord(l.e.id);
                     AdminMenu();
                     l.logout();
                 }
-                else
-                {
+                else{
+                    temp=employeeLoginRecord(l.e.id);
                     EmployeeMenu();
                     l.logout();
                 }
             }
             else{
                 l.logout();
-            };
+            }
+        }
             break;
 
         case 2:
@@ -162,7 +137,6 @@ int main()
 
 void AdminMenu()
 {
-
     int n;
     system("cls");
 	PrintMessage("ADMIN MANAGE EMPLOYEE");
@@ -183,8 +157,10 @@ void AdminMenu()
         ManageEmployeeMenu();
         break;
 
-   	case 0:
-   	    l.logout();
+   	case 0:{
+   	    employeeLogoutRecord(l.e.id,temp);
+        l.logout();
+        }
         return;
 	default: cout << "\a";
 
@@ -195,6 +171,8 @@ void AdminMenu()
 //Mohamad code updated
 void ManageEmployeeMenu()
 {
+
+    Employee e;
     int n;
     system("cls");
 	PrintMessage("ADMIN MANAGE EMPLOYEE");
@@ -213,32 +191,38 @@ void ManageEmployeeMenu()
 	{
 	case 1:{
 	    //Create Employee
-	    inbtwInsertEmployee();
+	    insertEmployee();
         system("pause");
 	}
 	    break;
 	case 2:{
         //Update Employee
-        inbtwUpdateEmployee();
+        updateEmployee();
         system("pause");
 	}
         break;
     case 3:{
         //Delete Employee
-        inbtwDeleteEmployee();
+        deleteEmployee();
         system("pause");
     }
 	    break;
     case 4:{
         //Show all Employees
         system("cls");
-        inbtwShowEmployees();
+        showEmployee();
+        cout <<" ___________________________________________________________"<<endl;
+        cout <<"|    Enter the id you need to show  the work's detail       |"<<endl;
+        cout <<"|___________________________________________________________|"<<endl;
+        e.enterId();
+        system("cls");
+        workTimesMenu(e.id);
         system("pause");
     }
 	    break;
     case 5 :{
         //Sign Employee as Admin
-        inbtwSignEmployeeAsAdmin();
+        signEmployeeAsAdmin();
         system("pause");
     }
    	case 0:return;
@@ -250,6 +234,10 @@ void ManageEmployeeMenu()
 
 void workTimesMenu(string id){
     int n;
+    Employee e;
+    Day d;
+    e=selectEmployeeById(id);
+    e.show();
 	PrintMessage(" show Works Times for Employee          ");
     PrintMessage("                                        ", false, false);
     PrintMessage("1.  Show works details for date period  ", false, false);
@@ -264,19 +252,23 @@ void workTimesMenu(string id){
 	{
 	case 1:{
        // Show work details
-        inbtwShowWorkDetails(id);
         system("pause");
+       long date1=d.enterPeriod();
+       long date2=d.enterPeriod();
+       showDays(date1,date2,e.id);
+       system("pause");
 	}
 	    break;
 	case 2:{
 	    // Show the Tasks
-	    inbtwShowTaskForEmployee(id);
+        showTaskForEmployee(e.id);
         system("pause");
     }
         break;
     case 3:{
+
         // Show Time off
-        inbtwShowTimeOff(id);
+        showTimesOffWithId(e.id);
         system("pause");
     }
         break;
@@ -331,7 +323,6 @@ void ManageProjectMenu()
         break;
    	case 0:return;
 	default: cout << "\a";
-
 	}
 	ManageProjectMenu();
 }
@@ -371,7 +362,7 @@ void ManageTaskMenu(string ProId)
         //update Task
         t.update();
         system("pause");
-	    break;
+        break;
     case 4:
         //show all Tasks
         inbtwShowAllTasks();
@@ -392,8 +383,6 @@ void ManageTaskMenu(string ProId)
 
 void EmployeeMenu()
 {
-
-    Employee e;
     Task t;
     int n;
     system("cls");
@@ -435,9 +424,14 @@ void EmployeeMenu()
 	    TimeOffMenu();
 	}
         break;
-   	case 0:
+   	case 0:{
+
+
+        employeeLogoutRecord(l.e.id,temp);
         l.logout();
+    }
         return;
+
 	default: cout << "\a";
 
 	}
@@ -445,10 +439,8 @@ void EmployeeMenu()
 }
 void TimeOffMenu(){
     TimeOff timeOf;
-    Database db;
     int n;
     string choice;
-    Show s;
     system("cls");
     PrintMessage("MANAGE TimeOff");
     PrintMessage("                               ", false, false);
@@ -464,15 +456,15 @@ void TimeOffMenu(){
     switch (n){
         case 1:{
             //show All TimeOff.
-            s.TimeOff(l.e.id);
+            showTimeOff(l.e.id);
             system("pause");
             break;
        }
        case 2:{
            //Add timeOff.
            timeOf=timeOf.enter(l.e.id);
-           db.insertTimeOff(timeOf);
-           s.TimeOff(l.e.id);
+           insertTimeOff(timeOf);
+           showTimeOff(l.e.id);
            system("pause");
            break;
        }
@@ -480,39 +472,39 @@ void TimeOffMenu(){
            //Update TimeOff.
            string id;
            system("cls");
-           s.AllTimesOff(l.e.id);
+           showTimesOffWithId(l.e.id);
            cout <<"+-------------------------------------------+"<<endl;
            cout <<"|  Enter the Id that you need to update it  |"<<endl;
            cout <<"+-------------------------------------------+"<<endl;
            cout <<"|     id="; cin>>id;
            cout <<"+-------------------------------------------+"<<endl;
            system("cls");
-           timeOf=db.selectTimeOff(id);
+           timeOf=selectTimeOff(id);
            timeOf.show();
            cout <<" ________________________"<<endl;
            cout <<"|  Enter New details     |"<<endl;
            timeOf=timeOf.enter(l.e.id);
            timeOf.id=id;
-           db.updateTimeOff(timeOf);
+           updateTimeOff(timeOf);
            system("pause");
            break;
        }
        case 4:{
            //Delete TimeOff.
-            s.AllTimesOff(l.e.id);
+            showTimesOffWithId(l.e.id);
             cout <<"+-----------------------------------------------------------+"<<endl;
             cout <<"|   Enter id for the timeOff that you need to delete it     |"<<endl;
             cout <<"+-----------------------------------------------------------+"<<endl;
             cout <<"          id="; cin>>timeOf.id; cout<<endl;
             cout <<"+-----------------------------------------------------------+"<<endl;
-            timeOf=db.selectTimeOff(timeOf.id);
+            timeOf=selectTimeOff(timeOf.id);
             timeOf.show();
             cout <<"+--------------------------+"<<endl;
             cout <<"|  Are you sure press(Y/N) |"<<endl;
             cout <<"+--------------------------+"<<endl;
             cin>>choice;
             if (choice=="y" || choice=="Y"){
-            db.deleteTimeOff(timeOf.id);
+            deleteTimeOff(timeOf.id);
             }
             system("pause");
            break;

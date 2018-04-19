@@ -133,7 +133,7 @@ public:
 
         //create day
         {
-        query="CREATE TABLE employee_managment.day(`id` int not null AUTO_INCREMENT, `date` int, `startTime` int, `endTime` int, `timeSpend` INT DEFAULT '0', `employee_id` int, PRIMARY KEY (id));";
+        query="CREATE TABLE employee_managment.day(`id` int not null AUTO_INCREMENT, `date` int(20), `startTime` VARCHAR(255), `endTime` VARCHAR(255), `timeSpend` INT DEFAULT '0', `employee_id` int, PRIMARY KEY (id));";
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -328,7 +328,6 @@ public:
         cout<< "Task is started "<<endl;
     }
 
-
     void pauseTask(string id){
         Day d;
         CustomTime c;
@@ -452,7 +451,7 @@ public:
 
 
 
-    //mohamad code
+    //MOHAMAD code
 
     // Employee process.
     Employee selectEmployeeById(string id){
@@ -548,9 +547,9 @@ public:
         }
         return employees;
     }
-    Employee getLoginEmployee(Employee em){
-        Employee e;
-        string query = "SELECT * FROM `employee` WHERE `email` = '"+em.email+"' AND `password`= '"+em.password+"'";
+    Employee getLoginEmployee(Employee e){
+
+        string query = "SELECT * FROM `employee` WHERE `email` = '"+e.email+"' AND `password`= '"+e.password+"'";
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate){
@@ -576,7 +575,7 @@ public:
         Day d;
        string date3= d.longToString(date1), date4= d.longToString(date2);
         list <Day> days;
-        string query = " select date, start_time ,end_time,time_spend ,employee_id from day left join employee on day.employee_id=employee.id having `date`>= '"+date3+"' and `date`<='"+date4+"'  order by employee_id";
+        string query = " select date, startTime ,endTime,timeSpend ,employee_id from day left join employee on day.employee_id=employee.id having `date`>= '"+date3+"' and `date`<='"+date4+"'  order by employee_id";
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate){
@@ -609,7 +608,7 @@ public:
     void insertDay(Day d){
         string start=d.longToString(d.start),endTime=d.longToString(d.endTime),date=d.longToString(d.date),timeSpend=d.longToString(d.timeSpend);
 
-        string query = "INSERT INTO `day`( `start`,`endTime`,`timeSpend`,`employee_id`,`date`) VALUES ('"+start+"','"+endTime+"','"+timeSpend+"','"+d.employeeId+"','"+date+"')";
+        string query = "INSERT INTO `day`( `startTime`,`endTime`,`timeSpend`,`employee_id`,`date`) VALUES ('"+start+"','"+endTime+"','"+timeSpend+"','"+d.employeeId+"','"+date+"')";
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate)
@@ -646,11 +645,105 @@ public:
         }
         return d;
     }
+    Day selectDayByEmployeeId(string employeeId){
+        Day d;
+        CustomTime c;
+        long currentdate = CustomTime().getTimestampDate();
+        string getTimestampDate = d.longToString(currentdate);
+
+        string query = "select * from  `day` where employee_id=" + employeeId ;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate){{}
+            res = mysql_store_result(conn);
+            while(row=mysql_fetch_row(res)){
+                string start; //=d.longToString(d.start);
+                string endTime;//=d.longToString(d.endTime),
+                string timeSpend;//=d.longToString(d.timeSpend),
+                string date; //=d.longToString(d.date);
+                d.id           =row[0];
+                d.employeeId  =row[1];
+                date           =row[2];
+                start          =row[3];
+                endTime        =row[4];
+                timeSpend      =row[5];
+                d.start    =d.stringToLong(start);
+                d.endTime  =d.stringToLong(endTime);
+                d.date     =d.stringToLong(date);
+                d.timeSpend=d.stringToLong(timeSpend);
+            }
+        }
+        else{
+            cout<<"query error: "<<mysql_error(conn)<<endl;
+        }
+        return d;
+    }
+     void insertStartEmployeeDay(string employeeId){
+        CustomTime c;
+        Day d;
+         long current = CustomTime().getTimestampDate();
+        string getTimestamp = d.longToString(current);
+        string  currentDate =c.date2()+" "+ "00"+ ":" + "00" + ":" + "00";
+        long currentTimeStampDate=c.getTimestampDate(currentDate);
+        string getTimestampDate = d.longToString(currentTimeStampDate);
+
+        string query = "INSERT INTO `day`( `startTime`,`endTime`,`employee_id`,`date`) VALUES ('"+getTimestamp+"','none','"+employeeId+"','"+getTimestampDate+"')";
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+            cout<<"record inserted successfully..."<<endl;
+        else
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+    }
+    void updeteEndEmployeeDay(Day d){
+        CustomTime c;
+
+         long current = CustomTime().getTimestampDate();
+        string getTimestamp = d.longToString(current);
+        string start=d.longToString(d.start), timeSpend=d.longToString(d.timeSpend),date=d.longToString(d.date);
+        string query = "update  `day` set `startTime` ="+start+",`endTime` ="+getTimestamp+",`employee_id`="+d.employeeId+",`date`="+date+" ,`timeSpend`="+timeSpend+" where id="+d.id;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+            cout<<"record inserted successfully..."<<endl;
+        else
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+    }
+      list<Day> selectDayByEmployeeIdAndByDate(string employeeId){
+        list <Day> days;
+        string query = "SELECT * from `day` WHERE employee_id="+employeeId;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate){
+            res=mysql_store_result(conn);
+
+            while(row=mysql_fetch_row(res)){
+                Day d;
+                d.id             = row[0];
+                string date      = row[1];
+                string start     = row[2];
+                string endTime   = row[3];
+                string timeSpend = row[4];
+                d.employeeId     = row[5];
+
+                d.start    =d.stringToLong(start);
+                d.endTime  =d.stringToLong(endTime);
+                d.date     =d.stringToLong(date);
+                d.timeSpend=d.stringToLong(timeSpend);
+                      days.push_back(d);
+            }
+        }
+        else{
+            cout<<"query error: "<<mysql_error(conn)<<endl;
+        }
+
+        return days;
+    }
     void updateDay( Day d){
 
         string start=d.longToString(d.start),endTime=d.longToString(d.endTime),timeSpend=d.longToString(d.timeSpend),date=d.longToString(d.date);
 
-        string query = "update  `day` set `start` ="+start+",`endTime` ="+endTime+",`employee_id`="+d.employeeId+",`date`="+date+" ,`timeSpend`="+timeSpend+" where id="+d.id;
+        string query = "update  `day` set `startTime` ="+start+",`endTime` ="+endTime+",`employee_id`="+d.employeeId+",`date`="+date+" ,`timeSpend`="+timeSpend+" where id="+d.id;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate)
@@ -878,7 +971,6 @@ public:
         list<Task>tasks;
         string query ="SELECT * FROM `task` WHERE employee_id="+employeeId;
         const char* q = query.c_str();
-       // cout<<"query is: "<<q<<endl;
         qstate = mysql_query(conn,q);
         if(!qstate)
         {

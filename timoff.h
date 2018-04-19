@@ -3,6 +3,7 @@
 #include <sstream>
 #include<string>
 #include <list>
+#include<gtime.h>
 using namespace std;
 
 //MOHAMAD CODE
@@ -40,7 +41,9 @@ public:
            cout <<"            ";cin >>t ;
 
            string fullDateFrom =d +" "+t ;
+           //cout<<"from"<<fullDateFrom<<endl;
            timeOf.from=c.getTimestampDate(fullDateFrom);
+           //cout<<"from"<<timeOf.from<<endl;
 
            stringstream bb;
            bb << c.year << "/"<<c.month << "/"<<c.day ;
@@ -60,8 +63,9 @@ public:
            cout <<"|_______________________________________________________|"<<endl;
 
            string fullDateTo =b +" "+h ;
+           //cout<<"to"<<fullDateTo<<endl;
            timeOf.to=c.getTimestampDate(fullDateTo);
-
+           //cout<<"to"<<timeOf.to<<endl;
            return timeOf;
     }
      void show(){

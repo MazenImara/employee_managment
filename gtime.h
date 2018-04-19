@@ -104,6 +104,26 @@ public:
 
         long mylong = atol(c.getTimestampDate().c_str());
     }*/
+    string  date2()
+    {
+        stringstream sy;    sy << year;     string dateY = sy.str();
+        stringstream sm;    sm << month;    string dateM = sm.str();
+        stringstream sd;    sd << day;      string dateD = sd.str();
+
+        string date = dateY + "/" + dateM + "/" + dateD;
+
+        return date;
+    }
+      string timeCorrectH()
+    {
+        stringstream sh;    sh << hour-1;       string shour = sh.str();
+        stringstream sm;    sm << minut;      string sminut = sm.str();
+        stringstream ss;    ss << second;     string ssecond = ss.str();
+
+        string time = shour + ":" + sminut + ":" + ssecond;
+
+        return time;
+    }
 };
 
 
