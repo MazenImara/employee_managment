@@ -30,7 +30,6 @@ public:
             cout<< "Email or password is wrong"<< endl;
         }
         else{
-
             loged = true;
         }
     }

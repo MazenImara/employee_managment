@@ -154,12 +154,13 @@ void createDatabase(){
         list<Day> days;
         days = db.selectEmployeesWorkForPeriod(date1,date2,id);
         for ( d : days){
-            CustomTime c1 =CustomTime(d.date),c2=CustomTime(d.start),c3=CustomTime(d.endTime);
-            cout <<"|"<<setw(20)<<c1.date()<<setw(20)<<c2.Time()<<setw(20)<<c3.Time()<<setw(15)<<d.timeSpend<<setw(6)<<" |"<<endl;
+            CustomTime c1 =CustomTime(d.date),c2=CustomTime(d.start),c3=CustomTime(d.endTime),c,c4=CustomTime(d.timeSpend);
+            cout <<"|"<<setw(20)<<c1.date()<<setw(20)<<c2.Time()<<setw(20)<<c3.Time()<<setw(15)<<c4.timeCorrectH()<<setw(6)<<" |"<<endl;
             sum = sum + d.timeSpend;
         }
+        CustomTime c5 =CustomTime(sum);
         cout <<"|________________________________________________________________________________|"<<endl;
-        cout <<"|   the total timeSpend for this period  is =\t "<<setw(17)<<sum<<setw(16)<<"|"<<endl;
+        cout <<"|   the total timeSpend for this period  is =\t "<<setw(17)<<c5.timeCorrectH()<<setw(16)<<"|"<<endl;
         cout <<"|________________________________________________________________________________|"<<endl;
     }
 
@@ -206,11 +207,11 @@ void createDatabase(){
         Database db;
         TimeOff timeOf;
         list<TimeOff> timesOff;
-        cout <<" _____________________________________________________________________"<<endl;
-        cout <<"|                               Your TimesOff                         |"<<endl;
-        cout <<"|_____________________________________________________________________|"<<endl;
-        cout <<"|"<<setw(5)<<"ID"<<setw(18)<<"From"<<setw(32)<<"To"<<"              |"<< endl;
-        cout <<"|_____________________________________________________________________|"<<endl;
+        cout <<" ___________________________________________________________________________"<<endl;
+        cout <<"|                                   Your TimesOff                           |"<<endl;
+        cout <<"|___________________________________________________________________________|"<<endl;
+        cout <<"|"<<setw(5)<<"ID"<<setw(18)<<"From"<<setw(32)<<"To"<<setw(21)<<"|"<< endl;
+        cout <<"|___________________________________________________________________________|"<<endl;
         int i=0;
         long matrix[100][100];
         long temp,temp1,temp2;
@@ -238,9 +239,9 @@ void createDatabase(){
         }
         for (int k=1;k<=i;++k){
              CustomTime c1 =CustomTime(matrix[k][1]),c2=CustomTime(matrix[k][2]);
-             cout <<"|"<<setw(5)<<matrix[k][0]<<setw(15)<<c1.date()<<"  "<<setw(6)<<c1.Time()<<setw(24)<<c2.date()<<"  "<<setw(6)<<c2.Time()<<setw(10)<<"|"<<endl;
+             cout <<"|"<<setw(5)<<matrix[k][0]<<setw(15)<<c1.date()<<"  "<<setw(10)<<c1.Time()<<setw(24)<<c2.date()<<"  "<<setw(10)<<c2.Time()<<setw(8)<<"|"<<endl;
         }
-        cout <<"|_____________________________________________________________________|"<<endl;
+        cout <<"|___________________________________________________________________________|"<<endl;
     }
 
     void  showTaskForEmployee(string employeeId){

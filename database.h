@@ -667,23 +667,6 @@ public:
         else
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
-    void insertStartEmployeeDay(string employeeId){
-        CustomTime c;
-        Day d;
-         long current = CustomTime().getTimestampDate();
-        string getTimestamp = d.longToString(current);
-
-        long  currentdate = CustomTime().getTimestampDate();
-        string getTimestampDate = d.longToString(currentdate);
-
-        string query = "INSERT INTO `day`( `start_time`,`end_time`,`employee_id`,`date`) VALUES ('"+getTimestamp+"','none','"+employeeId+"','"+getTimestampDate+"')";
-        const char* q = query.c_str();
-        qstate = mysql_query(conn,q);
-        if(!qstate)
-            cout<<"record inserted successfully..."<<endl;
-        else
-            cout<<"query problem: "<<mysql_error(conn)<<endl;
-    }
     Day selectDay(string id){
         Day d;
         string query = "select * from  `day` where id=" + id;
@@ -712,6 +695,100 @@ public:
             cout<<"query error: "<<mysql_error(conn)<<endl;
         }
         return d;
+    }
+    Day selectDayByEmployeeId(string employeeId){
+        Day d;
+        CustomTime c;
+        long currentdate = CustomTime().getTimestampDate();
+        string getTimestampDate = d.longToString(currentdate);
+
+        string query = "select * from  `day` where employee_id=" + employeeId ;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate){{}
+            res = mysql_store_result(conn);
+            while(row=mysql_fetch_row(res)){
+                string start; //=d.longToString(d.start);
+                string endTime;//=d.longToString(d.endTime),
+                string timeSpend;//=d.longToString(d.timeSpend),
+                string date; //=d.longToString(d.date);
+                d.id           =row[0];
+                d.employeeId  =row[1];
+                date           =row[2];
+                start          =row[3];
+                endTime        =row[4];
+                timeSpend      =row[5];
+                d.start    =d.stringToLong(start);
+                d.endTime  =d.stringToLong(endTime);
+                d.date     =d.stringToLong(date);
+                d.timeSpend=d.stringToLong(timeSpend);
+            }
+        }
+        else{
+            cout<<"query error: "<<mysql_error(conn)<<endl;
+        }
+        return d;
+    }
+     void insertStartEmployeeDay(string employeeId){
+        CustomTime c;
+        Day d;
+         long current = CustomTime().getTimestampDate();
+        string getTimestamp = d.longToString(current);
+        string  currentDate =c.date2()+" "+ "00"+ ":" + "00" + ":" + "00";
+        long currentTimeStampDate=c.getTimestampDate(currentDate);
+        string getTimestampDate = d.longToString(currentTimeStampDate);
+
+        string query = "INSERT INTO `day`( `start_time`,`end_time`,`employee_id`,`date`) VALUES ('"+getTimestamp+"','none','"+employeeId+"','"+getTimestampDate+"')";
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+            cout<<"record inserted successfully..."<<endl;
+        else
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+    }
+    void updeteEndEmployeeDay(Day d){
+        CustomTime c;
+
+         long current = CustomTime().getTimestampDate();
+        string getTimestamp = d.longToString(current);
+        string start=d.longToString(d.start), timeSpend=d.longToString(d.timeSpend),date=d.longToString(d.date);
+        string query = "update  `day` set `start_time` ="+start+",`end_time` ="+getTimestamp+",`employee_id`="+d.employeeId+",`date`="+date+" ,`time_spend`="+timeSpend+" where id="+d.id;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+            cout<<"record inserted successfully..."<<endl;
+        else
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+    }
+      list<Day> selectDayByEmployeeIdAndByDate(string employeeId){
+        list <Day> days;
+        string query = "SELECT * from `day` WHERE employee_id="+employeeId;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate){
+            res=mysql_store_result(conn);
+
+            while(row=mysql_fetch_row(res)){
+                Day d;
+                d.id             = row[0];
+                string date      = row[1];
+                string start     = row[2];
+                string endTime   = row[3];
+                string timeSpend = row[4];
+                d.employeeId     = row[5];
+
+                d.start    =d.stringToLong(start);
+                d.endTime  =d.stringToLong(endTime);
+                d.date     =d.stringToLong(date);
+                d.timeSpend=d.stringToLong(timeSpend);
+                      days.push_back(d);
+            }
+        }
+        else{
+            cout<<"query error: "<<mysql_error(conn)<<endl;
+        }
+
+        return days;
     }
     void updateDay( Day d){
 

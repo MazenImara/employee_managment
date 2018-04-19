@@ -15,6 +15,7 @@
 using namespace std;
 
 Loging l;
+long temp=0;
 
 void PrintMessage(string message, bool printTop = true, bool printBottom = true)
 {
@@ -105,8 +106,18 @@ int main()
 }
 */
 int main()
-{
+{ /*
+    CustomTime c;
+    cout<<c.date2()<<endl;
+    string  date =c.date2()+" "+ "00"+ ":" + "00" + ":" + "00";
+    cout<<"date"<<c.getTimestampDate(date)<<endl;
+    system("pause");
+    */
     int n;
+    Database db;
+    Day d;
+    bool found=false;
+    CustomTime c;
 	do {
 		system("cls");
 		PrintMessage("EMPLOYEE MANAGEMENT");
@@ -121,9 +132,10 @@ int main()
 
 		PrintMessage("Please Select your option (0-2): ");
 		cout<< ">";	cin >> n;
-		switch (n)
-		{
-		case 1:
+
+		switch (n){
+		case 1:{
+
             while(!l.loged)
             {
                 system("cls");
@@ -138,15 +150,36 @@ int main()
                 }
                 else
                 {
-                    Database db;
-                    db.insertStartEmployeeDay(l.e.id);
-                    EmployeeMenu();
+                   list<Day> days;
+                   days =db.selectDayByEmployeeIdAndByDate(l.e.id);
+                    long current = CustomTime().getTimestampDate();
+                   for (d:days){
+                          string  currentDate =c.date2()+" "+ "00"+ ":" + "00" + ":" + "00";
+                          long currentTimeStampDate=c.getTimestampDate(currentDate);
+
+                      if (currentTimeStampDate == d.date){
+                          temp =current;
+                          found=true;
+                      }
+
+                  }
+                    //if((d.id.empty())){
+                    if(found ==false){
+                            long current = CustomTime().getTimestampDate();
+                            db.insertStartEmployeeDay(l.e.id);
+                             temp =current;
+
+                   }
+
+                   EmployeeMenu();
                     l.logout();
-                }
+
             }
+           }
             else{
                 l.logout();
-            };
+           }
+           }
             break;
 
         case 2:
@@ -163,7 +196,9 @@ int main()
 
 void AdminMenu()
 {
-
+    Database db;
+    Day d;
+    CustomTime c;
     int n;
     system("cls");
 	PrintMessage("ADMIN MANAGE EMPLOYEE");
@@ -184,8 +219,9 @@ void AdminMenu()
         ManageEmployeeMenu();
         break;
 
-   	case 0:
-   	    l.logout();
+   	case 0:{
+            l.logout();
+        }
         return;
 	default: cout << "\a";
 
@@ -399,6 +435,8 @@ void EmployeeMenu()
 {
 
     Employee e;
+    Day d;
+    CustomTime c;
     Task t;
     int n;
     system("cls");
@@ -439,8 +477,27 @@ void EmployeeMenu()
 	}
         break;
    	case 0:
-        l.logout();
+        {
+   	     Database db;
+            string  currentDate =c.date2()+" "+ "00"+ ":" + "00" + ":" + "00";
+            long currentTimeStampDate=c.getTimestampDate(currentDate);
+            list<Day> days;
+            days=db.selectDayByEmployeeIdAndByDate(l.e.id);
+
+            long curentTime = CustomTime().getTimestampDate();
+
+            for(d :days){
+                    if(d.date==currentTimeStampDate){
+                        long sub=curentTime-temp;
+                        d.timeSpend=d.timeSpend+sub;
+                        d.endTime=curentTime;
+                        db.updeteEndEmployeeDay(d);
+                    }
+   	        }
+           l.logout();
+        }
         return;
+
 	default: cout << "\a";
 
 	}
