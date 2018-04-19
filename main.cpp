@@ -516,23 +516,3 @@ void TimeOffMenu(){
      TimeOffMenu();
 }
 
-
-/*
-void showAllEmployee()
-{
-    Database db;
-    Employee e;
-
-    list<Employee> employees;
-    employees = db.selectEmployees();
-    for(e :employees)
-    {
-        e.showHeaderWithId();
-        e.showDataWithId();
-        e.showLineWhitId();
-    }
-    db.close();
-}
-
-*/
-
