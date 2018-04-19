@@ -109,6 +109,7 @@ void inbtwShowAllProjects(){
     Project p;
     list<Project> projects;
     projects = db.selectProjects();
+    p.header();
     for(p:projects){
         p.show();
     }
@@ -156,91 +157,6 @@ void inbtwUpdateProject()
      }
 // end mazen
 
-/*
-//start ikram
-void inbtwInsertEmployee(){
-    Employee e;
-    Database db;
-    e.enter();
-    db.insertEmployee(e);
-    e=db.selectEmployeeByEmail(e.email);
-    e.show();
-}
-
-void inbtwUpdateEmployee(){
-    Employee e;
-    Show s;
-    Database db;
-    s.Employee();
-    e.enterId();
-    e=db.selectEmployeeById(e.id);
-    e.show();
-    cout <<" ________________________"<<endl;
-    cout <<"|    enter new details   |"<<endl;
-    cout <<"|________________________|"<<endl;
-    e.enter();
-    db.updateEmployee(e);
-}
-
-void inbtwDeleteEmployee(){
-    Employee e;
-    Show s;
-    Database db;
-    s.Employee();
-    e=db.selectEmployeeById(e.id);
-    e.show();
-    e.enterId();
-    cout <<" __________________________"<<endl;
-    cout <<"|  are you sure press Y/N  |"<<endl;
-    cout <<"|__________________________|"<<endl;
-    string  choice;
-    cin>>choice ;
-    if (choice=="y" || choice=="Y"){
-        db.deleteEmployee(e.id);
-    }
-}
-
-void inbtwShowEmployees(){
-    Employee e;
-    Show s;
-    Database db;
-    string id;
-    s.Employee();
-    cout <<" ___________________________________________________________"<<endl;
-    cout <<"|    Enter the id you need to show  the work's detail       |"<<endl;
-    cout <<"|___________________________________________________________|"<<endl;
-    e.enterId();
-    workTimesMenu(e.id);
-}
-
-
-}
-
-void inbtwShowWorkDetails(string id){
-    Employee e;
-    Database db;
-    Day d;
-    Show s;
-    e=db.selectEmployeeById(id);
-    e.show();
-    long date1=d.enterPeriod();
-    long date2=d.enterPeriod();
-    s.Days(date1,date2,id);
-}
-
-void inbtwShowTaskForEmployee(string id){
-    Show s;
-    Employee e;
-    s.TaskForEmployee(id);
-}
-
-void inbtwShowTimeOff(string id){
-    Show s;
-    Employee e;
-    s.AllTimesOff(id);
-}
-*/
-//end ikram
 
 
 // MOHAMAD

@@ -17,13 +17,16 @@ class Project{
         /*void show(){
             cout << "id: " << id << "\t\ttitle: " << title << "\t\tdescription: " << description << "\t\tstatus: " << status << endl;
         }*/
-
-        void show(){
+        void header()
+        {
             cout <<" _______________________________________________________________________________________________"<<endl;
             cout <<"|                                                                                               |"<<endl;
             cout <<"|                                         Project's details                                     |"<<endl;
             cout <<"|_______________________________________________________________________________________________|"<<endl;
             cout <<"|"<<setw(10)<<"id"<<setw(20)<<"Title"<<setw(30)<<"Description"<<setw(20)<<"Status"<<setw(16)<<"|"<<endl;
+        }
+        void show(){
+
             cout <<"|"<<setw(10)<<id<<setw(20)<<title<<setw(30)<<description<<setw(20)<<status<<setw(16)<<"|"<<endl;
             cout <<"|_______________________________________________________________________________________________|"<<endl;
         }
