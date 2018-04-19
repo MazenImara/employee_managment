@@ -237,7 +237,9 @@ void workTimesMenu(string id){
     Employee e;
     Day d;
     e=selectEmployeeById(id);
-    e.show();
+    e.showHeaderWithId();
+    e.showDataWithId();
+    e.showLineWhitId();
 	PrintMessage(" show Works Times for Employee          ");
     PrintMessage("                                        ", false, false);
     PrintMessage("1.  Show works details for date period  ", false, false);
@@ -252,7 +254,6 @@ void workTimesMenu(string id){
 	{
 	case 1:{
        // Show work details
-        system("pause");
        long date1=d.enterPeriod();
        long date2=d.enterPeriod();
        showDays(date1,date2,e.id);
@@ -516,7 +517,7 @@ void TimeOffMenu(){
 }
 
 
-
+/*
 void showAllEmployee()
 {
     Database db;
@@ -526,11 +527,12 @@ void showAllEmployee()
     employees = db.selectEmployees();
     for(e :employees)
     {
-        e.show();
-
+        e.showHeaderWithId();
+        e.showDataWithId();
+        e.showLineWhitId();
     }
     db.close();
 }
 
-
+*/
 

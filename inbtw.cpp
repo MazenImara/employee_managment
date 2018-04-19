@@ -156,108 +156,18 @@ void inbtwUpdateProject()
      }
 // end mazen
 
-/*
-//start ikram
-void inbtwInsertEmployee(){
-    Employee e;
-    Database db;
-    e.enter();
-    db.insertEmployee(e);
-    e=db.selectEmployeeByEmail(e.email);
-    e.show();
-}
-
-void inbtwUpdateEmployee(){
-    Employee e;
-    Show s;
-    Database db;
-    s.Employee();
-    e.enterId();
-    e=db.selectEmployeeById(e.id);
-    e.show();
-    cout <<" ________________________"<<endl;
-    cout <<"|    enter new details   |"<<endl;
-    cout <<"|________________________|"<<endl;
-    e.enter();
-    db.updateEmployee(e);
-}
-
-void inbtwDeleteEmployee(){
-    Employee e;
-    Show s;
-    Database db;
-    s.Employee();
-    e=db.selectEmployeeById(e.id);
-    e.show();
-    e.enterId();
-    cout <<" __________________________"<<endl;
-    cout <<"|  are you sure press Y/N  |"<<endl;
-    cout <<"|__________________________|"<<endl;
-    string  choice;
-    cin>>choice ;
-    if (choice=="y" || choice=="Y"){
-        db.deleteEmployee(e.id);
-    }
-}
-
-void inbtwShowEmployees(){
-    Employee e;
-    Show s;
-    Database db;
-    string id;
-    s.Employee();
-    cout <<" ___________________________________________________________"<<endl;
-    cout <<"|    Enter the id you need to show  the work's detail       |"<<endl;
-    cout <<"|___________________________________________________________|"<<endl;
-    e.enterId();
-    workTimesMenu(e.id);
-}
-
-
-}
-
-void inbtwShowWorkDetails(string id){
-    Employee e;
-    Database db;
-    Day d;
-    Show s;
-    e=db.selectEmployeeById(id);
-    e.show();
-    long date1=d.enterPeriod();
-    long date2=d.enterPeriod();
-    s.Days(date1,date2,id);
-}
-
-void inbtwShowTaskForEmployee(string id){
-    Show s;
-    Employee e;
-    s.TaskForEmployee(id);
-}
-
-void inbtwShowTimeOff(string id){
-    Show s;
-    Employee e;
-    s.AllTimesOff(id);
-}
-*/
-//end ikram
-
-
 // MOHAMAD
 
 void showEmployee(){
     Employee e;
     Database db;
     list<Employee> employess;
-    cout <<" __________________________________________________________________________________________________________________________________"<<endl;
-    cout <<"|                                                      Employee's details                                                          |"<<endl;
-    cout <<"|__________________________________________________________________________________________________________________________________|"<<endl;
-    cout <<"|"<<setw(10)<<"id"<<setw(20)<<"Name"<<setw(30)<<"Email"<<setw(20)<<"Password"<<setw(30)<<"Address"<<setw(20)<<"Phone"<<"|"<< endl;
+    e.showHeaderWithId();
     employess = db.selectEmployees();
     for ( e : employess){
-        cout <<"|"<<setw(10)<<e.id<<setw(20)<<e.name<<setw(30)<<e.email<<setw(20)<<e.password<<setw(30)<<e.address<<setw(20)<<e.phone<<"|"<<endl;
+        e.showDataWithId();
     }
-    cout <<"|__________________________________________________________________________________________________________________________________|"<<endl;
+    e.showLineWhitId();
 }
 
 void showDays( long date1, long date2,string id){
@@ -265,10 +175,7 @@ void showDays( long date1, long date2,string id){
     Day d;
     Database db;
     int sum=0;
-    cout <<" ________________________________________________________________________________"<<endl;
-    cout <<"|                       Days's details for Employee                              |"<<endl;
-    cout <<"|________________________________________________________________________________|"<<endl;
-    cout <<"|"<<setw(18)<<"Date"<<setw(23)<<"startTime"<<setw(18)<<"endTime"<<setw(18)<<"timeSpend"<<setw(4)<<"  |"<< endl;
+    d.showHeader();
     list<Day> days;
     days = db.selectEmployeesWorkForPeriod(date1,date2,id);
     for ( d : days){
@@ -286,12 +193,7 @@ void showTimeOff(string id){
     Database db;
     TimeOff timeOf;
     list<TimeOff> timesOff;
-
-    cout <<" ___________________________________________________________"<<endl;
-    cout <<"|                       Your TimesOff                       |"<<endl;
-    cout <<"|___________________________________________________________|"<<endl;
-    cout <<"|"<<setw(15)<<"From"<<setw(30)<<"To"<<setw(15)<<"|"<< endl;
-    cout <<"|___________________________________________________________|"<<endl;
+    timeOf.showHeaderWithout();
     int i=0;
     long matrix[100][100];
     long temp,temp1,temp2;
@@ -325,11 +227,7 @@ void showTimesOffWithId(string id){
     Database db;
     TimeOff timeOf;
     list<TimeOff> timesOff;
-    cout <<" ___________________________________________________________________________"<<endl;
-    cout <<"|                                   Your TimesOff                           |"<<endl;
-    cout <<"|___________________________________________________________________________|"<<endl;
-    cout <<"|"<<setw(5)<<"ID"<<setw(18)<<"From"<<setw(32)<<"To"<<setw(21)<<"|"<< endl;
-    cout <<"|___________________________________________________________________________|"<<endl;
+    timeOf.showHeaderWithId();
     int i=0;
     long matrix[100][100];
     long temp,temp1,temp2;
@@ -367,20 +265,14 @@ void  showTaskForEmployee(string employeeId){
     Day d;
     Database db;
     list<Task> tasks;
-    cout <<"+------------------------------------------------------------------------------------------------------------------------------------------------------+"<<endl;
-    cout <<"|                                                        Your Tasks                                                                                    |"<<endl;
-    cout <<"+------------------------------------------------------------------------------------------------------------------------------------------------------+"<<endl;
-    cout <<"|"<<setw(10)<<"Title"<<setw(10)<<"Status"<<setw(20)<<"StartTemp"<<setw(30)<<"EndTemp"<<setw(25)<<"TimeSpend"<<setw(30)<<"ProjectId"<<setw(26)<<"|"<< endl;
-    cout <<"|______________________________________________________________________________________________________________________________________________________|"<<endl;
-
+    t.showHeaderWithoutId();
     tasks = db.selectEmployeeTasks(employeeId);
     for ( t : tasks){
            long startTemp=d.stringToLong(t.startTemp),endTemp=d.stringToLong(t.endTemp);
         CustomTime c1 =CustomTime(startTemp),c2=CustomTime(endTemp);
         cout <<"|"<<setw(10)<<t.title<<setw(10)<<t.status<<setw(15)<<c1.date()<<"  "<<setw(8)<<c1.Time()<<setw(20)<<c2.date()<<"  "<<setw(8)<<c2.Time()<<setw(16)<<t.timeSpend<<setw(30)<<t.projectId<<setw(30)<<"|"<< endl;
     }
-    cout <<"|______________________________________________________________________________________________________________________________________________________|"<<endl;
-
+    t.showLineWithoutId();
 }
 void insertTimeOff(TimeOff timeOf){
     Database db;
@@ -407,7 +299,9 @@ void insertEmployee(){
     Database db;
     db.insertEmployee(e);
     e=db.selectEmployeeByEmail(e.email);
-    e.show();
+    e.showHeaderWithId();
+    e.showDataWithId();
+    e.showLineWhitId();
 }
 Employee selectEmployeeByEmail(string email){
     Database db;
@@ -427,7 +321,9 @@ void updateEmployee(){
     showEmployee();
     e.enterId();
     e=selectEmployeeById(e.id);
-    e.show();
+    e.showHeaderWithId();
+    e.showDataWithId();
+    e.showLineWhitId();
     cout <<" ________________________"<<endl;
     cout <<"|    enter new details   |"<<endl;
     cout <<"|________________________|"<<endl;
@@ -445,7 +341,9 @@ void deleteEmployee(){
     showEmployee();
     e.enterId();
     e=selectEmployeeById(e.id);
-    e.show();
+    e.showHeaderWithId();
+    e.showDataWithId();
+    e.showLineWhitId();
     cout <<" __________________________"<<endl;
     cout <<"|  are you sure press Y/N  |"<<endl;
     cout <<"|__________________________|"<<endl;

@@ -22,6 +22,13 @@ public:
     void enterEnd(){
         cout <<"Enter end=\t";cin >>endTime;
     }
+    void showHeader(){
+    cout <<" ________________________________________________________________________________"<<endl;
+    cout <<"|                       Days's details for Employee                              |"<<endl;
+    cout <<"|________________________________________________________________________________|"<<endl;
+    cout <<"|"<<setw(18)<<"Date"<<setw(23)<<"startTime"<<setw(18)<<"endTime"<<setw(18)<<"timeSpend"<<setw(4)<<"  |"<< endl;
+    cout <<"|________________________________________________________________________________|"<<endl;
+    }
     long enterPeriodStepByStep(){
        cout <<"+---------------------------------------------------------+"<<endl;
        cout <<"|Enter the date period that you need to show work details |"<<endl;

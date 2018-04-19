@@ -24,12 +24,16 @@ public:
         cout <<setw(20)<<"Enter address  =\t";cin >>address;cout <<endl;
         cout <<setw(20)<<"Enter phone    =\t";cin >>phone;cout <<endl;
     }
-    void show(){
+    void showHeaderWithId(){
        cout <<" __________________________________________________________________________________________________________________________________"<<endl;
        cout <<"|                                                      Employee's details                                                          |"<<endl;
        cout <<"|__________________________________________________________________________________________________________________________________|"<<endl;
        cout <<"|"<<setw(10)<<"id"<<setw(20)<<"Name"<<setw(30)<<"Email"<<setw(20)<<"Password"<<setw(30)<<"Address"<<setw(20)<<"Phone"<<"|"<< endl;
+    }
+    void showDataWithId(){
        cout <<"|"<<setw(10)<<id<<setw(20)<<name<<setw(30)<<email<<setw(20)<<"Password"<<setw(30)<<address<<setw(20)<<phone<<"|"<<endl;
+    }
+    void showLineWhitId(){
        cout <<"|__________________________________________________________________________________________________________________________________|"<<endl;
     }
     void enterLogin(){
