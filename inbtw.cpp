@@ -6,7 +6,7 @@
 
 using namespace std;
 
-
+void inbtwShowAllTasks();
 void workTimesMenu(string id);
 
 // gab
@@ -51,6 +51,7 @@ void inbtwInsertTask(string projectId)
 void inbtwDeleteTask(string taskId)
 {
     Database db;
+    //inbtwShowAllTasks();
     db.deleteTask(taskId);
 }
 void inbtwUpdateTask()
