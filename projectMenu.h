@@ -24,45 +24,45 @@ void showAllProjects(){
 
 
 
-void updateProject(){
-    Database db;
-    Project p;
-    cout << "1. Update project" << endl;
-    cout << "2. Delete project" << endl;
-
-    int menuChoice;
-    cin >> menuChoice;
-    switch(menuChoice){
-    case 1:
-        p.enterId();
-        p = db.selectProject(p.id);
-        cout << "1. Update project details" << endl;
-        cout << "2. Manage task" << endl;
-
-        int choice;
-        cin >> choice;
-        switch(choice){
-        case 1:
-            p.enter();
-            p.status = "new";
-            db.updateProject(p);
-            break;
-        case 2:
-            break;
-        default:
-            cout << "Invalid choice" << endl;
-            updateProject();
-        }/*
-    case 2:
-        p.enterId();
-        p = db.selectProject(p.id);
-        db.deleteProject(p);
-        break;*/
-    default:
-        cout << "Invalid choice" << endl;
-        updateProject();
-    }
-}
+//void updateProject(){
+//    Database db;
+//    Project p;
+//    cout << "1. Update project" << endl;
+//    cout << "2. Delete project" << endl;
+//
+//    int menuChoice;
+//    cin >> menuChoice;
+//    switch(menuChoice){
+//    case 1:
+//        p.enterId();
+//        p = db.selectProject(p.id);
+//        cout << "1. Update project details" << endl;
+//        cout << "2. Manage task" << endl;
+//
+//        int choice;
+//        cin >> choice;
+//        switch(choice){
+//        case 1:
+//            p.enter();
+//            p.status = "new";
+//            db.updateProject(p);
+//            break;
+//        case 2:
+//            break;
+//        default:
+//            cout << "Invalid choice" << endl;
+//            updateProject();
+//        }/*
+//    case 2:
+//        p.enterId();
+//        p = db.selectProject(p.id);
+//        db.deleteProject(p);
+//        break;*/
+//    default:
+//        cout << "Invalid choice" << endl;
+//        updateProject();
+//    }
+//}
 void manageProject(){
     Database db;
     Project p;

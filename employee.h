@@ -13,6 +13,7 @@ using namespace std;
 class Employee{
 public:
     string id,name,email,password,address,phone;
+
     void enterId(){
         cout <<"enter id =\t";cin >>id;cout <<endl;
     }

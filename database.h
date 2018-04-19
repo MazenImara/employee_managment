@@ -30,7 +30,7 @@ public:
         else
             cout<<"conn object problem: "<<mysql_error(conn);
 
-        conn = mysql_real_connect(conn,"localhost","root","password","employee_managment",0,NULL,0);
+        conn = mysql_real_connect(conn,"localhost","root","","employee_managment",0,NULL,0);
 
         if(conn)
             cout<<"connect to data base  successfully..."<<endl;
@@ -55,7 +55,7 @@ public:
         cout<<"connection object ok, conn="<<conn<<endl;
     else
         cout<<"conn object problem: "<<mysql_error(conn);
-    conn = mysql_real_connect(conn,"localhost","root","password",NULL,0,NULL,0);
+    conn = mysql_real_connect(conn,"localhost","root","",NULL,0,NULL,0);
 
     if(conn)
         cout<<"test without database  ok, conn="<<conn<<endl;
@@ -132,7 +132,7 @@ public:
 
         //create day
         {
-        query="CREATE TABLE employee_managment.day(`id` int not null AUTO_INCREMENT, `date` int, `startTime` int, `endTime` int, `timeSpend` INT DEFAULT '0', `employee_id` int, PRIMARY KEY (id));";
+        query="CREATE TABLE employee_managment.day(`id` int not null AUTO_INCREMENT, `date` VARCHAR(255), `startTime` VARCHAR(255), `endTime` VARCHAR(255), `timeSpend` INT DEFAULT '0', `employee_id` int, PRIMARY KEY (id));";
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -499,7 +499,12 @@ public:
     // End ikram
 
 
+<<<<<<< HEAD
     //mohamad code
+=======
+
+    //MOHAMAD code
+>>>>>>> 69d8578d4fa99fa0279262d69e1ac3fb4c5f3696
 
     // Employee process.
     Employee selectEmployeeById(string id){
@@ -925,7 +930,6 @@ public:
         list<Task>tasks;
         string query ="SELECT * FROM `task` WHERE employee_id="+employeeId;
         const char* q = query.c_str();
-       // cout<<"query is: "<<q<<endl;
         qstate = mysql_query(conn,q);
         if(!qstate)
         {

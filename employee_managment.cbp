@@ -67,6 +67,7 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="project.h" />
 		<Unit filename="projectMenu.h" />
+		<Unit filename="show.h" />
 		<Unit filename="task.h" />
 		<Unit filename="timoff.h" />
 		<Extensions>

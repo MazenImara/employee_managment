@@ -46,9 +46,9 @@ public:
         cout << "\nId: " << id << "\tTitle: " << title << endl;
     }
 
-    void getTask(string id)
+    void selectTask(string id)
     {
-        GetTask(id);
+        selectTask(id);
     }
 
     void setEmployeTask()
@@ -56,19 +56,19 @@ public:
         SetEmployeTask();
     }
 
-    void Add(string id)
+    void add(string id)
     {
-        GetInsertTask(id);
+        insertTask(id);
     }
 
     void Delete(string id)
     {
-        GetDeleteTask(id);
+        deleteTask(id);
     }
 
-    void Update()
+    void update()
     {
-        GetUpdateTask();
+        updateTask();
     }
 
     void start(string TId, string EId)
