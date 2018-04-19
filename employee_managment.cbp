@@ -53,6 +53,7 @@
 		<Unit filename="project.h" />
 		<Unit filename="show.h" />
 		<Unit filename="task.h" />
+		<Unit filename="timoff.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

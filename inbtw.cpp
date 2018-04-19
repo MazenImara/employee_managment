@@ -6,7 +6,7 @@
 
 using namespace std;
 
-
+void inbtwShowAllTasks();
 void workTimesMenu(string id);
 
 // gab
@@ -51,6 +51,7 @@ void inbtwInsertTask(string projectId)
 void inbtwDeleteTask(string taskId)
 {
     Database db;
+    //inbtwShowAllTasks();
     db.deleteTask(taskId);
 }
 void inbtwUpdateTask()
@@ -64,10 +65,31 @@ void inbtwUpdateTask()
 
 void inbtwShowAllTasks(){
     Database db ;
+    CustomTime c1;
+    CustomTime c2;
+    CustomTime c3;
     list<Task> ts =  db.selectTasks();
     Task t;
+    t.header();
     for(t:ts){
+
+        long startTemp=stringToLong(t.startTemp);
+        long endTemp=stringToLong(t.endTemp);
+        long timeSpend=stringToLong(t.timeSpend);
+        c1 =CustomTime(startTemp);
+        c2=CustomTime(endTemp);
+        c3=CustomTime(timeSpend);
+        if(t.startTemp != "0"){
+            t.startTemp =  c1.fullDateTime();
+        }
+        if(t.endTemp != "0"){
+            t.endTemp =  c2.fullDateTime();
+        }
+        if(t.timeSpend != "0"){
+            t.timeSpend = c3.timeCorrectH();
+        }
         t.show();
+
     }
 }
 
@@ -109,6 +131,7 @@ void inbtwShowAllProjects(){
     Project p;
     list<Project> projects;
     projects = db.selectProjects();
+    p.header();
     for(p:projects){
         p.show();
     }
@@ -155,6 +178,7 @@ void inbtwUpdateProject()
         return atol(str.c_str());
      }
 // end mazen
+
 
 // MOHAMAD
 

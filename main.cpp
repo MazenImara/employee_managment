@@ -334,6 +334,8 @@ void ManageTaskMenu(string ProId)
     Task t;
     int n;
     system("cls");
+    inbtwShowAllTasks();
+
 	PrintMessage("MANAGE TASK");
     PrintMessage("                               ", false, false);
 	PrintMessage("1.  Add Task                   ", false, false);
