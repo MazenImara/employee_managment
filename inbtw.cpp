@@ -289,14 +289,30 @@ void  showTaskForEmployee(string employeeId){
     Day d;
     Database db;
     list<Task> tasks;
-    t.showHeaderWithoutId();
+    t.showHeaderWithId();
     tasks = db.selectEmployeeTasks(employeeId);
     for ( t : tasks){
-           long startTemp=d.stringToLong(t.startTemp),endTemp=d.stringToLong(t.endTemp);
-        CustomTime c1 =CustomTime(startTemp),c2=CustomTime(endTemp);
-        cout <<"|"<<setw(10)<<t.title<<setw(10)<<t.status<<setw(15)<<c1.date()<<"  "<<setw(8)<<c1.Time()<<setw(20)<<c2.date()<<"  "<<setw(8)<<c2.Time()<<setw(16)<<t.timeSpend<<setw(30)<<t.projectId<<setw(30)<<"|"<< endl;
+//            long startTemp=d.stringToLong(t.startTemp),endTemp=d.stringToLong(t.endTemp);
+//        CustomTime c1 =CustomTime(startTemp),c2=CustomTime(endTemp);
+//        cout <<"|"<<setw(10)<<t.title<<setw(10)<<t.status<<setw(15)<<c1.date()<<"  "<<setw(8)<<c1.Time()<<setw(20)<<c2.date()<<"  "<<setw(8)<<c2.Time()<<setw(16)<<t.timeSpend<<setw(30)<<t.projectId<<setw(30)<<"|"<< endl;
+        long startTemp=stringToLong(t.startTemp);
+        long endTemp=stringToLong(t.endTemp);
+        long timeSpend=stringToLong(t.timeSpend);
+        CustomTime c1 =CustomTime(startTemp);
+        CustomTime c2=CustomTime(endTemp);
+        CustomTime c3=CustomTime(timeSpend);
+        if(t.startTemp != "0"){
+            t.startTemp =  c1.fullDateTime();
+        }
+        if(t.endTemp != "0"){
+            t.endTemp =  c2.fullDateTime();
+        }
+        if(t.timeSpend != "0"){
+            t.timeSpend = c3.timeCorrectH();
+        }
+        t.show();
     }
-    t.showLineWithoutId();
+    //t.showLineWithoutId();
 }
 void insertTimeOff(TimeOff timeOf){
     Database db;
