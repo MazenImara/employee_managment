@@ -31,7 +31,7 @@ public:
         else
             cout<<"conn object problem: "<<mysql_error(conn);
 
-        conn = mysql_real_connect(conn,"localhost","root","","employee_managment",0,NULL,0);
+        conn = mysql_real_connect(conn,"localhost","root","password","employee_managment",0,NULL,0);
 
         if(conn)
             cout<<"connect to data base  successfully..."<<endl;
@@ -56,7 +56,7 @@ public:
         cout<<"connection object ok, conn="<<conn<<endl;
     else
         cout<<"conn object problem: "<<mysql_error(conn);
-    conn = mysql_real_connect(conn,"localhost","root","",NULL,0,NULL,0);
+    conn = mysql_real_connect(conn,"localhost","root","password",NULL,0,NULL,0);
 
     if(conn)
         cout<<"test without database  ok, conn="<<conn<<endl;
@@ -228,6 +228,16 @@ public:
 
     void updateTask(Task t){
         string query ="UPDATE `task` SET `title`='"+t.title+"' WHERE `id` ="+t.id;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+            cout<<"Task updated successfully..."<<endl;
+        else
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+    }
+
+    void unsignTaskFromEmployee(string id){
+        string query ="UPDATE `task` SET `employee_id`=0 WHERE `employee_id` ="+id;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate)

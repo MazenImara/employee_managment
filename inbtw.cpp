@@ -392,7 +392,14 @@ void deleteEmployee(){
     if (choice=="y" || choice=="Y"){
     db.deleteEmployee(e.id);
     }
+    int employeeId;
+    for(employeeId : e.id){
+        if(employeeId != 0){
+            db.unsignTaskFromEmployee(e.id);
+        }
+    }
 }
+
 long employeeLoginRecord(string id){
      list<Day> days;
      Database db;
