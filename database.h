@@ -31,7 +31,7 @@ public:
         else
             cout<<"conn object problem: "<<mysql_error(conn);
 
-        conn = mysql_real_connect(conn,"localhost","root","password","employee_managment",0,NULL,0);
+        conn = mysql_real_connect(conn,"localhost","root","","employee_managment",0,NULL,0);
 
         if(conn)
             cout<<"connect to data base  successfully..."<<endl;
