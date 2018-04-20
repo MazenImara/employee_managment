@@ -176,15 +176,15 @@ void ManageEmployeeMenu()
     int n;
     system("cls");
 	PrintMessage("ADMIN MANAGE EMPLOYEE");
-    PrintMessage("                               ", false, false);
-	PrintMessage("1.  Create Employee            ", false, false);
-    PrintMessage("2.  Update Employee            ", false, false);
-    PrintMessage("3.  Delete Employee            ", false, false);
-    PrintMessage("4.  Show all Employees         ", false, false);
-    PrintMessage("5.  Sign Employee as Admin     ", false, false);
-    PrintMessage("                               ", false, false);
-	PrintMessage("0.  Back to Admin Menu         ", false, false);
-    PrintMessage("                               ", false, false);
+    PrintMessage("                                 ", false, false);
+	PrintMessage("1.  Create Employee              ", false, false);
+    PrintMessage("2.  Update Employee              ", false, false);
+    PrintMessage("3.  Delete Employee              ", false, false);
+    PrintMessage("4.  Show all Employees/Work times", false, false);
+    PrintMessage("5.  Sign Employee as Admin       ", false, false);
+    PrintMessage("                                 ", false, false);
+	PrintMessage("0.  Back to Admin Menu           ", false, false);
+    PrintMessage("                                 ", false, false);
 	PrintMessage("Enter Your Choice (0-5)");
 	cout<< ">";	cin >> n;
 	switch (n)
@@ -237,8 +237,10 @@ void workTimesMenu(string id){
     Employee e;
     Day d;
     e=selectEmployeeById(id);
-    e.show();
-	PrintMessage(" show Works Times for Employee          ");
+    e.showHeaderWithId();
+    e.showDataWithId();
+    e.showLineWhitId();
+	PrintMessage("    show Works Times for Employee       ");
     PrintMessage("                                        ", false, false);
     PrintMessage("1.  Show works details for date period  ", false, false);
 	PrintMessage("2.  Show the Tasks                      ", false, false);
@@ -252,7 +254,6 @@ void workTimesMenu(string id){
 	{
 	case 1:{
        // Show work details
-        system("pause");
        long date1=d.enterPeriod();
        long date2=d.enterPeriod();
        showDays(date1,date2,e.id);
@@ -286,6 +287,8 @@ void ManageProjectMenu()
     Project p;
     int n;
     system("cls");
+    inbtwShowAllProjects();
+
 	PrintMessage("MANAGE PROJECT");
     PrintMessage("                               ", false, false);
 	PrintMessage("1.  Show Project/Enter Task    ", false, false);
@@ -301,7 +304,7 @@ void ManageProjectMenu()
 	{
 	case 1:
 	    //show and enter task menu
-        inbtwShowAllProjects();
+        //inbtwShowAllProjects();
         p.enterId();
 	    ManageTaskMenu(p.id);
 	    break;
@@ -333,6 +336,8 @@ void ManageTaskMenu(string ProId)
     Task t;
     int n;
     system("cls");
+    inbtwShowAllTasks();
+
 	PrintMessage("MANAGE TASK");
     PrintMessage("                               ", false, false);
 	PrintMessage("1.  Add Task                   ", false, false);
@@ -369,6 +374,8 @@ void ManageTaskMenu(string ProId)
 	    system("pause");
 	    break;
     case 5:
+        //showEmployees
+        showEmployee();
         //Sign Employee to Task
         t.signEmployeToTask(t.id, t.employeeId);
         system("pause");
@@ -514,23 +521,4 @@ void TimeOffMenu(){
     }
      TimeOffMenu();
 }
-
-
-
-void showAllEmployee()
-{
-    Database db;
-    Employee e;
-
-    list<Employee> employees;
-    employees = db.selectEmployees();
-    for(e :employees)
-    {
-        e.show();
-
-    }
-    db.close();
-}
-
-
 

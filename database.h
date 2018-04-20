@@ -31,7 +31,7 @@ public:
         else
             cout<<"conn object problem: "<<mysql_error(conn);
 
-        conn = mysql_real_connect(conn,"localhost","root","password","employee_managment",0,NULL,0);
+        conn = mysql_real_connect(conn,"localhost","root","","employee_managment",0,NULL,0);
 
         if(conn)
             cout<<"connect to data base  successfully..."<<endl;
@@ -56,7 +56,7 @@ public:
         cout<<"connection object ok, conn="<<conn<<endl;
     else
         cout<<"conn object problem: "<<mysql_error(conn);
-    conn = mysql_real_connect(conn,"localhost","root","password",NULL,0,NULL,0);
+    conn = mysql_real_connect(conn,"localhost","root","",NULL,0,NULL,0);
 
     if(conn)
         cout<<"test without database  ok, conn="<<conn<<endl;
@@ -119,7 +119,8 @@ public:
 
         //create task
         {
-        query="CREATE TABLE employee_managment.task(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255) DEFAULT 'NONE', `status` VARCHAR(255) DEFAULT 'NONE', `timeSpend` VARCHAR(255) DEFAULT 'NONE', `endTemp` VARCHAR(255) DEFAULT 'NONE', `startTemp` VARCHAR(255) DEFAULT 'NONE' , `project_id` int not null, `employee_id` int not null, PRIMARY KEY (id));";
+        query="CREATE TABLE employee_managment.task(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255) DEFAULT 'NONE', `status` VARCHAR(255) DEFAULT 'NONE', `timeSpend` VARCHAR(255) DEFAULT 'NONE', `endTemp` VARCHAR(255) DEFAULT 'NONE', `startTemp` VARCHAR(255) DEFAULT 'NONE' , `project_id` int not null, `employee_id` int not null, PRIMARY KEY (id), CONSTRAINT task_project__fk FOREIGN KEY (project_id) REFERENCES project (id) ON UPDATE CASCADE on DELETE CASCADE)";
+        // CONSTRAINT task_employee_fk FOREIGN KEY (employee_id) REFERENCES  employee (id) ON UPDATE CASCADE on DELETE CASCADE,
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -133,7 +134,7 @@ public:
 
         //create day
         {
-        query="CREATE TABLE employee_managment.day(`id` int not null AUTO_INCREMENT, `date` int(20), `startTime` VARCHAR(255), `endTime` VARCHAR(255), `timeSpend` INT DEFAULT '0', `employee_id` int, PRIMARY KEY (id));";
+        query="CREATE TABLE employee_managment.day(`id` int not null AUTO_INCREMENT, `date` int(20), `startTime` VARCHAR(255), `endTime` VARCHAR(255), `timeSpend` INT DEFAULT '11', `employee_id` int, PRIMARY KEY (id), CONSTRAINT day_fk FOREIGN KEY (employee_id) REFERENCES employee (id) ON UPDATE CASCADE on DELETE CASCADE)";
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -147,7 +148,7 @@ public:
 
         //create time_off
         {
-        query="CREATE TABLE employee_managment.time_off(`id` int not null AUTO_INCREMENT, `from` VARCHAR(255), `to` VARCHAR(255), `employee_id` int, PRIMARY KEY (id));";
+        query="CREATE TABLE employee_managment.time_off(`id` int not null AUTO_INCREMENT, `from` VARCHAR(255), `to` VARCHAR(255), `employee_id` int, PRIMARY KEY (id) ,CONSTRAINT time_off_fk FOREIGN KEY (employee_id) REFERENCES employee (id) ON UPDATE CASCADE on DELETE CASCADE)";
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -161,7 +162,7 @@ public:
 
         //create admin
         {
-        query="CREATE TABLE employee_managment.admin(`id` int not null AUTO_INCREMENT, `employee_id` int, PRIMARY KEY (id));";
+        query="CREATE TABLE employee_managment.admin(`id` int not null AUTO_INCREMENT, `employee_id` int, PRIMARY KEY (id) ,CONSTRAINT admin_fk FOREIGN KEY (employee_id) REFERENCES employee (id) ON UPDATE CASCADE on DELETE CASCADE)";
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
