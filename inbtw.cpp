@@ -101,8 +101,10 @@ void inbtwSignEmployeeToTask(string taskId, string employeeId){
     t.enterId();
     db.selectTask(t.id);
     e.enterId();
+    //if (e.check==true){
     db.setEmployeTask(t.id, e.id);
     db.close();
+  //  }
 }
 //end updating
 
@@ -317,7 +319,7 @@ void  showTaskForEmployee(string employeeId){
         }
         t.show();
     }
-    //t.showLineWithoutId();
+
 }
 void insertTimeOff(TimeOff timeOf){
     Database db;
@@ -341,12 +343,14 @@ void deleteTimeOff(string id){
 void insertEmployee(){
     Employee e;
     e.enter();
+    if (e.check==true){
     Database db;
     db.insertEmployee(e);
     e=db.selectEmployeeByEmail(e.email);
     e.showHeaderWithId();
     e.showDataWithId();
     e.showLineWhitId();
+    }
 }
 Employee selectEmployeeByEmail(string email){
     Database db;
@@ -365,42 +369,52 @@ void updateEmployee(){
     Database db;
     showEmployee();
     e.enterId();
-    e=selectEmployeeById(e.id);
-    e.showHeaderWithId();
-    e.showDataWithId();
-    e.showLineWhitId();
-    cout <<" ________________________"<<endl;
-    cout <<"|    enter new details   |"<<endl;
-    cout <<"|________________________|"<<endl;
-    e.enter();
-    db.updateEmployee(e);
+    if (e.check==true){
+        e=selectEmployeeById(e.id);
+        e.showHeaderWithId();
+        e.showDataWithId();
+        e.showLineWhitId();
+        cout <<" ________________________"<<endl;
+        cout <<"|    enter new details   |"<<endl;
+        cout <<"|________________________|"<<endl;
+        e.enter();
+        if (e.check==true){
+        db.updateEmployee(e);
+        }
+    }
 }
 void signEmployeeAsAdmin(){
      Employee e;
      e.enterId();
+     if (e.check==true){
      SetAdmin(e.id);
+     }
 }
 void deleteEmployee(){
     Database db;
     Employee e;
     showEmployee();
     e.enterId();
-    e=selectEmployeeById(e.id);
-    e.showHeaderWithId();
-    e.showDataWithId();
-    e.showLineWhitId();
-    cout <<" __________________________"<<endl;
-    cout <<"|  are you sure press Y/N  |"<<endl;
-    cout <<"|__________________________|"<<endl;
-    string  choice;
-    cin>>choice ;
-    if (choice=="y" || choice=="Y"){
-    db.deleteEmployee(e.id);
-    }
-    int employeeId;
-    for(employeeId : e.id){
-        if(employeeId != 0){
-            db.unsignTaskFromEmployee(e.id);
+    if (e.check==true){
+        if (e.check==true){
+            e=selectEmployeeById(e.id);
+            e.showHeaderWithId();
+            e.showDataWithId();
+            e.showLineWhitId();
+            cout <<" __________________________"<<endl;
+            cout <<"|  are you sure press Y/N  |"<<endl;
+            cout <<"|__________________________|"<<endl;
+            string  choice;
+            cin>>choice ;
+            if (choice=="y" || choice=="Y"){
+            db.deleteEmployee(e.id);
+            }
+            int employeeId;
+            for(employeeId : e.id){
+                if(employeeId != 0){
+                    db.unsignTaskFromEmployee(e.id);
+                }
+            }
         }
     }
 }
@@ -453,5 +467,15 @@ void employeeLogoutRecord(string id,long temp){
         }
     }
 }
+      bool cancel(string input){
+          bool cancl;
+         if (input=="*"){
+            cancl=false;
+         }
+         else{
+            cancl=true;
+         }
+         return cancl;
+      }
 
   //end MOHAMAD.

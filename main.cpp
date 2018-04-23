@@ -16,6 +16,7 @@ using namespace std;
 
 Loging l;
 long temp=0;
+bool cancl=false;
 //bool returnToMenu=false;
 void PrintMessage(string message, bool printTop = true, bool printBottom = true)
 {
@@ -191,7 +192,9 @@ void ManageEmployeeMenu()
 	{
 	case 1:{
 	    //Create Employee
+
 	    insertEmployee();
+
         system("pause");
 	}
 	    break;
@@ -215,8 +218,10 @@ void ManageEmployeeMenu()
         cout <<"|    Enter the id you need to show  the work's detail       |"<<endl;
         cout <<"|___________________________________________________________|"<<endl;
         e.enterId();
+        if (e.check==true){
         system("cls");
         workTimesMenu(e.id);
+        }
         system("pause");
     }
 	    break;
@@ -254,21 +259,11 @@ void workTimesMenu(string id){
 	{
 	case 1:{
        // Show work details
-
        d=d.enterPeriod();
-       /*
-       cout<<d.period1<<endl;
-       cout<<d.period2<<endl;
-           cout<<d.check<<endl;
-           system("pause");*/
        if (d.check==true){
        showDays(d.period1,d.period2,e.id);
        system("pause");
        }
-       //long date1=d.enterPeriod();
-       //long date2=d.enterPeriod();
-     //  showDays(date1,date2,e.id);
-
 	}
 	    break;
 	case 2:{
@@ -500,6 +495,7 @@ void TimeOffMenu(){
            cout <<"+-------------------------------------------+"<<endl;
            cout <<"|     id="; cin>>id;
            cout <<"+-------------------------------------------+"<<endl;
+           if (id!="*"){
            system("cls");
            timeOf=selectTimeOff(id);
            timeOf.show();
@@ -508,6 +504,7 @@ void TimeOffMenu(){
            timeOf=timeOf.enter(l.e.id);
            timeOf.id=id;
            updateTimeOff(timeOf);
+           }
            system("pause");
            break;
        }
@@ -519,6 +516,7 @@ void TimeOffMenu(){
             cout <<"+-----------------------------------------------------------+"<<endl;
             cout <<"          id="; cin>>timeOf.id; cout<<endl;
             cout <<"+-----------------------------------------------------------+"<<endl;
+            if (timeOf.id!="*"){
             timeOf=selectTimeOff(timeOf.id);
             timeOf.show();
             cout <<"+--------------------------+"<<endl;
@@ -528,6 +526,7 @@ void TimeOffMenu(){
             if (choice=="y" || choice=="Y"){
             deleteTimeOff(timeOf.id);
             }
+            }
             system("pause");
            break;
        }
@@ -536,4 +535,5 @@ void TimeOffMenu(){
     }
      TimeOffMenu();
 }
+
 

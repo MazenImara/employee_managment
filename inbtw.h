@@ -46,6 +46,7 @@ void deleteEmployee();
 void signEmployeeAsAdmin();
 long employeeLoginRecord(std:: string id);
 void employeeLogoutRecord(std::string id,long temp);
+bool cancel(string input);
 
 //end MOHAMAD.
 
