@@ -195,6 +195,8 @@ void showEmployee(){
 }
 
 void showDays( long date1, long date2,string id){
+
+    while(date1!=-1 && date2!=-1){
     Employee e;
     Day d;
     Database db;
@@ -211,6 +213,9 @@ void showDays( long date1, long date2,string id){
     cout <<"|________________________________________________________________________________|"<<endl;
     cout <<"|   the total timeSpend for this period  is =\t "<<setw(17)<<c5.timeCorrectH()<<setw(16)<<"|"<<endl;
     cout <<"|________________________________________________________________________________|"<<endl;
+    date1=-1;
+    date2=-1;
+    }
 }
 
 void showTimeOff(string id){

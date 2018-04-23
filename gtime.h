@@ -70,6 +70,26 @@ public:
 
         return date;
     }
+     string  beginThisMonth()
+    {
+        stringstream sy;    sy << year;     string dateY = sy.str();
+        stringstream sm;    sm << month;    string dateM = sm.str();
+        stringstream sd;    sd << 01;      string dateD = sd.str();
+
+        string thisMonth = dateY + "/" + dateM + "/" + dateD;
+
+        return thisMonth;
+    }
+    string  firstNextMonth()
+    {
+        stringstream sy;    sy << year;     string dateY = sy.str();
+        stringstream sm;    sm << month+1;    string dateM = sm.str();
+        stringstream sd;    sd << 01;      string dateD = sd.str();
+
+        string firstNextMonth = dateY + "/" + dateM + "/" + dateD;
+
+        return firstNextMonth;
+    }
 
     string Time()
     {

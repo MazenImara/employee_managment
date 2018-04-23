@@ -16,7 +16,7 @@ using namespace std;
 
 Loging l;
 long temp=0;
-
+//bool returnToMenu=false;
 void PrintMessage(string message, bool printTop = true, bool printBottom = true)
 {
 	if (printTop)
@@ -254,10 +254,21 @@ void workTimesMenu(string id){
 	{
 	case 1:{
        // Show work details
-       long date1=d.enterPeriod();
-       long date2=d.enterPeriod();
-       showDays(date1,date2,e.id);
+
+       d=d.enterPeriod();
+       /*
+       cout<<d.period1<<endl;
+       cout<<d.period2<<endl;
+           cout<<d.check<<endl;
+           system("pause");*/
+       if (d.check==true){
+       showDays(d.period1,d.period2,e.id);
        system("pause");
+       }
+       //long date1=d.enterPeriod();
+       //long date2=d.enterPeriod();
+     //  showDays(date1,date2,e.id);
+
 	}
 	    break;
 	case 2:{
@@ -469,12 +480,16 @@ void TimeOffMenu(){
        }
        case 2:{
            //Add timeOff.
+
            timeOf=timeOf.enter(l.e.id);
-           insertTimeOff(timeOf);
-           showTimeOff(l.e.id);
-           system("pause");
-           break;
+
+           if(timeOf.check==true){
+                insertTimeOff(timeOf);
+                showTimeOff(l.e.id);
+                system("pause");
+           }
        }
+            break;
        case 3:{
            //Update TimeOff.
            string id;
