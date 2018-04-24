@@ -13,20 +13,30 @@ using namespace std;
 class Task{
 public:
     string id, title, status, timeSpend, endTemp, startTemp, projectId, employeeId;
+    bool check=true;
 
 public:
     void enterId()
     {
         cout << "\nEnter id of the task: "; cin >> id;
+        if (cancel(id)==false){
+            check=false;
+        }
     }
     void enter()
     {
         cout << "\nEnter title of the task: "; cin >> title;
+        if (cancel(title)==false){
+            check=false;
+        }
     }
 
     void enterNewTitle()
     {
         cout << "\nEnter the new title of the task: "; cin >> title;
+        if (cancel(title)==false){
+            check=false;
+        }
     }
 
     void header()

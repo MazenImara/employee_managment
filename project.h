@@ -8,10 +8,14 @@ using namespace std;
 class Project{
     public:
         string id, title, description, status;
+        bool check=true;
     public:
         void enterId(){
             cout << "Enter project id: ";
             cin >> id;
+            if (cancel(id)==false){
+                check=false;
+            }
         }
 
         /*void show(){
@@ -35,9 +39,17 @@ class Project{
             cout << "Enter project details" << endl;
             cout << "Title: ";
             cin >> title;
+            if (cancel(title)==false){
+               check=false;
+            }
+            else{
             cout << "\nDescription: ";
             cin >> description;
             cout << endl;
+            if (cancel(description)==false){
+                check=false;
+            }
+            }
         }
 
         void Add()

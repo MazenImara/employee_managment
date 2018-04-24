@@ -43,9 +43,11 @@ void inbtwInsertTask(string projectId)
     Task t;
     Database db;
     t.enter();
+    if (t.check==true){
     t.status = "New";
     t.projectId = projectId;
     db.insertTask(t);
+    }
 }
 
 void inbtwDeleteTask(string taskId)
@@ -59,8 +61,10 @@ void inbtwUpdateTask()
     Task t;
     Database db;
     t.enterId();
+    if (t.check==true){
     t.enterNewTitle();
     db.updateTask(t);
+    }
 }
 
 void inbtwShowAllTasks(){
@@ -99,12 +103,14 @@ void inbtwSignEmployeeToTask(string taskId, string employeeId){
     Employee e;
     db.selectTasks();
     t.enterId();
-    db.selectTask(t.id);
-    e.enterId();
-    //if (e.check==true){
-    db.setEmployeTask(t.id, e.id);
-    db.close();
-  //  }
+    if (t.check==true){
+        db.selectTask(t.id);
+        e.enterId();
+        if (e.check==true){
+           db.setEmployeTask(t.id, e.id);
+           db.close();
+        }
+    }
 }
 //end updating
 
@@ -145,8 +151,10 @@ void inbtwInsertProject()
     Project p;
     Database db;
     p.enter();
+    if (p.check==true){
     p.status = "new";
     db.insertProject(p);
+    }
 }
 
 void inbtwDeleteProject(string id)
@@ -160,8 +168,12 @@ void inbtwUpdateProject()
     Project p;
     Database db;
     p.enterId();
-    p.enter();
-    db.updateProject(p);
+    if (p.check==true){
+       p.enter();
+       if (p.check==true){
+          db.updateProject(p);
+       }
+    }
 }
 //Project End
 //end updating
@@ -344,12 +356,14 @@ void insertEmployee(){
     Employee e;
     e.enter();
     if (e.check==true){
-    Database db;
-    db.insertEmployee(e);
-    e=db.selectEmployeeByEmail(e.email);
-    e.showHeaderWithId();
-    e.showDataWithId();
-    e.showLineWhitId();
+        if (e.check==true){
+        Database db;
+        db.insertEmployee(e);
+        e=db.selectEmployeeByEmail(e.email);
+        e.showHeaderWithId();
+        e.showDataWithId();
+        e.showLineWhitId();
+        }
     }
 }
 Employee selectEmployeeByEmail(string email){
@@ -476,6 +490,17 @@ void employeeLogoutRecord(string id,long temp){
             cancl=true;
          }
          return cancl;
+      }
+      bool cancelMenu(int &n){
+          bool inputN=false;
+           int  *p=&n;
+         if (*p=='*'){
+            inputN=false;
+         }
+         else{
+            inputN=true;
+         }
+         return inputN;
       }
 
   //end MOHAMAD.
