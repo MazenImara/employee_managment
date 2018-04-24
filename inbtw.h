@@ -17,6 +17,7 @@ void inbtwSignEmployeeToTask(std::string taskId, std::string employeeId);
 void inbtwStartTask(std::string taskId,std::string employeeId);
 void inbtwPauseTask(std::string id);
 void inbtwEndTask(std::string id);
+void inbtwShowEmployeeProjectTasks(std::string employeeId);
 //Task end
 
 //Project ONLY
@@ -26,6 +27,10 @@ void inbtwDeleteProject(std::string id);
 void inbtwUpdateProject();
 long stringToLong(std::string str);
 long longToString(std::string str);
+void selectProjectById(std::string projectId);
+void inbtwShowProjectTasks();
+//void inbtwShowEmployeeProjectTasks(std::string employeeId);
+void inbtwShowEmployeeTasksAndProject(std::string employee_id);
 //project end
 // end gab
 
@@ -48,5 +53,5 @@ long employeeLoginRecord(std:: string id);
 void employeeLogoutRecord(std::string id,long temp);
 
 //end MOHAMAD.
-
+//void inbtwTest();
 #endif // INBTW_H_INCLUDED

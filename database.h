@@ -56,7 +56,7 @@ public:
         cout<<"connection object ok, conn="<<conn<<endl;
     else
         cout<<"conn object problem: "<<mysql_error(conn);
-    conn = mysql_real_connect(conn,"localhost","root","password",NULL,0,NULL,0);
+    conn = mysql_real_connect(conn,"localhost","root","",NULL,0,NULL,0);
 
     if(conn)
         cout<<"test without database  ok, conn="<<conn<<endl;
@@ -299,6 +299,10 @@ public:
             else{
                     cout<<"query error: "<<mysql_error(conn)<<endl;
                 }
+            /*for(t : tasks){
+            t.p =selectProject(t.projectId);
+            t.e= selectEmployeeById(t.employeeId);
+        }*/
         return tasks;
     }
 //end ikram
@@ -741,7 +745,7 @@ public:
                 d.endTime  =d.stringToLong(endTime);
                 d.date     =d.stringToLong(date);
                 d.timeSpend=d.stringToLong(timeSpend);
-                      days.push_back(d);
+                days.push_back(d);
             }
         }
         else{
@@ -920,20 +924,21 @@ public:
             {
                 cout<<"query error: "<<mysql_error(conn)<<endl;
             }
+            /*p.tasks = selectProjectTasks(p.id);*/
             return p;
 
         }
 
         list<Project> selectProjects(){
-        list<Project> projects;
-        string query="SELECT * FROM `project`";
-        const char* q = query.c_str();
-        qstate = mysql_query(conn,q);
+            list<Project> projects;
+            Project p;
+            string query="SELECT * FROM `project`";
+            const char* q = query.c_str();
+            qstate = mysql_query(conn,q);
         if(!qstate){
              res = mysql_store_result(conn);
             while(row=mysql_fetch_row(res))
             {
-                Project p;
                 p.id = row[0];
                 p.title = row[1];
                 p.description = row[2];
@@ -945,11 +950,16 @@ public:
         else{
             cout<<"query problem: "<<mysql_error(conn)<<endl;
         }
+        for(p: projects){
+            p.tasks = selectProjectTasks(p.id);
+        }
         return projects;
     }
 
+
     list<Task>selectProjectTasks( string projectId){
         list<Task>tasks;
+        Task t;
         string query ="SELECT * FROM `task` WHERE project_id="+projectId;
         const char* q = query.c_str();
         cout<<"query is: "<<q<<endl;
@@ -975,12 +985,82 @@ public:
             else{
                     cout<<"query error: "<<mysql_error(conn)<<endl;
                 }
+            /*for(t : tasks){
+            t.p =selectProject(t.projectId);
+            t.e= selectEmployeeById(t.employeeId);
+            }*/
         return tasks;
     }
 
-    list<Task>selectEmployeeTasks( string employeeId){
+    list<Task>selectEmployeeTasks(string employeeId){
         list<Task>tasks;
+        Task t;
+        string proId, empId;
+
         string query ="SELECT * FROM `task` WHERE employee_id="+employeeId;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+        {
+            res = mysql_store_result(conn);
+            while(row=mysql_fetch_row(res))
+            {
+                Task t;
+                t.id = row[0];
+                t.title = row[1];
+                t.status = row[2];
+                t.timeSpend = row[3];
+                t.endTemp = row[4];
+                t.startTemp = row[5];
+                t.projectId = row[6];
+                t.employeeId =row[7];
+                tasks.push_back(t);
+
+            }
+        }
+            else{
+                    cout<<"query error: "<<mysql_error(conn)<<endl;
+                }
+        /*for(t : tasks){
+           t.p =selectProject(t.projectId);
+           t.e= selectEmployeeById(t.employeeId);
+        }*/
+        return tasks;
+    }
+
+//    list<Task>selectProjectTasks( string projectId){
+//        list<Task>tasks;
+//        string query ="SELECT * FROM `task` WHERE project_id="+projectId;
+//        const char* q = query.c_str();
+//        qstate = mysql_query(conn,q);
+//        if(!qstate)
+//        {
+//            res = mysql_store_result(conn);
+//            while(row=mysql_fetch_row(res))
+//            {
+//                Task t;
+//                t.id = row[0];
+//                t.title = row[1];
+//                t.status = row[2];
+//                t.timeSpend = row[3];
+//                t.endTemp = row[4];
+//                t.startTemp = row[5];
+//                t.projectId = row[6];
+//                t.employeeId =row[7];
+//                tasks.push_back(t);
+//
+//            }
+//        }
+//            else{
+//                    cout<<"query error: "<<mysql_error(conn)<<endl;
+//                }
+//        return tasks;
+//    }
+
+    list<Task>selectProjectStatus(string status){
+        list<Task>tasks;
+        string NewStats = "new";
+        string query ="SELECT * FROM `task` WHERE `status`='new'";
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate)
@@ -1006,6 +1086,7 @@ public:
                 }
         return tasks;
     }
+
 
     // end hamzA
 

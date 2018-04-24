@@ -126,6 +126,15 @@ void inbtwEndTask(string id){
 //Project ONLY
 
 //updated by ikram
+
+void selectProjectById(string projectId){
+    Database db;
+    Project p;
+    p=db.selectProject(projectId);
+    p.headerTaskProject();
+    p.showTaskProject();
+}
+
 void inbtwShowAllProjects(){
     Database db;
     Project p;
@@ -161,6 +170,24 @@ void inbtwUpdateProject()
     p.enter();
     db.updateProject(p);
 }
+
+void inbtwShowProjectTasks(){
+    Database db;
+    list<Project> projects;
+    projects = db.selectProjects();
+    Project p;
+    Task t;
+    for(p : projects){
+        cout<< p.title<<":"<< endl;
+        p.headerTaskProject();
+        for(t : p.tasks){
+            p.showTaskProject();
+            //cout << t.title <<endl;
+        }
+            cout<< "============="<< endl;
+    }
+}
+
 //Project End
 //end updating
 
@@ -448,5 +475,80 @@ void employeeLogoutRecord(string id,long temp){
         }
     }
 }
+
+//void inbtwShowEmployeeProjectTasks(string employeeId){
+//    Database db;
+//    Task t;
+//    Project p;
+//    Employee e;
+//    list<Task> tasks = db.selectTasks();
+//    list<string> projectTitle;
+//
+//
+//    for(t: tasks)
+//    {
+//        projectTitle.push_back(t.e.name);
+//        t.headerProjectTasks();
+//        t.showProjectTasks();
+//    }
+//
+//
+//    string name;
+//    int i;
+//    i = 1;
+//    for(name: projectTitle)
+//    {
+//        cout << i << " - " << name << endl;
+//        i++;
+//    }
+//
+//    db.close();
+//}
+
+
+void inbtwShowEmployeeTasksAndProject(string employeeId){
+    Database db;
+    Task t;
+    Project p;
+    list<Task> tasks;
+    //list<Project>projects;
+    tasks = db.selectEmployeeTasks(employeeId);
+    //projects = db.selectProjects();
+    t.headerEmployeeTasks();
+       for(t:tasks){
+            t.showEmployeeTasks();
+       }
+
+    db.close();
+}
+
+/*void inbtwTest(){
+    list<Project> projects;
+    Database db;
+    projects = db.selectProjects();
+    Project p;
+    Task t;
+    for(p : projects){
+        cout<< p.title<< endl;
+        for(t : p.tasks){
+            cout<< t.title << endl;
+        }
+        t.show();
+        //cout<< "============="<< endl;
+    }
+
+}
+
+/*
+Day d;
+CustomTime c;
+int sum=0;
+sum = sum + d.timeSpend;
+c = CustomTime(sum);
+c.timeCorrectH();
+    cout <<"|________________________________________________________________________________|"<<endl;
+    cout <<"|   the total timeSpend for this period  is =\t "<<setw(17)<<c5.timeCorrectH()<<setw(16)<<"|"<<endl;
+    cout <<"|________________________________________________________________________________|"<<endl;
+*/
 
   //end MOHAMAD.
