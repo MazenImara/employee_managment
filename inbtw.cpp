@@ -161,6 +161,33 @@ void inbtwUpdateProject()
     p.enter();
     db.updateProject(p);
 }
+
+//show tasks and project for a specific employee
+void inbtwShowEmployeeTasksAndProject(string employee_id){
+    Database db;
+    Task t;
+    Project p;
+    list<Task> tasks;
+    //list<Employee> employees;
+    tasks = db.selectEmployeeTasks(employee_id);
+    for(t:tasks){
+        p = db.selectProject(t.projectId);
+        string pId = p.id;
+        do{
+            p.show();
+            if(t.projectId == p.id){
+            t.show();
+        }
+        }while(p.id != pId);
+        if(p.id == pId){
+            p.show();
+        }
+
+    }
+
+
+    db.close();
+}
 //Project End
 //end updating
 
@@ -177,6 +204,21 @@ void inbtwUpdateProject()
     long stringToLong(string str){
         return atol(str.c_str());
      }
+
+
+void inbtwTest(){
+    Database db;
+    list<Project> projects;
+    projects = db.selectProjects();
+    Project p;
+    Task t;
+    for(p : projects){
+        cout<< p.title<<":"<< endl;
+        for(t : p.tasks){
+            t.show();
+        }
+    }
+}
 // end mazen
 
 

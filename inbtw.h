@@ -26,6 +26,7 @@ void inbtwDeleteProject(std::string id);
 void inbtwUpdateProject();
 long stringToLong(std::string str);
 long longToString(std::string str);
+void inbtwShowEmployeeTasksAndProject(std::string employeeId);
 //project end
 // end gab
 
@@ -48,5 +49,5 @@ long employeeLoginRecord(std:: string id);
 void employeeLogoutRecord(std::string id,long temp);
 
 //end MOHAMAD.
-
+void inbtwTest();
 #endif // INBTW_H_INCLUDED

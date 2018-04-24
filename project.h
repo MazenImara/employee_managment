@@ -3,11 +3,13 @@
 
 #include <iostream>
 #include <string>
+#include <task.h>
 
 using namespace std;
 class Project{
     public:
         string id, title, description, status;
+        list<Task> tasks;
     public:
         void enterId(){
             cout << "Enter project id: ";

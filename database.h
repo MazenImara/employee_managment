@@ -926,6 +926,7 @@ public:
 
         list<Project> selectProjects(){
         list<Project> projects;
+        Project p;
         string query="SELECT * FROM `project`";
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -933,7 +934,6 @@ public:
              res = mysql_store_result(conn);
             while(row=mysql_fetch_row(res))
             {
-                Project p;
                 p.id = row[0];
                 p.title = row[1];
                 p.description = row[2];
@@ -944,6 +944,9 @@ public:
 
         else{
             cout<<"query problem: "<<mysql_error(conn)<<endl;
+        }
+        for(p : projects){
+            p.tasks = selectProjectTasks(p.id);
         }
         return projects;
     }

@@ -57,7 +57,7 @@ void PrintMessage(string message, bool printTop = true, bool printBottom = true)
 //Headers
 void AdminMenu();
 void ManageEmployeeMenu();
-void EmployeeMenu();
+void EmployeeMenu(string employeeId);
 void ManageProjectMenu();
 void ManageTaskMenu(string ProId);
 void TimeOffMenu();
@@ -77,10 +77,15 @@ void inbtwShowTimeOff(string id);
 Employee selectEmployeeByEmail(std::string email);
 Employee selectEmployeeById(std::string id);
 
+void inbtwShowEmployeeTasksAndProject(string employeeId);
+
 
 void ShowAllTask();
-
-int main()
+int main(){
+    inbtwTest();
+    return 0;
+}
+int main2()
 {
     int n;
 	do {
@@ -113,7 +118,7 @@ int main()
                 }
                 else{
                     temp=employeeLoginRecord(l.e.id);
-                    EmployeeMenu();
+                    EmployeeMenu(l.e.id);
                     l.logout();
                 }
             }
@@ -287,7 +292,7 @@ void ManageProjectMenu()
     Project p;
     int n;
     system("cls");
-    inbtwShowAllProjects();
+    //inbtwShowAllProjects();
 
 	PrintMessage("MANAGE PROJECT");
     PrintMessage("                               ", false, false);
@@ -388,12 +393,12 @@ void ManageTaskMenu(string ProId)
 }
 //ending updating by ikram
 
-void EmployeeMenu()
+void EmployeeMenu(string employeeId)
 {
     Task t;
     int n;
     system("cls");
-    inbtwShowAllTasks();
+    inbtwShowEmployeeTasksAndProject(employeeId);
 
 	PrintMessage("EMPLOYEE MENU");
     PrintMessage("                               ", false, false);
@@ -442,7 +447,7 @@ void EmployeeMenu()
 	default: cout << "\a";
 
 	}
-	EmployeeMenu();
+	EmployeeMenu(employeeId);
 }
 void TimeOffMenu(){
     TimeOff timeOf;
