@@ -141,8 +141,11 @@ int main()
 
 void AdminMenu()
 {
+
+
     char n;
     system("cls");
+    showProjectsWithTasksForAdmin();
 	PrintMessage("ADMIN MANAGE EMPLOYEE");
     PrintMessage("                               ", false, false);
 	PrintMessage("1.  Management Project         ", false, false);

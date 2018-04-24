@@ -49,5 +49,6 @@ void employeeLogoutRecord(std::string id,long temp);
 bool cancel(string input);
 bool cancelMenu(int &n);
 void showProjectsWithTasks(string id);
+void showProjectsWithTasksForAdmin();
 
 #endif // INBTW_H_INCLUDED

@@ -249,7 +249,50 @@ void showProjectsWithTasks(string id){
              cout <<"|__________________________________________________________________________________|"<<endl;
     }
     }
+    void showProjectsWithTasksForAdmin(){
+    Task t;
+    Employee e;
+    Project p;
+    Database db;
 
+        list<Task> tasks;
+        list<Project> projects;
+        tasks=db.selectProjectWithTask();
+        projects=db.selectProjects();
+
+
+       for (p:projects){
+
+
+            cout <<"+---------------------------------+"<<endl;
+            cout <<setw(4)<<"|  Project  =   "<< setw(15)<<p.title<<setw(4)<<"|"<<endl;
+
+            cout <<"+----------------------------------------------------------------------------------+"<<endl;
+            cout <<"|                                    Your Tasks                                    |"<<endl;
+            cout <<"+----------------------------------------------------------------------------------+"<<endl;
+            cout <<"|"<<setw(13)<<"TaskId"<<setw(15)<<"TaskTitle"<<setw(13)<<"Status"<<setw(22)<<"TimeSpend"<<setw(17)<<"employeeName"<<setw(3)<<"|"<< endl;
+            cout <<"|__________________________________________________________________________________|"<<endl;
+
+
+          for ( t : tasks){
+                e=db.selectEmployeeById(t.employeeId);
+               if ( t.projectId==p.id){
+
+                 //   cout<<"|"<<setw(12)<<t.id<<setw(15)<<t.title<<setw(15)<<t.status<< "\t"<<setw(10)<<'0'<<setw(17)<<e.name<<setw(9)<<"|"<<endl;
+               // }
+              // if ( (t.status=="Paused" || t.status=="Started" ||  t.status=="Ended")  && ( t.employeeId==id) && (t.projectId==p.id)){
+                long timeSpend=stringToLong(t.timeSpend);
+                CustomTime c=CustomTime(timeSpend);
+                     cout<<"|"<<setw(12)<<t.id<<setw(15)<<t.title<<setw(15)<<t.status<< "\t"<<setw(10)<<c.timeCorrectH()<<setw(17)<<e.name<<setw(9)<<"|"<<endl;
+               //}
+           }
+
+
+
+    }
+     cout <<"|__________________________________________________________________________________|"<<endl;
+    }
+}
 
 void showDays( long date1, long date2,string id){
 
