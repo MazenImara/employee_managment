@@ -48,6 +48,6 @@ long employeeLoginRecord(std:: string id);
 void employeeLogoutRecord(std::string id,long temp);
 bool cancel(string input);
 bool cancelMenu(int &n);
-//end MOHAMAD.
+void showProjectsWithTasks(string id);
 
 #endif // INBTW_H_INCLUDED
