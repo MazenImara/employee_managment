@@ -232,7 +232,6 @@ void showProjectsWithTasks(string id){
 
             cout <<"+---------------------------------+"<<endl;
             cout <<setw(4)<<"|  Project  =   "<< setw(15)<<p.title<<setw(4)<<"|"<<endl;
-
             cout <<"+----------------------------------------------------------------------------------+"<<endl;
             cout <<"|                                    Your Tasks                                    |"<<endl;
             cout <<"+----------------------------------------------------------------------------------+"<<endl;
@@ -242,11 +241,11 @@ void showProjectsWithTasks(string id){
 
           for ( t : tasks){
                 e=db.selectEmployeeById(t.employeeId);
-               if (t.status=="New" && (t.employeeId=="0" || t.employeeId==id ) && t.projectId==p.id){
+               if (t.status=="New" && (t.employeeId=="0" || t.employeeId==id ) && (t.projectId==p.id)){
 
                     cout<<"|"<<setw(12)<<t.id<<setw(15)<<t.title<<setw(15)<<t.status<< "\t"<<setw(10)<<'0'<<setw(17)<<e.name<<setw(9)<<"|"<<endl;
                 }
-               if ( (t.status=="Paused" || t.status=="Started" ||  t.status=="Ended")  && ( t.employeeId==id) && (t.projectId==p.id)){
+               if ( (t.status=="Paused" || t.status=="Started" ||  t.status=="Ended")  && (( t.employeeId==id)&& (t.projectId==p.id)) ){
                 long timeSpend=stringToLong(t.timeSpend);
                 CustomTime c=CustomTime(timeSpend);
                      cout<<"|"<<setw(12)<<t.id<<setw(15)<<t.title<<setw(15)<<t.status<< "\t"<<setw(10)<<c.timeCorrectH()<<setw(17)<<e.name<<setw(9)<<"|"<<endl;
@@ -270,11 +269,12 @@ void showProjectsWithTasks(string id){
 
 
        for (p:projects){
-
-
-            cout <<"+---------------------------------+"<<endl;
-            cout <<setw(4)<<"|  Project  =   "<< setw(15)<<p.title<<setw(4)<<"|"<<endl;
-
+            //cout <<"+---------------------------------+"<<endl;
+            //cout <<setw(4)<<"|  Project  =   "<< setw(15)<<p.title<<setw(4)<<"|"<<endl;
+            long timeSpend1=stringToLong(p.timeSpend);
+            CustomTime c1=CustomTime(timeSpend1);
+            cout <<"+--------------------------------------------------------------------------+"<<endl;
+            cout <<setw(4)<<"| ProjectName :"<< setw(10)<<p.title<<"     |"<<setw(4)<<"  status: "<<p.status<<"        |"<<setw(12)<<"timeSpend="<<c1.timeCorrectH()<<setw(3)<<"|"<<endl;
             cout <<"+----------------------------------------------------------------------------------+"<<endl;
             cout <<"|                                    Your Tasks                                    |"<<endl;
             cout <<"+----------------------------------------------------------------------------------+"<<endl;
@@ -591,7 +591,6 @@ void employeeLogoutRecord(string id,long temp){
     long currentTimeStampDate=c.getTimestampDate(currentDate);
     list<Day> days;
     days=db.selectDayByEmployeeIdAndByDate(id);
-
     long curentTime = CustomTime().getTimestampDate();
     for(d :days){
 
@@ -603,6 +602,26 @@ void employeeLogoutRecord(string id,long temp){
         }
     }
 }
+void convertTaskStatusIfStatusWasStarted(string id,long temp){
+    Database db;
+    CustomTime c;
+    Day d;
+    Task t;
+    string  currentTime =c.fullDateTime2();
+    long currentTimeStampDate=c.getTimestampDate(currentTime);
+    list<Task> tasks;
+    tasks=db.selectTasksByEmployeeId(id);
+    long curentTime = CustomTime().getTimestampDate();
+    for(t :tasks){
+          if (t.status=="Started"){
+            t.status="Paused";
+            long sub=curentTime-temp;
+            t.timeSpend=t.timeSpend+longToString(sub);
+            t.endTemp=longToString(curentTime);
+            db.updateTaskWhenLogOut(t);
+          }
+        }
+    }
       bool cancel(string input){
           bool cancl;
          if (input=="*"){

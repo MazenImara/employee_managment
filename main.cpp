@@ -167,6 +167,7 @@ void AdminMenu()
 
    	case '0':{
    	    employeeLogoutRecord(l.e.id,temp);
+   	    convertTaskStatusIfStatusWasStarted(l.e.id, temp);
    	   // convertTask(l.e.id);
         l.logout();
         }
@@ -439,13 +440,36 @@ void EmployeeMenu(){
         t.enterId();
         Database db;
         Project p;
-        if (t.check==true){
+        Task tas;
+        if (tas.check==true){
+           list<Task> tasks;
+           long sum=0;
+           tasks =db.selectTasksByEmployeeId(l.e.id);
+           for (tas:tasks){
+               if (tas.status=="Started"){
+                   CustomTime c;
+                   Day d;
+                   tas.status="Paused";
+                   string  current =c.fullDateTime2();
+                   cout<<"curent1"<<current<<endl;//////////
+                   long currentLong=c.getTimestampDate(current);
+                   cout<<"curent2"<<currentLong<<endl;/////////////
+                   sum =currentLong-d.stringToLong(tas.startTemp);
+                   cout<<"sum"<<sum<<endl;
+                   long timeSpend=d.stringToLong(tas.timeSpend)+sum;
+                   tas.timeSpend=d.longToString(timeSpend);
+                   cout<<"tas.timeSpend"<<tas.timeSpend<<endl;
+
+                   db.updateTaskWhenLogOut(tas);
+               }
+           }
            t.start(t.id, l.e.id);
            t=db.selectTask(t.id);
            p=db.selectProject(t.projectId);
            p.status="Started";
            p.timeSpend=p.timeSpend;
            db.updateProject(p);
+
         }
         system("pause");
 	}
@@ -515,6 +539,7 @@ void EmployeeMenu(){
         break;
    	case '0':{
         employeeLogoutRecord(l.e.id,temp);
+        convertTaskStatusIfStatusWasStarted(l.e.id, temp);
         l.logout();
     }
         return;

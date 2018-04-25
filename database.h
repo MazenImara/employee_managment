@@ -914,7 +914,41 @@ list<Task> selectTasksByProjectId(string id){
                 }
         return tasks;
     }
-
+    list<Task> selectTasksByEmployeeId(string id){
+        list<Task> tasks;
+        string query ="SELECT  task.project_id ,task.id,task.title,task.status,task.startTemp,task.endTemp,task.timeSpend,task.employee_id from  task where task.employee_id="+id;// WHERE `id`="+id;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+        {
+            res = mysql_store_result(conn);
+            while(row=mysql_fetch_row(res))
+            {   Task t;
+                t.projectId= row[0];
+                t.id    =row[1];
+                t.title = row[2];
+                t.status = row[3];
+                t.startTemp = row[4];
+                t.endTemp = row[5];
+                t.timeSpend = row[6];
+                t.employeeId =row[7];
+                tasks.push_back(t);
+            }
+        }
+            else{
+                    cout<<"query error: "<<mysql_error(conn)<<endl;
+                }
+        return tasks;
+    }
+    void updateTaskWhenLogOut(Task t){
+        string query ="UPDATE `task` SET `status`='"+t.status+"',`timeSpend`='"+t.timeSpend+"',`endTemp`='"+t.endTemp+"' WHERE `id` ="+t.id;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+            cout<<"Task updated successfully..."<<endl;
+        else
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+    }
 
     // end code Mohamad
 
