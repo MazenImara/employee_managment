@@ -119,6 +119,7 @@ int main()
             }
             else{
                 l.logout();
+
             }
         }
             break;
@@ -254,7 +255,7 @@ void workTimesMenu(string id){
     e.showHeaderWithId();
     e.showDataWithId();
     e.showLineWhitId();
-	PrintMessage("    show Works Times for Employee       ");
+	PrintMessage("    Show Works Times for Employee       ");
     PrintMessage("                                        ", false, false);
     PrintMessage("1.  Show works details for date period  ", false, false);
 	PrintMessage("2.  Show the Tasks                      ", false, false);
@@ -304,12 +305,11 @@ void ManageProjectMenu()
     char n;
     system("cls");
     inbtwShowAllProjects();
-
 	PrintMessage("MANAGE PROJECT");
     PrintMessage("                               ", false, false);
-	PrintMessage("1.  Show Project/Enter Task    ", false, false);
+	PrintMessage("1.  Manage Project             ", false, false);
     PrintMessage("2.  Add Project                ", false, false);
-    PrintMessage("3.  Delete Project            ", false, false);
+    PrintMessage("3.  Delete Project             ", false, false);
     PrintMessage("4.  Update Project             ", false, false);
     PrintMessage("                               ", false, false);
 	PrintMessage("0.  Back to Admin Menu         ", false, false);
@@ -319,7 +319,6 @@ void ManageProjectMenu()
     switch (n){
 	case '1':{
 	    //show and enter task menu
-        //inbtwShowAllProjects();
         p.enterId();
         if (p.check==true){
 	       ManageTaskMenu(p.id);
@@ -364,8 +363,8 @@ void ManageTaskMenu(string ProId){
 	PrintMessage("1.  Add Task                   ", false, false);
     PrintMessage("2.  Delete Task                ", false, false);
     PrintMessage("3.  Update Task                ", false, false);
-    PrintMessage("4.  Show All Task              ", false, false);
-    PrintMessage("5.  Sign Employee To Task      ", false, false);
+    //PrintMessage("4.  Show All Task              ", false, false);
+    PrintMessage("4.  Sign Employee To Task      ", false, false);
     PrintMessage("                               ", false, false);
 	PrintMessage("0.  Back to Manage Project     ", false, false);
     PrintMessage("                               ", false, false);
@@ -391,12 +390,14 @@ void ManageTaskMenu(string ProId){
         t.update();
         system("pause");
         break;
+        /*
     case '4':
         //show all Tasks
         inbtwShowAllTasks();
 	    system("pause");
 	    break;
-    case '5':
+	    */
+    case '4':
         //showEmployees
         showEmployee();
         //Sign Employee to Task
@@ -431,29 +432,79 @@ void EmployeeMenu(){
 	cout<< ">";	cin >> n;
 	switch (n)
 	{
-	case '1':
+	case '1':{
         //Start Task
         t.enterId();
+        Database db;
+        Project p;
         if (t.check==true){
            t.start(t.id, l.e.id);
+           t=db.selectTask(t.id);
+           p=db.selectProject(t.projectId);
+           p.status="Started";
+           p.timeSpend=p.timeSpend;
+           db.updateProject(p);
         }
         system("pause");
+	}
 	    break;
-	case '2':
+	case '2':{
         //Pause
         t.enterId();
         if (t.check==true){
             t.pause(t.id);
+            Database db;
+            Project p;
+            t=db.selectTask(t.id);
+            list <Task> tasks;
+            long sum=0;
+            tasks=db.selectTasksByProjectId(t.projectId);
+            for(tas:tasks){
+                sum=sum+stringToLong(tas.timeSpend);
+            }
+            Day d;
+            p=db.selectProject(t.projectId);
+            p.timeSpend=d.longToString(sum);
+            p.status="Started";
+            db.updateProject(p);
         }
+	}
         system("pause");
         break;
-	case '3':
+	case '3':{
         //Finish
+        Database db;
+        Task tas;
+        Project p;
         t.enterId();
         if (t.check==true){
             t.ended(t.id);
+            t=db.selectTask(t.id);
+            list <Task> tasks;
+            int i=0,j=0;long sum=0;
+            tasks=db.selectTasksByProjectId(t.projectId);
+            for(tas:tasks){
+                if (tas.status=="Ended"){
+                    j++;
+                }
+                i++;
+                sum=sum+stringToLong(tas.timeSpend);
+            }
+            Day d;
+            p=db.selectProject(t.projectId);
+            p.timeSpend=d.longToString(sum);
+
+            if(i==j){
+               p.status="Ended";
+               db.updateProject(p);
+           }
+           else{
+               p.status="Started";
+               db.updateProject(p);
+           }
         }
         system("pause");
+	}
 	    break;
 	case '4':{
         //Manage Time off

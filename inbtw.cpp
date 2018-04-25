@@ -92,6 +92,9 @@ void inbtwShowAllTasks(){
         if(t.timeSpend != "0"){
             t.timeSpend = c3.timeCorrectH();
         }
+        Employee e;
+        e=db.selectEmployeeById(t.employeeId);
+        t.employeeId=e.name;
         t.show();
 
     }
@@ -141,10 +144,14 @@ void inbtwShowAllProjects(){
     projects = db.selectProjects();
     p.header();
     for(p:projects){
-        p.show();
+        long timeSpend=stringToLong(p.timeSpend);
+        CustomTime c=CustomTime(timeSpend);
+        cout <<"|"<<setw(10)<<p.id<<setw(20)<<p.title<<setw(30)<<p.description<<setw(20)<<p.status<<setw(20)<<c.timeCorrectH()<<setw(12)<<"|"<<endl;
+        cout <<"|_______________________________________________________________________________________________________________|"<<endl;
     }
     db.close();
 }
+
 
 void inbtwInsertProject()
 {
@@ -153,6 +160,7 @@ void inbtwInsertProject()
     p.enter();
     if (p.check==true){
     p.status = "new";
+    p.timeSpend="0";
     db.insertProject(p);
     }
 }
@@ -228,7 +236,7 @@ void showProjectsWithTasks(string id){
             cout <<"+----------------------------------------------------------------------------------+"<<endl;
             cout <<"|                                    Your Tasks                                    |"<<endl;
             cout <<"+----------------------------------------------------------------------------------+"<<endl;
-            cout <<"|"<<setw(13)<<"TaskId"<<setw(15)<<"TaskTitle"<<setw(13)<<"Status"<<setw(22)<<"TimeSpend"<<setw(17)<<"employeeName"<<setw(3)<<"|"<< endl;
+            cout <<"|"<<setw(13)<<"TaskId"<<setw(15)<<"TaskTitle"<<setw(13)<<"Status"<<setw(17)<<"TimeSpend"<<setw(17)<<"employeeName"<<setw(8)<<"|"<< endl;
             cout <<"|__________________________________________________________________________________|"<<endl;
 
 
@@ -270,21 +278,16 @@ void showProjectsWithTasks(string id){
             cout <<"+----------------------------------------------------------------------------------+"<<endl;
             cout <<"|                                    Your Tasks                                    |"<<endl;
             cout <<"+----------------------------------------------------------------------------------+"<<endl;
-            cout <<"|"<<setw(13)<<"TaskId"<<setw(15)<<"TaskTitle"<<setw(13)<<"Status"<<setw(22)<<"TimeSpend"<<setw(17)<<"employeeName"<<setw(3)<<"|"<< endl;
+            cout <<"|"<<setw(13)<<"TaskId"<<setw(15)<<"TaskTitle"<<setw(13)<<"Status"<<setw(17)<<"TimeSpend"<<setw(17)<<"employeeName"<<setw(8)<<"|"<< endl;
             cout <<"|__________________________________________________________________________________|"<<endl;
 
 
           for ( t : tasks){
                 e=db.selectEmployeeById(t.employeeId);
                if ( t.projectId==p.id){
-
-                 //   cout<<"|"<<setw(12)<<t.id<<setw(15)<<t.title<<setw(15)<<t.status<< "\t"<<setw(10)<<'0'<<setw(17)<<e.name<<setw(9)<<"|"<<endl;
-               // }
-              // if ( (t.status=="Paused" || t.status=="Started" ||  t.status=="Ended")  && ( t.employeeId==id) && (t.projectId==p.id)){
                 long timeSpend=stringToLong(t.timeSpend);
                 CustomTime c=CustomTime(timeSpend);
                      cout<<"|"<<setw(12)<<t.id<<setw(15)<<t.title<<setw(15)<<t.status<< "\t"<<setw(10)<<c.timeCorrectH()<<setw(17)<<e.name<<setw(9)<<"|"<<endl;
-               //}
            }
 
 
