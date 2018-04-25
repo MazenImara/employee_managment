@@ -167,6 +167,7 @@ void AdminMenu()
 
    	case '0':{
    	    employeeLogoutRecord(l.e.id,temp);
+   	   // convertTask(l.e.id);
         l.logout();
         }
         return;
@@ -318,7 +319,7 @@ void ManageProjectMenu()
 	cout<< ">";	cin >> n;
     switch (n){
 	case '1':{
-	    //show and enter task menu
+	    //MangeProject
         p.enterId();
         if (p.check==true){
 	       ManageTaskMenu(p.id);
@@ -357,7 +358,8 @@ void ManageTaskMenu(string ProId){
     Task t;
     char n;
     system("cls");
-    inbtwShowAllTasks();
+    //inbtwShowAllTasks();
+    showAllTasksForProject(ProId);
 	PrintMessage("MANAGE TASK");
     PrintMessage("                               ", false, false);
 	PrintMessage("1.  Add Task                   ", false, false);

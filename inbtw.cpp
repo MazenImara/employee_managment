@@ -296,6 +296,40 @@ void showProjectsWithTasks(string id){
      cout <<"|__________________________________________________________________________________|"<<endl;
     }
 }
+void showAllTasksForProject(string id){
+    Task t;
+    Employee e;
+    Project p;
+    Database db;
+    list<Task> tasks;
+    list<Project> projects;
+    tasks=db.selectProjectWithTask();
+    projects=db.selectProjects();
+    for (p:projects){
+
+         if (p.id==id){
+             long timeSpend1=stringToLong(p.timeSpend);
+             CustomTime c1=CustomTime(timeSpend1);
+             cout <<"+--------------------------------------------------------------------------+"<<endl;
+             cout <<setw(4)<<"| ProjectName :"<< setw(10)<<p.title<<"     |"<<setw(4)<<"  status: "<<p.status<<"        |"<<setw(12)<<"timeSpend="<<c1.timeCorrectH()<<setw(3)<<"|"<<endl;
+             cout <<"+----------------------------------------------------------------------------------+"<<endl;
+             cout <<"|                                    The Tasks                                     |"<<endl;
+             cout <<"|__________________________________________________________________________________|"<<endl;
+             cout <<"|"<<setw(13)<<"TaskId"<<setw(15)<<"TaskTitle"<<setw(13)<<"Status"<<setw(17)<<"TimeSpend"<<setw(17)<<"employeeName"<<setw(8)<<"|"<< endl;
+             cout <<"|__________________________________________________________________________________|"<<endl;
+             for ( t : tasks){
+                  e=db.selectEmployeeById(t.employeeId);
+                  if ( t.projectId==p.id){
+                      long timeSpend=stringToLong(t.timeSpend);
+                      CustomTime c=CustomTime(timeSpend);
+                      cout<<"|"<<setw(12)<<t.id<<setw(15)<<t.title<<setw(15)<<t.status<< "\t"<<setw(10)<<c.timeCorrectH()<<setw(17)<<e.name<<setw(9)<<"|"<<endl;
+                  }
+             }
+             cout <<"|__________________________________________________________________________________|"<<endl;
+         }
+    }
+}
+
 
 void showDays( long date1, long date2,string id){
 
@@ -557,12 +591,11 @@ void employeeLogoutRecord(string id,long temp){
     long currentTimeStampDate=c.getTimestampDate(currentDate);
     list<Day> days;
     days=db.selectDayByEmployeeIdAndByDate(id);
+
     long curentTime = CustomTime().getTimestampDate();
     for(d :days){
 
-
         if(d.date==currentTimeStampDate){
-
             long sub=curentTime-temp;
             d.timeSpend=d.timeSpend+sub;
             d.endTime=curentTime;
