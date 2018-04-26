@@ -17,7 +17,7 @@ using namespace std;
 class Task{
 public:
     string id, title, status, timeSpend, endTemp, startTemp, projectId, employeeId;
-
+    Employee e;
 public:
     void enterId()
     {
@@ -38,18 +38,18 @@ public:
     //header of all
     void header()
     {
-        cout<<" ______________________________________________________________________________________________________________________________________________"<<endl;
-        cout<<"|                                                                                                                                              |"<<endl;
-        cout<<"|                                                      Task's details                                                                          |"<<endl;
-        cout<<"|______________________________________________________________________________________________________________________________________________|"<<endl;
-        cout<<"|"<<setw(5)<<"id"<<setw(15)<<"Title"<<setw(10)<<"Status"<<setw(15)<<"Time Spend"<<setw(20)<<"Start temp"<<setw(20)<<"End Temp"<<setw(20)<<"Project Id"<<setw(15)<<"Employee Id"/*<<setw(15)<<"Employee Name"*/<<setw(8)<<"|"<<endl;
-        cout<<"|______________________________________________________________________________________________________________________________________________|"<<endl;
+        cout<<" ____________________________________________________________________________________________________________________________"<<endl;
+        cout<<"|                                                                                                                            |"<<endl;
+        cout<<"|                                                      Task's details                                                        |"<<endl;
+        cout<<"|____________________________________________________________________________________________________________________________|"<<endl;
+        cout<<"|"<<setw(5)<<"id"<<setw(15)<<"Title"<<setw(10)<<"Status"<<setw(15)<<"Time Spend"<<setw(20)<<"Start temp"<<setw(20)<<"End Temp"<<setw(20)<<"Project Id"<<setw(15)<<"Employee Id"<<setw(5)<<"|"<<endl;
+        cout<<"|____________________________________________________________________________________________________________________________|"<<endl;
     }
     //list of all
     void show()
     {
-        cout<<"|"<<setw(5)<<id<<setw(15)<<title<<setw(10)<<status<<setw(15)<<timeSpend << "\t"<<setw(20)<<startTemp<<setw(20)<<endTemp<<setw(20)<<projectId<<setw(15)<<employeeId/*<<setw(15)<<e.name*/<<setw(6)<<"|"<<endl;
-        cout<<"|______________________________________________________________________________________________________________________________________________|"<<endl;
+        cout<<"|"<<setw(5)<<id<<setw(15)<<title<<setw(10)<<status<<setw(15)<<timeSpend<<setw(20)<<startTemp<<setw(20)<<endTemp<<setw(20)<<projectId<<setw(15)<<employeeId<<setw(5)<<"|"<<endl;
+        cout<<"|____________________________________________________________________________________________________________________________|"<<endl;
     }
 
 
@@ -60,14 +60,14 @@ public:
         cout<<"|                                                                                              |"<<endl;
         cout<<"|                            Task's details                                                    |"<<endl;
         cout<<"|______________________________________________________________________________________________|"<<endl;
-        cout<<"|"<<setw(10)<<"Task id"<<setw(15)<<"Title"<<setw(15)<<"Status"<<setw(15)<<"Time Spend"<<setw(15)<<"Employee Id"/*<<setw(20)<<"Employee Name"*/<<setw(5)<<"|"<<endl;
+        cout<<"|"<<setw(10)<<"Task id"<<setw(15)<<"Title"<<setw(15)<<"Status"<<setw(15)<<"Time Spend"<<setw(20)<<"Employee Name"<<setw(5)<<"|"<<endl;
         cout<<"|______________________________________________________________________________________________|"<<endl;
     }
     //list for admin
      void showProjectTasks()
     {
 
-        cout<<"|"<<setw(10)<<id<<setw(15)<<title<<setw(15)<<status<<setw(15)<<timeSpend<<setw(15)<<employeeId/*<<setw(20)<<e.name*/<<setw(5)<<"|"<<endl;
+        cout<<"|"<<setw(10)<<id<<setw(15)<<title<<setw(15)<<status<<setw(15)<<timeSpend<<setw(20)<<e.name<<setw(5)<<"|"<<endl;
         cout<<"|______________________________________________________________________________________________|"<<endl;
     }
 
@@ -75,18 +75,18 @@ public:
         //header for admin
     void headerEmployeeTasks()
     {
-        cout<<" ______________________________________________________________________________"<<endl;
-        cout<<"|______________________________________________________________________________|"<<endl;
-        cout<<"|                        Task's details                                        |"<<endl;
-        cout<<"|______________________________________________________________________________|"<<endl;
-        cout<<"|"<<setw(10)<<"Task id"<<setw(15)<<"Title"<<setw(15)<<"Status"<<setw(15)<<"Time Spend"<<setw(10)<<"|"<<endl;
-        cout<<"|______________________________________________________________________________|"<<endl;
+        cout<<" _______________________________________________________________________________"<<endl;
+        cout<<"|                                                                               |"<<endl;
+        cout<<"|                        Task's details                                         |"<<endl;
+        cout<<"|_______________________________________________________________________________|"<<endl;
+        cout<<"|"<<setw(10)<<"Task id"<<setw(15)<<"Title"<<setw(15)<<"Status"<<setw(15)<<"Time Spend"<<setw(20)<<"Employee Name"<<setw(5)<<"|"<<endl;
+        cout<<"|_______________________________________________________________________________|"<<endl;
     }
     //list for admin
      void showEmployeeTasks()
     {
-        cout<<"|"<<setw(10)<<id<<setw(15)<<title<<setw(15)<<status<<setw(15)<<timeSpend<<setw(10)<<"|"<<endl;
-        cout<<"|______________________________________________________________________________|"<<endl;
+        cout<<"|"<<setw(10)<<id<<setw(15)<<title<<setw(15)<<status<<setw(15)<<timeSpend<<setw(20)<<e.name<<setw(5)<<"|"<<endl;
+        cout<<"|_______________________________________________________________________________|"<<endl;
     }
 
 

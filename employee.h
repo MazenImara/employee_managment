@@ -7,6 +7,8 @@
 #include <database.h>
 #include <gtime.h>
 
+
+
 //MOHAMAD CODE
 
 using namespace std;
@@ -14,7 +16,6 @@ using namespace std;
 class Employee{
 public:
     string id,name,email,password,address,phone;
-
     void enterId(){
         cout <<"enter id of the employee =\t";cin >>id;cout <<endl;
     }

@@ -78,18 +78,20 @@ void inbtwShowTimeOff(string id);
 Employee selectEmployeeByEmail(std::string email);
 Employee selectEmployeeById(std::string id);
 
-void inbtwShowEmployeeTasksAndProject(string employeId);
+
 
 
 void ShowAllTask();
 
-int main(){
+int main1(){
+    //inbtwShowProjectTasks();
+    Task t;
+    string projectId;
     inbtwShowProjectTasks();
-
     return 0;
 }
 
-int main1()
+int main()
 {
     int n;
 	do {
@@ -298,6 +300,7 @@ void ManageProjectMenu()
     system("cls");
     inbtwShowAllProjects();
 
+
 	PrintMessage("MANAGE PROJECT");
     PrintMessage("                               ", false, false);
 	PrintMessage("1.  Show Project/Enter Task    ", false, false);
@@ -313,9 +316,10 @@ void ManageProjectMenu()
 	{
 	case 1:
 	    //show and enter task menu
-        //inbtwShowAllProjects();
+        inbtwShowProjectTasks();
         p.enterId();
 	    ManageTaskMenu(p.id);
+	    system("pause");
 	    break;
 	case 2:
 	    //create project
@@ -345,8 +349,7 @@ void ManageTaskMenu(string ProId)
     Task t;
     int n;
     system("cls");
-    inbtwShowProjectTasks();
-    //inbtwShowAllTasks();
+
 
 	PrintMessage("MANAGE TASK");
     PrintMessage("                               ", false, false);

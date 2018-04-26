@@ -17,7 +17,7 @@ void inbtwSignEmployeeToTask(std::string taskId, std::string employeeId);
 void inbtwStartTask(std::string taskId,std::string employeeId);
 void inbtwPauseTask(std::string id);
 void inbtwEndTask(std::string id);
-void inbtwShowEmployeeProjectTasks(std::string employeeId);
+
 //Task end
 
 //Project ONLY
@@ -29,8 +29,8 @@ long stringToLong(std::string str);
 long longToString(std::string str);
 void selectProjectById(std::string projectId);
 void inbtwShowProjectTasks();
-//void inbtwShowEmployeeProjectTasks(std::string employeeId);
-void inbtwShowEmployeeTasksAndProject(std::string employee_id);
+
+void inbtwShowEmployeeTasksAndProject(std::string employeeId);
 //project end
 // end gab
 
