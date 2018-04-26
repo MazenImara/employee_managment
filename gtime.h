@@ -12,131 +12,168 @@
 
 using namespace std;
 
-class CustomTime
-{
-public:
+class CustomTime{
+    public:
+        int day, month ,year, hour ,minut , second ;
+        time_t timeStamp;
 
-    int day, month ,year, hour ,minut , second ;
-    time_t timeStamp;
+    public:
+       CustomTime(time_t st){
+           timeStamp = st;
+            struct tm nowLocal=*localtime(&timeStamp);
+            //setAtt(nowLocal);
+            day = nowLocal.tm_mday;
+            month = nowLocal.tm_mon+1;
+            year = nowLocal.tm_year+1900;
+            hour = nowLocal.tm_hour;
+            minut = nowLocal.tm_min;
+            second = nowLocal.tm_sec;
+       }
 
+        CustomTime(){
+            timeStamp=time(NULL);
+            struct tm nowLocal=*localtime(&timeStamp);
+            //setAtt(nowLocal);
+            day = nowLocal.tm_mday;
+            month = nowLocal.tm_mon+1;
+            year = nowLocal.tm_year+1900;
+            hour = nowLocal.tm_hour;
+            minut = nowLocal.tm_min;
+            second = nowLocal.tm_sec;
+        }
 
+        string fullDateTime(){
+            stringstream sy;    sy << year;     string dateY = sy.str();
+            stringstream sm;    sm << month;    string dateM = sm.str();
+            stringstream sd;    sd << day;      string dateD = sd.str();
+            stringstream sh;    sh << hour;       string shour = sh.str();
+            stringstream smi;    smi << minut;      string sminut = smi.str();
+            stringstream ss;    ss << second;     string ssecond = ss.str();
 
-public:
-   CustomTime(time_t st)
-   {
-       timeStamp = st;
-        struct tm nowLocal=*localtime(&timeStamp);
-        //setAtt(nowLocal);
-        day = nowLocal.tm_mday;
-        month = nowLocal.tm_mon+1;
-        year = nowLocal.tm_year+1900;
-        hour = nowLocal.tm_hour;
-        minut = nowLocal.tm_min;
-        second = nowLocal.tm_sec;
-   }
+            string fullDateTime = dateY + "-" + dateM + "-" + dateD + " " + shour + ":" + sminut + ":" + ssecond;
+            return fullDateTime;
+        }
 
-    CustomTime(){
-        timeStamp=time(NULL);
-        struct tm nowLocal=*localtime(&timeStamp);
-        //setAtt(nowLocal);
-        day = nowLocal.tm_mday;
-        month = nowLocal.tm_mon+1;
-        year = nowLocal.tm_year+1900;
-        hour = nowLocal.tm_hour;
-        minut = nowLocal.tm_min;
-        second = nowLocal.tm_sec;
-    }
+        string  date(){
+            stringstream sy;    sy << year;     string dateY = sy.str();
+            stringstream sm;    sm << month;    string dateM = sm.str();
+            stringstream sd;    sd << day;      string dateD = sd.str();
 
+            string date = dateY + "-" + dateM + "-" + dateD;
 
-    string fullDateTime(){
-        stringstream sy;    sy << year;     string dateY = sy.str();
-        stringstream sm;    sm << month;    string dateM = sm.str();
-        stringstream sd;    sd << day;      string dateD = sd.str();
-        stringstream sh;    sh << hour;       string shour = sh.str();
-        stringstream smi;    smi << minut;      string sminut = smi.str();
-        stringstream ss;    ss << second;     string ssecond = ss.str();
+            return date;
+        }
 
-        string fullDateTime = dateY + "-" + dateM + "-" + dateD + " " + shour + ":" + sminut + ":" + ssecond;
-        return fullDateTime;
-    }
+        string  beginThisMonth(){
+            stringstream sy;    sy << year;     string dateY = sy.str();
+            stringstream sm;    sm << month;    string dateM = sm.str();
+            stringstream sd;    sd << 01;      string dateD = sd.str();
 
-    string  date()
-    {
-        stringstream sy;    sy << year;     string dateY = sy.str();
-        stringstream sm;    sm << month;    string dateM = sm.str();
-        stringstream sd;    sd << day;      string dateD = sd.str();
+            string thisMonth = dateY + "/" + dateM + "/" + dateD;
 
-        string date = dateY + "-" + dateM + "-" + dateD;
+            return thisMonth;
+        }
 
-        return date;
-    }
+        string  firstNextMonth(){
+            stringstream sy;    sy << year;     string dateY = sy.str();
+            stringstream sm;    sm << month+1;    string dateM = sm.str();
+            stringstream sd;    sd << 01;      string dateD = sd.str();
 
-    string Time()
-    {
-        stringstream sh;    sh << hour;       string shour = sh.str();
-        stringstream sm;    sm << minut;      string sminut = sm.str();
-        stringstream ss;    ss << second;     string ssecond = ss.str();
+            string firstNextMonth = dateY + "/" + dateM + "/" + dateD;
 
-        string time = shour + ":" + sminut + ":" + ssecond;
+            return firstNextMonth;
+        }
 
-        return time;
-    }
+        string Time(){
+            stringstream sh;    sh << hour;       string shour = sh.str();
+            stringstream sm;    sm << minut;      string sminut = sm.str();
+            stringstream ss;    ss << second;     string ssecond = ss.str();
 
+            string time = shour + ":" + sminut + ":" + ssecond;
 
-    long getTimestampDate(string date){
+            return time;
+        }
 
-
-    //string startTime = "2016/05/18 13:10:00";
-    string startTime = date;
-    time_t tStart;
-    int yy, month, dd, hh, mm, ss;
-    struct tm whenStart;
-    const char *zStart = startTime.c_str();
-
-    sscanf(zStart, "%d/%d/%d %d:%d:%d", &yy, &month, &dd, &hh, &mm, &ss);
-    whenStart.tm_year = yy - 1900;
-    whenStart.tm_mon = month - 1;
-    whenStart.tm_mday = dd;
-    whenStart.tm_hour = hh;
-    whenStart.tm_min = mm;
-    whenStart.tm_sec = ss;
-    whenStart.tm_isdst = -1;
-
-    tStart = mktime(&whenStart);
-
-   // std::cout << tStart << std::endl;
-      return tStart;
-    }
-
-    long getTimestampDate(){
-        time_t result = time(NULL);
-    }
-   /* long longTimestamp()
-    {
+        long getTimestampDate(string date){
 
 
-        long mylong = atol(c.getTimestampDate().c_str());
-    }*/
-    string  date2()
-    {
-        stringstream sy;    sy << year;     string dateY = sy.str();
-        stringstream sm;    sm << month;    string dateM = sm.str();
-        stringstream sd;    sd << day;      string dateD = sd.str();
+        string startTime = date;
+        time_t tStart;
+        int yy, month, dd, hh, mm, ss;
+        struct tm whenStart;
+        const char *zStart = startTime.c_str();
 
-        string date = dateY + "/" + dateM + "/" + dateD;
+        sscanf(zStart, "%d/%d/%d %d:%d:%d", &yy, &month, &dd, &hh, &mm, &ss);
+        whenStart.tm_year = yy - 1900;
+        whenStart.tm_mon = month - 1;
+        whenStart.tm_mday = dd;
+        whenStart.tm_hour = hh;
+        whenStart.tm_min = mm;
+        whenStart.tm_sec = ss;
+        whenStart.tm_isdst = -1;
 
-        return date;
-    }
-      string timeCorrectH()
-    {
-        stringstream sh;    sh << hour-1;       string shour = sh.str();
-        stringstream sm;    sm << minut;      string sminut = sm.str();
-        stringstream ss;    ss << second;     string ssecond = ss.str();
+        tStart = mktime(&whenStart);
 
-        string time = shour + ":" + sminut + ":" + ssecond;
+          return tStart;
+        }
 
-        return time;
-    }
+        long getTimestampDate(){
+            time_t result = time(NULL);
+        }
+
+        string  date2(){
+            stringstream sy;    sy << year;     string dateY = sy.str();
+            stringstream sm;    sm << month;    string dateM = sm.str();
+            stringstream sd;    sd << day;      string dateD = sd.str();
+
+            string date = dateY + "/" + dateM + "/" + dateD;
+
+            return date;
+        }
+
+        string timeCorrectH(){
+            stringstream sh;    sh << hour-1;       string shour = sh.str();
+            stringstream sm;    sm << minut;      string sminut = sm.str();
+            stringstream ss;    ss << second;     string ssecond = ss.str();
+
+            string time = shour + ":" + sminut + ":" + ssecond;
+
+            return time;
+        }
+
+        string fullDateTime2(){
+            stringstream sy;    sy << year;     string dateY = sy.str();
+            stringstream sm;    sm << month;    string dateM = sm.str();
+            stringstream sd;    sd << day;      string dateD = sd.str();
+            stringstream sh;    sh << hour;       string shour = sh.str();
+            stringstream smi;    smi << minut;      string sminut = smi.str();
+            stringstream ss;    ss << second;     string ssecond = ss.str();
+
+            string fullDateTime = dateY + "/" + dateM + "/" + dateD + " " + shour + ":" + sminut + ":" + ssecond;
+            return fullDateTime;
+        }
+
+        long getTimestampDate2(string date){
+            string startTime = date;
+            time_t tStart;
+            int yy, month, dd, hh, mm, ss;
+            struct tm whenStart;
+            const char *zStart = startTime.c_str();
+
+            sscanf(zStart, "%d/%d/%d %d:%d:%d", &yy, &month, &dd, &hh, &mm, &ss);
+            whenStart.tm_year = yy - 1900;
+            whenStart.tm_mon = month - 1;
+            whenStart.tm_mday = dd;
+            whenStart.tm_hour = hh+2;
+            whenStart.tm_min = mm;
+            whenStart.tm_sec = ss;
+            whenStart.tm_isdst = -1;
+
+            tStart = mktime(&whenStart);
+
+            return tStart;
+        }
+
 };
 
 

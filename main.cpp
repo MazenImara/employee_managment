@@ -13,10 +13,12 @@
 #include <show.h>
 #include <task.h>
 
+
 using namespace std;
 
 Loging l;
 long temp=0;
+bool cancl=false;
 
 void PrintMessage(string message, bool printTop = true, bool printBottom = true)
 {
@@ -74,26 +76,14 @@ void inbtwSignEmployeeAsAdmin();
 void inbtwShowWorkDetails(string id);
 void inbtwShowTaskForEmployee(string id);
 void inbtwShowTimeOff(string id);
-
+void ShowAllTask();
 Employee selectEmployeeByEmail(std::string email);
 Employee selectEmployeeById(std::string id);
 
 
-
-
-void ShowAllTask();
-
-int main1(){
-    //inbtwShowProjectTasks();
-    Task t;
-    string projectId;
-    inbtwShowProjectTasks();
-    return 0;
-}
-
 int main()
 {
-    int n;
+    char n;
 	do {
 		system("cls");
 		PrintMessage("EMPLOYEE MANAGEMENT");
@@ -106,10 +96,8 @@ int main()
 		PrintMessage("                      ", false, false);
 		PrintMessage("Please Select your option (0-2): ");
 		cout<< ">";	cin >> n;
-
 		switch (n){
-		case 1:{
-
+		case '1':{
             while(!l.loged)
             {
                 system("cls");
@@ -130,26 +118,33 @@ int main()
             }
             else{
                 l.logout();
+
             }
         }
             break;
 
-        case 2:
+        case '2':
             createDatabase();
             system("pause");
 		    break;
 
-        case 0: exit(0);
+        case '0': exit(0);
+
+        case '*': exit(0) ;
+
 		default: "\a"; break;
 		}
-	} while (n != 0);
+
+	} while (n != '0');
+
     return 0;
 }
 
-void AdminMenu()
-{
-    int n;
+void AdminMenu(){
+    char n;
     system("cls");
+    showProjectsWithTasksForAdmin();
+
 	PrintMessage("ADMIN MANAGE EMPLOYEE");
     PrintMessage("                               ", false, false);
 	PrintMessage("1.  Management Project         ", false, false);
@@ -159,32 +154,31 @@ void AdminMenu()
     PrintMessage("                               ", false, false);
 	PrintMessage("Enter Your Choice (0-5)");
 	cout<< ">";	cin >> n;
-	switch (n)
-	{
-	case 1:
-        ManageProjectMenu();
-	    break;
-	case 2:
-        ManageEmployeeMenu();
-        break;
+	switch (n){
+        case '1':
+            ManageProjectMenu();
+            break;
+        case '2':
+            ManageEmployeeMenu();
+            break;
 
-   	case 0:{
-   	    employeeLogoutRecord(l.e.id,temp);
-        l.logout();
+        case '0':{
+            employeeLogoutRecord(l.e.id,temp);
+            convertTaskStatusIfStatusWasStarted(l.e.id, temp);
+            l.logout();
+            }
+            return;
+        case '*' :return;
+
+        default: cout << "\a";
         }
-        return;
-	default: cout << "\a";
-
-	}
 	AdminMenu();
 }
 
 //Mohamad code updated
-void ManageEmployeeMenu()
-{
-
+void ManageEmployeeMenu(){
     Employee e;
-    int n;
+    char n;
     system("cls");
 	PrintMessage("ADMIN MANAGE EMPLOYEE");
     PrintMessage("                                 ", false, false);
@@ -198,60 +192,67 @@ void ManageEmployeeMenu()
     PrintMessage("                                 ", false, false);
 	PrintMessage("Enter Your Choice (0-5)");
 	cout<< ">";	cin >> n;
-	switch (n)
-	{
-	case 1:{
-	    //Create Employee
-	    insertEmployee();
-        system("pause");
-	}
-	    break;
-	case 2:{
-        //Update Employee
-        updateEmployee();
-        system("pause");
-	}
-        break;
-    case 3:{
-        //Delete Employee
-        deleteEmployee();
-        system("pause");
+
+	switch (n){
+        case '1':{
+            //Create Employee
+            insertEmployee();
+            system("pause");
+        }
+            break;
+        case '2':{
+            //Update Employee
+            updateEmployee();
+            system("pause");
+        }
+            break;
+        case '3':{
+            //Delete Employee
+            deleteEmployee();
+            system("pause");
+        }
+            break;
+        case '4':{
+            //Show all Employees
+            system("cls");
+            showEmployee();
+            cout <<" ___________________________________________________________"<<endl;
+            cout <<"|    Enter the id you need to show  the work's detail       |"<<endl;
+            cout <<"|___________________________________________________________|"<<endl;
+            e.enterId();
+            if (e.check==true){
+            system("cls");
+            workTimesMenu(e.id);
+            }
+            system("pause");
+        }
+            break;
+        case '5' :{
+            //Sign Employee as Admin
+            signEmployeeAsAdmin();
+            system("pause");
+        }
+        case '0':return;
+
+        case '*' :return;
+
+        default: cout << "\a";
     }
-	    break;
-    case 4:{
-        //Show all Employees
-        system("cls");
-        showEmployee();
-        cout <<" ___________________________________________________________"<<endl;
-        cout <<"|    Enter the id you need to show  the work's detail       |"<<endl;
-        cout <<"|___________________________________________________________|"<<endl;
-        e.enterId();
-        system("cls");
-        workTimesMenu(e.id);
-        system("pause");
-    }
-	    break;
-    case 5 :{
-        //Sign Employee as Admin
-        signEmployeeAsAdmin();
-        system("pause");
-    }
-   	case 0:return;
-	default: cout << "\a";
-	}
+
 	ManageEmployeeMenu();
 }
 //end updated
 
 void workTimesMenu(string id){
-    int n;
+    char n;
     Employee e;
     Day d;
     e=selectEmployeeById(id);
     e.showHeaderWithId();
     e.showDataWithId();
     e.showLineWhitId();
-	PrintMessage("    show Works Times for Employee       ");
+
+	PrintMessage("    Show Works Times for Employee       ");
     PrintMessage("                                        ", false, false);
     PrintMessage("1.  Show works details for date period  ", false, false);
 	PrintMessage("2.  Show the Tasks                      ", false, false);
@@ -261,152 +262,172 @@ void workTimesMenu(string id){
     PrintMessage("                                        ", false, false);
 	PrintMessage("Enter Your Choice (0-5)");
 	cout<< ">";	cin >> n;
-	switch (n)
-	{
-	case 1:{
-       // Show work details
-       long date1=d.enterPeriod();
-       long date2=d.enterPeriod();
-       showDays(date1,date2,e.id);
-       system("pause");
-	}
-	    break;
-	case 2:{
-	    // Show the Tasks
-        showTaskForEmployee(e.id);
-        system("pause");
-    }
-        break;
-    case 3:{
+	switch (n){
+        case '1':{
+           // Show work details
+           d=d.enterPeriod();
+           if (d.check==true){
+           showDays(d.period1,d.period2,e.id);
+           system("pause");
+           }
+        }
+            break;
+        case '2':{
+            // Show the Tasks
+            showTaskForEmployee(e.id);
+            system("pause");
+        }
+            break;
+        case '3':{
 
-        // Show Time off
-        showTimesOffWithId(e.id);
-        system("pause");
-    }
-        break;
-   	case 0:return;
-	default: cout << "\a";
+            // Show Time off
+            showTimesOffWithId(e.id);
+            system("pause");
+        }
+            break;
+        case '0':return;
 
-	}
+        case '*' :return;
+
+        default: cout << "\a";
+    }
 	system("cls");
 	workTimesMenu(id);
 }
 
 
-void ManageProjectMenu()
-{
+void ManageProjectMenu(){
     Project p;
-    int n;
+    char n;
     system("cls");
     inbtwShowAllProjects();
 
-
 	PrintMessage("MANAGE PROJECT");
     PrintMessage("                               ", false, false);
-	PrintMessage("1.  Show Project/Enter Task    ", false, false);
+	PrintMessage("1.  Manage Project             ", false, false);
     PrintMessage("2.  Add Project                ", false, false);
-    PrintMessage("3.  Delete Project            ", false, false);
+    PrintMessage("3.  Delete Project             ", false, false);
     PrintMessage("4.  Update Project             ", false, false);
     PrintMessage("                               ", false, false);
 	PrintMessage("0.  Back to Admin Menu         ", false, false);
     PrintMessage("                               ", false, false);
 	PrintMessage("Enter Your Choice (0-4)");
 	cout<< ">";	cin >> n;
-	switch (n)
-	{
-	case 1:
-	    //show and enter task menu
-        inbtwShowProjectTasks();
-        p.enterId();
-	    ManageTaskMenu(p.id);
-	    system("pause");
-	    break;
-	case 2:
-	    //create project
-        p.Add();
-        system("pause");
-        break;
-    case 3:
-        //delete project
-        p.enterId();
-        p.Delete(p.id);
-        system("pause");
-	    break;
-    case 4:
-        //update Project
-        p.Update();
-        system("pause");
-        break;
-   	case 0:return;
-	default: cout << "\a";
-	}
-	ManageProjectMenu();
+
+	switch (n){
+        case 1:
+            //show and enter task menu
+            inbtwShowProjectTasks();
+            p.enterId();
+            ManageTaskMenu(p.id);
+            system("pause");
+
+        //switch (n){
+        case '1':
+            //MangeProject
+            p.enterId();
+            if (p.check==true){
+                ManageTaskMenu(p.id);
+            }
+            break;
+        case '2':
+            //create project
+            if (p.check==true){
+            p.Add();
+            }
+            system("pause");
+            break;
+        case '3':
+            //delete project
+            p.enterId();
+            if (p.check==true){
+                p.Delete(p.id);
+            }
+            system("pause");
+            break;
+        case '4':
+            //update Project
+            p.Update();
+            system("pause");
+            break;
+        case '0' :return;
+
+        case '*' :return;
+
+        default: cout << "\a";
+    }
+        ManageProjectMenu();
 }
+
 //updating the cases for task from ikram
-void ManageTaskMenu(string ProId)
-{
+void ManageTaskMenu(string ProId){
     Employee e;
     Task t;
-    int n;
+    char n;
     system("cls");
 
+    showAllTasksForProject(ProId);
 
 	PrintMessage("MANAGE TASK");
     PrintMessage("                               ", false, false);
 	PrintMessage("1.  Add Task                   ", false, false);
     PrintMessage("2.  Delete Task                ", false, false);
     PrintMessage("3.  Update Task                ", false, false);
-    PrintMessage("4.  Show All Task              ", false, false);
-    PrintMessage("5.  Sign Employee To Task      ", false, false);
+    //PrintMessage("4.  Show All Task              ", false, false);
+    PrintMessage("4.  Sign Employee To Task      ", false, false);
     PrintMessage("                               ", false, false);
 	PrintMessage("0.  Back to Manage Project     ", false, false);
     PrintMessage("                               ", false, false);
 	PrintMessage("Enter Your Choice (0-5)");
 	cout<< ">";	cin >> n;
-	switch (n)
-	{
-	case 1:
-	    //create Task
-	    t.add(ProId);
-	    system("pause");
-	    break;
-	case 2:
-	    //Delete Task
-        t.enterId();
-        t.deleteT(t.id);
-        system("pause");
-        break;
-    case 3:
-        //update Task
-        t.update();
-        system("pause");
-        break;
-    case 4:
-        //show all Tasks
-        inbtwShowAllTasks();
-	    system("pause");
-	    break;
-    case 5:
-        //showEmployees
-        showEmployee();
-        //Sign Employee to Task
-        t.signEmployeToTask(t.id, t.employeeId);
-        system("pause");
-	    break;
-   	case 0: return;
-	default: cout << "\a";
+	switch (n){
+        case '1':
+            //create Task
+            t.add(ProId);
+            system("pause");
+            break;
+        case '2':
+            //Delete Task
+            t.enterId();
+            if (t.check==true){
+                t.deleteT(t.id);
+            }
+            system("pause");
+            break;
+        case '3':
+            //update Task
+            t.update();
+            system("pause");
+            break;
+            /*
+        case '4':
+            //show all Tasks
+            inbtwShowAllTasks();
+            system("pause");
+            break;
+            */
+        case '4':
+            //showEmployees
+            showEmployee();
+            //Sign Employee to Task
+            t.signEmployeToTask(t.id, t.employeeId);
+            system("pause");
+            break;
+        case '0': return;
 
-	}
-	ManageTaskMenu(ProId);
+        case '*' :return;
+
+        default: cout << "\a";
+    }
+        ManageTaskMenu(ProId);
 }
-//ending updating by ikram
 
-void EmployeeMenu(string employeeId)
-{
+void EmployeeMenu(string employeeId){
     Task t;
-    int n;
+    char n;
     system("cls");
-    inbtwShowEmployeeTasksAndProject(employeeId);
+
+    showProjectsWithTasks(l.e.id);
 
 	PrintMessage("EMPLOYEE MENU");
     PrintMessage("                               ", false, false);
@@ -419,47 +440,124 @@ void EmployeeMenu(string employeeId)
     PrintMessage("                               ", false, false);
 	PrintMessage("Enter Your Choice (0-4)");
 	cout<< ">";	cin >> n;
-	switch (n)
-	{
-	case 1:
-        //Start Task
-        t.enterId();
-        t.start(t.id, l.e.id);
-        system("pause");
-	    break;
-	case 2:
-        //Pause
-        t.enterId();
-        t.pause(t.id);
-        system("pause");
-        break;
-	case 3:
-        //Finish
-        t.enterId();
-        t.ended(t.id);
-        system("pause");
-	    break;
-	case 4:{
-        //Manage Time off
-	    TimeOffMenu();
-	}
-        break;
-   	case 0:{
+	switch (n){
+        case '1':{
+            //Start Task
+            t.enterId();
+            Database db;
+            Project p;
+            Task tas;
+            if (tas.check==true){
+               list<Task> tasks;
+               long sum=0;
+               tasks =db.selectTasksByEmployeeId(l.e.id);
+               for (tas:tasks){
+                   if (tas.status=="Started"){
+                       CustomTime c;
+                       Day d;
+                       tas.status="Paused";
+                       string  current =c.fullDateTime2();
+                       cout<<"curent1"<<current<<endl;
+                       long currentLong=c.getTimestampDate(current);
+                       cout<<"curent2"<<currentLong<<endl;
+                       sum =currentLong-d.stringToLong(tas.startTemp);
+                       cout<<"sum"<<sum<<endl;
+                       long timeSpend=d.stringToLong(tas.timeSpend)+sum;
+                       tas.timeSpend=d.longToString(timeSpend);
+                       cout<<"tas.timeSpend"<<tas.timeSpend<<endl;
 
+                       db.updateTaskWhenLogOut(tas);
+                   }
+               }
+               t.start(t.id, l.e.id);
+               t=db.selectTask(t.id);
+               p=db.selectProject(t.projectId);
+               p.status="Started";
+               p.timeSpend=p.timeSpend;
+               db.updateProject(p);
+            }
+            system("pause");
+        }
+            break;
+        case '2':{
+            //Pause
+            t.enterId();
+            if (t.check==true){
+                t.pause(t.id);
+                Database db;
+                Project p;
+                t=db.selectTask(t.id);
+                list <Task> tasks;
+                long sum=0;
+                tasks=db.selectTasksByProjectId(t.projectId);
+                for(tas:tasks){
+                    sum=sum+stringToLong(tas.timeSpend);
+                }
+                Day d;
+                p=db.selectProject(t.projectId);
+                p.timeSpend=d.longToString(sum);
+                p.status="Started";
+                db.updateProject(p);
+            }
+        }
+            system("pause");
+            break;
+        case '3':{
+            //Finish
+            Database db;
+            Task tas;
+            Project p;
+            t.enterId();
+            if (t.check==true){
+                t.ended(t.id);
+                t=db.selectTask(t.id);
+                list <Task> tasks;
+                int i=0,j=0;long sum=0;
+                tasks=db.selectTasksByProjectId(t.projectId);
+                for(tas:tasks){
+                    if (tas.status=="Ended"){
+                        j++;
+                    }
+                    i++;
+                    sum=sum+stringToLong(tas.timeSpend);
+                }
+                Day d;
+                p=db.selectProject(t.projectId);
+                p.timeSpend=d.longToString(sum);
 
-        employeeLogoutRecord(l.e.id,temp);
-        l.logout();
+                if(i==j){
+                   p.status="Ended";
+                   db.updateProject(p);
+               }
+               else{
+                   p.status="Started";
+                   db.updateProject(p);
+               }
+            }
+            system("pause");
+        }
+            break;
+        case '4':{
+            //Manage Time off
+            TimeOffMenu();
+        }
+            break;
+        case '0':{
+            employeeLogoutRecord(l.e.id,temp);
+            convertTaskStatusIfStatusWasStarted(l.e.id, temp);
+            l.logout();
+        }
+            return;
+        case '*':return;
+        default: cout << "\a";
+
     }
-        return;
-
-	default: cout << "\a";
-
-	}
-	EmployeeMenu(employeeId);
+        EmployeeMenu(employeeId);
 }
+
 void TimeOffMenu(){
     TimeOff timeOf;
-    int n;
+    char n;
     string choice;
     system("cls");
     PrintMessage("MANAGE TimeOff");
@@ -474,21 +572,25 @@ void TimeOffMenu(){
     PrintMessage("Enter Your Choice (0-5)");
     cout<< ">";	cin >> n;
     switch (n){
-        case 1:{
+        case '1':{
             //show All TimeOff.
             showTimeOff(l.e.id);
             system("pause");
             break;
        }
-       case 2:{
+       case '2':{
            //Add timeOff.
+
            timeOf=timeOf.enter(l.e.id);
-           insertTimeOff(timeOf);
-           showTimeOff(l.e.id);
-           system("pause");
-           break;
+
+           if(timeOf.check==true){
+                insertTimeOff(timeOf);
+                showTimeOff(l.e.id);
+                system("pause");
+           }
        }
-       case 3:{
+            break;
+       case '3':{
            //Update TimeOff.
            string id;
            system("cls");
@@ -498,6 +600,7 @@ void TimeOffMenu(){
            cout <<"+-------------------------------------------+"<<endl;
            cout <<"|     id="; cin>>id;
            cout <<"+-------------------------------------------+"<<endl;
+           if (id!="*"){
            system("cls");
            timeOf=selectTimeOff(id);
            timeOf.show();
@@ -506,10 +609,11 @@ void TimeOffMenu(){
            timeOf=timeOf.enter(l.e.id);
            timeOf.id=id;
            updateTimeOff(timeOf);
+           }
            system("pause");
            break;
        }
-       case 4:{
+       case '4':{
            //Delete TimeOff.
             showTimesOffWithId(l.e.id);
             cout <<"+-----------------------------------------------------------+"<<endl;
@@ -517,6 +621,7 @@ void TimeOffMenu(){
             cout <<"+-----------------------------------------------------------+"<<endl;
             cout <<"          id="; cin>>timeOf.id; cout<<endl;
             cout <<"+-----------------------------------------------------------+"<<endl;
+            if (timeOf.id!="*"){
             timeOf=selectTimeOff(timeOf.id);
             timeOf.show();
             cout <<"+--------------------------+"<<endl;
@@ -526,10 +631,14 @@ void TimeOffMenu(){
             if (choice=="y" || choice=="Y"){
             deleteTimeOff(timeOf.id);
             }
+            }
             system("pause");
            break;
        }
-       case 0: return;
+       case '0': return;
+
+       case '*' :return;
+
 	  default: cout << "\a";
     }
      TimeOffMenu();

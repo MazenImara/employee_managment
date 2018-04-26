@@ -6,37 +6,28 @@
 #include <employee.h>
 
 using namespace std;
+
 class Loging{
-public:
-    Employee e;
-    bool loged = false;
-   /* Loging(){
-        e.enterLogin();
-        Database db;
-        e = db.getLoginEmployee(e);
-        if(e.id.empty()){
-            cout<< "Email or password is wrong"<< endl;
-        }
-        else{
-            loged = true;
+    public:
+        Employee e;
+        bool loged = false;
+
+        void login(){
+            e.enterLogin();
+            Database db;
+            e = db.getLoginEmployee(e);
+            if(e.id.empty()){
+                cout<< "Email or password is wrong"<< endl;
+            }
+            else{
+                loged = true;
+            }
         }
 
-    }*/
-    void login(){
-        e.enterLogin();
-        Database db;
-        e = db.getLoginEmployee(e);
-        if(e.id.empty()){
-            cout<< "Email or password is wrong"<< endl;
-        }
-        else{
-            loged = true;
-        }
-    }
-    void logout(){
-        Employee E;
-        e = E;
-        loged = false;
+        void logout(){
+            Employee E;
+            e = E;
+            loged = false;
     }
 };
 
