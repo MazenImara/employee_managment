@@ -11,6 +11,7 @@
 #include <project.h>
 #include <projectMenu.h>
 #include <show.h>
+#include <sugges.h>
 
 using namespace std;
 
@@ -60,7 +61,7 @@ void AdminMenu();
 void ManageEmployeeMenu();
 void EmployeeMenu();
 void ManageProjectMenu();
-void ManageTaskMenu(string ProId);
+void ManageTaskMenu(string proId);
 void TimeOffMenu();
 void workTimesMenu(string id);
 void showAllEmployee();
@@ -74,6 +75,7 @@ void inbtwSignEmployeeAsAdmin();
 void inbtwShowWorkDetails(string id);
 void inbtwShowTaskForEmployee(string id);
 void inbtwShowTimeOff(string id);
+
 
 Employee selectEmployeeByEmail(std::string email);
 Employee selectEmployeeById(std::string id);
@@ -168,7 +170,6 @@ void AdminMenu()
    	case '0':{
    	    employeeLogoutRecord(l.e.id,temp);
    	    convertTaskStatusIfStatusWasStarted(l.e.id, temp);
-   	   // convertTask(l.e.id);
         l.logout();
         }
         return;
@@ -237,6 +238,7 @@ void ManageEmployeeMenu()
 	    break;
     case '5' :{
         //Sign Employee as Admin
+        showEmployee();
         signEmployeeAsAdmin();
         system("pause");
     }
@@ -354,30 +356,30 @@ void ManageProjectMenu()
 	ManageProjectMenu();
 	}
 //updating the cases for task from ikram
-void ManageTaskMenu(string ProId){
+void ManageTaskMenu(string proId){
     Employee e;
     Task t;
     char n;
     system("cls");
     //inbtwShowAllTasks();
-    showAllTasksForProject(ProId);
+    showAllTasksForProject(proId);
 	PrintMessage("MANAGE TASK");
-    PrintMessage("                               ", false, false);
-	PrintMessage("1.  Add Task                   ", false, false);
-    PrintMessage("2.  Delete Task                ", false, false);
-    PrintMessage("3.  Update Task                ", false, false);
-    //PrintMessage("4.  Show All Task              ", false, false);
-    PrintMessage("4.  Sign Employee To Task      ", false, false);
-    PrintMessage("                               ", false, false);
-	PrintMessage("0.  Back to Manage Project     ", false, false);
-    PrintMessage("                               ", false, false);
+    PrintMessage("                                      ", false, false);
+	PrintMessage("1.  Add Task                          ", false, false);
+    PrintMessage("2.  Delete Task                       ", false, false);
+    PrintMessage("3.  Update Task                       ", false, false);
+    PrintMessage("4.  Sign Employee To Task             ", false, false);
+    PrintMessage("5.  Suggestion for selected project   ", false, false);
+    PrintMessage("                                      ", false, false);
+	PrintMessage("0.  Back to Manage Project            ", false, false);
+    PrintMessage("                                      ", false, false);
 	PrintMessage("Enter Your Choice (0-5)");
 	cout<< ">";	cin >> n;
 	switch (n)
 	{
 	case '1':
 	    //create Task
-	    t.add(ProId);
+	    t.add(proId);
 	    system("pause");
 	    break;
 	case '2':
@@ -393,31 +395,33 @@ void ManageTaskMenu(string ProId){
         t.update();
         system("pause");
         break;
-        /*
-    case '4':
-        //show all Tasks
-        inbtwShowAllTasks();
-	    system("pause");
-	    break;
-	    */
-    case '4':
-        //showEmployees
-        showEmployee();
+
+    case '4':{
         //Sign Employee to Task
-        t.signEmployeToTask(t.id, t.employeeId);
+        //inbtwShowAllTasks();
+        showEmployee();
+        signEmployeeToTask();
         system("pause");
+
+    }
+	    break;
+
+    case '5':{
+        //Suggestion task.
+         showSuggessByProjectId(proId);
+         system("pause");
+    }
 	    break;
    	case '0': return;
    	case '*' :return;
 	default: cout << "\a";
 	}
 
-	ManageTaskMenu(ProId);
+	ManageTaskMenu(proId);
 }
 //ending updating by ikram
 
 void EmployeeMenu(){
-    Task t;
     char n;
     system("cls");
    // inbtwShowAllTasks();
@@ -428,6 +432,7 @@ void EmployeeMenu(){
     PrintMessage("2.  Pause Task                 ", false, false);
 	PrintMessage("3.  Finish Task                ", false, false);
     PrintMessage("4.  Manage TimeOff             ", false, false);
+    PrintMessage("5.  show all Suggestions       ", false, false);
     PrintMessage("                               ", false, false);
 	PrintMessage("0.  LOGOUT                     ", false, false);
     PrintMessage("                               ", false, false);
@@ -437,104 +442,32 @@ void EmployeeMenu(){
 	{
 	case '1':{
         //Start Task
-        t.enterId();
-        Database db;
-        Project p;
-        Task tas;
-        if (tas.check==true){
-           list<Task> tasks;
-           long sum=0;
-           tasks =db.selectTasksByEmployeeId(l.e.id);
-           for (tas:tasks){
-               if (tas.status=="Started"){
-                   CustomTime c;
-                   Day d;
-                   tas.status="Paused";
-                   string  current =c.fullDateTime2();
-                   cout<<"curent1"<<current<<endl;//////////
-                   long currentLong=c.getTimestampDate(current);
-                   cout<<"curent2"<<currentLong<<endl;/////////////
-                   sum =currentLong-d.stringToLong(tas.startTemp);
-                   cout<<"sum"<<sum<<endl;
-                   long timeSpend=d.stringToLong(tas.timeSpend)+sum;
-                   tas.timeSpend=d.longToString(timeSpend);
-                   cout<<"tas.timeSpend"<<tas.timeSpend<<endl;
-
-                   db.updateTaskWhenLogOut(tas);
-               }
-           }
-           t.start(t.id, l.e.id);
-           t=db.selectTask(t.id);
-           p=db.selectProject(t.projectId);
-           p.status="Started";
-           p.timeSpend=p.timeSpend;
-           db.updateProject(p);
-
+        startTask(l.e.id);
         }
         system("pause");
-	}
+
 	    break;
 	case '2':{
         //Pause
-        t.enterId();
-        if (t.check==true){
-            t.pause(t.id);
-            Database db;
-            Project p;
-            t=db.selectTask(t.id);
-            list <Task> tasks;
-            long sum=0;
-            tasks=db.selectTasksByProjectId(t.projectId);
-            for(tas:tasks){
-                sum=sum+stringToLong(tas.timeSpend);
-            }
-            Day d;
-            p=db.selectProject(t.projectId);
-            p.timeSpend=d.longToString(sum);
-            p.status="Started";
-            db.updateProject(p);
-        }
+        pauseTask();
 	}
         system("pause");
         break;
 	case '3':{
         //Finish
-        Database db;
-        Task tas;
-        Project p;
-        t.enterId();
-        if (t.check==true){
-            t.ended(t.id);
-            t=db.selectTask(t.id);
-            list <Task> tasks;
-            int i=0,j=0;long sum=0;
-            tasks=db.selectTasksByProjectId(t.projectId);
-            for(tas:tasks){
-                if (tas.status=="Ended"){
-                    j++;
-                }
-                i++;
-                sum=sum+stringToLong(tas.timeSpend);
-            }
-            Day d;
-            p=db.selectProject(t.projectId);
-            p.timeSpend=d.longToString(sum);
-
-            if(i==j){
-               p.status="Ended";
-               db.updateProject(p);
-           }
-           else{
-               p.status="Started";
-               db.updateProject(p);
-           }
-        }
+        void finishTask();
         system("pause");
 	}
 	    break;
 	case '4':{
         //Manage Time off
 	    TimeOffMenu();
+	}
+	case '5':{
+        //show all suggestion
+	    showAllSuggess();
+	    system("pause");
+
 	}
         break;
    	case '0':{

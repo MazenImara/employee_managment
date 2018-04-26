@@ -52,5 +52,12 @@ void showProjectsWithTasks(string id);
 void showProjectsWithTasksForAdmin();
 void showAllTasksForProject(string id);
 void convertTaskStatusIfStatusWasStarted(string id,long temp);
+void showSuggessByProjectId(string id);
+void showAllSuggess();
+void signEmployeeToTask();
+void startTask(string id);
+void pauseTask();
+void finishTask();
+
 
 #endif // INBTW_H_INCLUDED

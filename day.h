@@ -49,11 +49,11 @@ public:
            day.check=false;
            do{
            cout <<"+----------------------------------------------------------------+"<<endl;
-           cout <<"|   Enter the date period that you need to show work details     |"<<endl;
+           cout <<"|  Enter the date period that you need to show work details      |"<<endl;
            cout <<"|                    by form year/month/day                      |"<<endl;
-           cout <<"|  OBS  |2- Press (thisMonth) for this month                     |"<<endl;
-           cout <<"|       |3- Press (N/n)  for new input                           |"<<endl;
-           cout <<"|       |4- Press *   for back to Menu                           |"<<endl;
+           cout <<"|  OBS  | - Press (thisMonth) for this month                     |"<<endl;
+           cout <<"|       | - Press (N/n)  for new input                           |"<<endl;
+           cout <<"|       | - Press *   for back to Menu                           |"<<endl;
            cout <<"+----------------------------------------------------------------+"<<endl;
            stringstream dd;
            dd << c.year << "/"<<c.month << "/"<<c.day ;
@@ -114,13 +114,6 @@ public:
 
                 backToEnter: {
                     returnToBegin=true;
-                    /*
-                    cout <<"+-----------------------------------------------------------+"<<endl;
-                    cout <<"|       try to enter  again                                 |"<<endl;
-                    cout <<"+-----------------------------------------------------------+"<<endl;
-                    system("pause");
-                    system("cls");
-                    */
                 }
         } while(returnToBegin==true);
 
@@ -139,23 +132,9 @@ public:
         }
         backToMenu:{
               day.check=false;
-        }/*
-        cout<<day.period1<<endl;
-       cout<<day.period2<<endl;
-           cout<<day.check<<endl;
-           system("pause");
-           */
-   }
-/*
-           stringstream dd;
-           dd << c.year << "/"<<c.month << "/"<<c.day ;
-           string d = dd.str();
-           cout <<"            "; cin >>d ;
-           string date =d+" "+ "00"+ ":" + "00" + ":" + "00";
-           long date1=c.getTimestampDate(date);
-           return date1;
-           */
+        }
 
+   }
     string longToString(long  number){
     std::stringstream ss;
     ss << number;

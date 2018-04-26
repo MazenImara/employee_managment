@@ -14,6 +14,7 @@
 #include <gtime.h>
 #include <timoff.h>
 #include <taskdetails.h>
+#include <sugges.h>
 
 
 using namespace std;
@@ -131,6 +132,22 @@ public:
             cout<<"query error: "<<mysql_error(conn)<<endl;
         }
         //end task
+        {
+
+
+            query="CREATE TABLE employee_managment.suggestion(`id` int not null AUTO_INCREMENT , `project_id` int not null,  `task_id` int not null,`employee_id` int not null, PRIMARY KEY (id),CONSTRAINT sugges_project__fk FOREIGN KEY (project_id) REFERENCES project (id) ON UPDATE CASCADE on DELETE CASCADE, CONSTRAINT sugges_employee_fk FOREIGN KEY (employee_id) REFERENCES  employee (id) ON UPDATE CASCADE on DELETE CASCADE, CONSTRAINT sugges_task_fk FOREIGN KEY (task_id) REFERENCES  task (id) ON UPDATE CASCADE on DELETE CASCADE)";
+        }
+        q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate){
+            cout<< "Suggestion Tabel created successfully\n";
+        }
+        else{
+            cout<<"query error: "<<mysql_error(conn)<<endl;
+        }
+
+
+
 
         //create day
         {
@@ -949,6 +966,82 @@ list<Task> selectTasksByProjectId(string id){
         else
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
+    void insertSugges(Sugges sg){
+        string query = "INSERT INTO `suggestion`( `project_id`, `employee_id`,`task_id`) VALUES ('"+sg.p.id+"','"+sg.e.id+"','"+sg.t.id+"')";
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+            cout<<"record inserted successfully..."<<endl;
+        else
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+    }
+    void updateSugges( Sugges sg){
+        string query = "update  suggestion set project_id='"+sg.p.id+"',employee_id='"+sg.e.id+"',task_id='"+sg.t.id+"' where id="+sg.id;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+            cout<<"record updated successfully..."<<endl;
+        else
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+    }
+    void deleteSugges (string id){
+        string query = "DELETE FROM `suggestion`  where task_id="+id;
+        const char* q = query.c_str();
+        cout <<query<<endl;
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+            cout<<"record deleted successfully..."<<endl;
+        else
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+    }
+    list<Sugges> selectSuggestions(){
+        list <Sugges> suggess;
+        string query = "SELECT * FROM `suggestion` " ;
+        const char* q = query.c_str();
+        cout<<"query="<<query<<endl;
+        qstate = mysql_query(conn,q);
+        if(!qstate){
+            res=mysql_store_result(conn);
+            while(row=mysql_fetch_row(res)){
+                Sugges sg;
+                sg.id=       row[0];
+                sg.p.id      = row[1];
+                sg.t.id     = row[2];
+                sg.e.id    = row[3];
+                suggess.push_back(sg);
+            }
+        }
+        else{
+            cout<<"query error: "<<mysql_error(conn)<<endl;
+        }
+        return suggess;
+    }
+    list <Sugges> showSuggessByProjectId(string id){
+     list <Sugges> suggess;
+        string query = "select * from  `suggestion` where project_id="+id ;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate){
+            res=mysql_store_result(conn);
+            while(row=mysql_fetch_row(res)){
+                Sugges sg;
+                sg.id=row[0];
+                sg.p.id      = row[1];
+                sg.t.id     = row[2];
+                sg.e.id    = row[3];
+                suggess.push_back(sg);
+            }
+        }
+        else{
+            cout<<"query error: "<<mysql_error(conn)<<endl;
+        }
+        return suggess;
+    }
+
+
+
+
+
 
     // end code Mohamad
 
