@@ -19,7 +19,6 @@ void inbtwPauseTask(std::string id);
 void inbtwEndTask(std::string id);
 //Task end
 
-
 //Project
 void selectProjectById(std::string projectId);
 void inbtwShowAllProjects();

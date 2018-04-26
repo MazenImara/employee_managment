@@ -29,96 +29,97 @@ class Day{
         }
 
         void showHeader(){
-        cout <<" ________________________________________________________________________________"<<endl;
-        cout <<"|                       Days's details for Employee                              |"<<endl;
-        cout <<"|________________________________________________________________________________|"<<endl;
-        cout <<"|"<<setw(18)<<"Date"<<setw(23)<<"startTime"<<setw(18)<<"endTime"<<setw(18)<<"timeSpend"<<setw(4)<<"  |"<< endl;
-        cout <<"|________________________________________________________________________________|"<<endl;
+            cout <<" ________________________________________________________________________________"<<endl;
+            cout <<"|                       Days's details for Employee                              |"<<endl;
+            cout <<"|________________________________________________________________________________|"<<endl;
+            cout <<"|"<<setw(18)<<"Date"<<setw(23)<<"startTime"<<setw(18)<<"endTime"<<setw(18)<<"timeSpend"<<setw(4)<<"  |"<< endl;
+            cout <<"|________________________________________________________________________________|"<<endl;
         }
 
         long enterPeriodStepByStep(){
-           cout <<"+---------------------------------------------------------+"<<endl;
-           cout <<"|Enter the date period that you need to show work details |"<<endl;
-           cout <<"+---------------------------------------------------------+"<<endl;
-           CustomTime c;Employee e;
-           string date=e.getDate();
-           date =date+" "+ "00"+ ":" + "00" + ":" + "00";
-           long date1=c.getTimestampDate(date);
-           return date1;
+            cout <<"+---------------------------------------------------------+"<<endl;
+            cout <<"|Enter the date period that you need to show work details |"<<endl;
+            cout <<"+---------------------------------------------------------+"<<endl;
+            CustomTime c;Employee e;
+            string date=e.getDate();
+            date =date+" "+ "00"+ ":" + "00" + ":" + "00";
+            long date1=c.getTimestampDate(date);
+            return date1;
         }
 
         Day enterPeriod(){
-               CustomTime c;
-               Day day;
-               bool returnToBegin=false;
-               day.check=false;
-               do{
-                    cout <<"+----------------------------------------------------------------+"<<endl;
-                    cout <<"|   Enter the date period that you need to show work details     |"<<endl;
-                    cout <<"|                    by form year/month/day                      |"<<endl;
-                    cout <<"|  OBS  |2- Press (thisMonth) for this month                     |"<<endl;
-                    cout <<"|       |3- Press (N/n)  for new input                           |"<<endl;
-                    cout <<"|       |4- Press *   for back to Menu                           |"<<endl;
-                    cout <<"+----------------------------------------------------------------+"<<endl;
-                    stringstream dd;
-                    dd << c.year << "/"<<c.month << "/"<<c.day ;
-                    string d = dd.str();
-                    cout <<"|     1- from (date) by form y/m/d =\t                    |"<<endl;
-                    cout <<"|___________________________________________________________|"<<endl;
-                    cout <<"            "; cin >>d ;
+            CustomTime c;
+            Day day;
+            bool returnToBegin=false;
+            day.check=false;
+            do{
+                cout <<"+----------------------------------------------------------------+"<<endl;
+                cout <<"|   Enter the date period that you need to show work details     |"<<endl;
+                cout <<"|                    by form year/month/day                      |"<<endl;
+                cout <<"|  OBS  |2- Press (thisMonth) for this month                     |"<<endl;
+                cout <<"|       |3- Press (N/n)  for new input                           |"<<endl;
+                cout <<"|       |4- Press *   for back to Menu                           |"<<endl;
+                cout <<"+----------------------------------------------------------------+"<<endl;
+                stringstream dd;
+                dd << c.year << "/"<<c.month << "/"<<c.day ;
+                string d = dd.str();
+                cout <<"|     1- from (date) by form y/m/d =\t                    |"<<endl;
+                cout <<"|___________________________________________________________|"<<endl;
+                cout <<"            "; cin >>d ;
 
-                    if (d=="*"){
-                        goto backToMenu;
+                if (d=="*"){
+                    goto backToMenu;
+                }
+                else{
+                    if (d=="N" || d=="n"){
+                    goto backToEnter;
+                    }
+
+                    if (d=="thisMonth"){
+                        stringstream mm;
+                        mm << c.beginThisMonth();
+                        string m = mm.str();
+
+                        stringstream nn;
+                        nn << c.firstNextMonth();
+                        string n = nn.str();
+
+                        string date =m+" "+ "00"+ ":" + "00" + ":" + "00";
+                        day.period1=c.getTimestampDate(date);
+
+                        string date2 =n+" "+ "00"+ ":" + "00" + ":" + "00";
+                        day.period2=c.getTimestampDate(date2);
+                        goto continuePro;
                     }
                     else{
-                        if (d=="N" || d=="n"){
-                        goto backToEnter;
-                    }
-                        if (d=="thisMonth"){
-                            stringstream mm;
-                            mm << c.beginThisMonth();
-                            string m = mm.str();
-
-                            stringstream nn;
-                            nn << c.firstNextMonth();
-                            string n = nn.str();
-
-                            string date =m+" "+ "00"+ ":" + "00" + ":" + "00";
-                            day.period1=c.getTimestampDate(date);
-
-                            string date2 =n+" "+ "00"+ ":" + "00" + ":" + "00";
-                            day.period2=c.getTimestampDate(date2);
-                            goto continuePro;
+                        string date =d+" "+ "00"+ ":" + "00" + ":" + "00";
+                        day.period1=c.getTimestampDate(date);
+                        stringstream bb;
+                        bb << c.year << "/"<<c.month << "/"<<c.day ;
+                        string b = bb.str();
+                        cout <<"|___________________________________________________________|"<<endl;
+                        cout <<"|       1- to (date) by form y/m/d =\t                    |"<<endl;
+                        cout <<"|___________________________________________________________|"<<endl;
+                        cout <<"            ";cin >>b ;
+                        if (b=="*"){
+                            goto backToMenu;
                         }
                         else{
-                            string date =d+" "+ "00"+ ":" + "00" + ":" + "00";
-                            day.period1=c.getTimestampDate(date);
-                            stringstream bb;
-                            bb << c.year << "/"<<c.month << "/"<<c.day ;
-                            string b = bb.str();
-                            cout <<"|___________________________________________________________|"<<endl;
-                            cout <<"|       1- to (date) by form y/m/d =\t                    |"<<endl;
-                            cout <<"|___________________________________________________________|"<<endl;
-                            cout <<"            ";cin >>b ;
-                            if (b=="*"){
-                                goto backToMenu;
-                            }
-                            else{
-                                 if (b=="N" || b=="n"){
+                            if (b=="N" || b=="n"){
                                 goto backToEnter;
-                                }
+                            }
 
-                                string date3 =b+" "+ "00"+ ":" + "00" + ":" + "00";
-                                day.period2=c.getTimestampDate(date3);
-                                goto continuePro;
+                            string date3 =b+" "+ "00"+ ":" + "00" + ":" + "00";
+                            day.period2=c.getTimestampDate(date3);
+                            goto continuePro;
                             }
                         }
                     }
 
-                    backToEnter: {
+                    backToEnter:{
                         returnToBegin=true;
                     }
-            } while(returnToBegin==true);
+            }while(returnToBegin==true);
 
             continuePro:{
                 if (day.period1==-1 || day.period2==-1){
@@ -134,7 +135,7 @@ class Day{
                 }
             }
             backToMenu:{
-                  day.check=false;
+                day.check=false;
             }
         }
 

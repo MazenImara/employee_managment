@@ -514,6 +514,7 @@ class Database{
             else
                 cout<<"query problem: "<<mysql_error(conn)<<endl;
         }
+
         void updateEmployee( Employee e){
             string query = "update  employee set name='"+e.name+"',email='"+e.email+"',password='"+e.password+"',address='"+e.address+"',phone='"+e.phone+"' where id="+e.id;
             const char* q = query.c_str();
@@ -694,7 +695,7 @@ class Database{
             return d;
         }
 
-         void insertStartEmployeeDay(string employeeId){
+        void insertStartEmployeeDay(string employeeId){
             CustomTime c;
             Day d;
             long current = CustomTime().getTimestampDate();
@@ -864,7 +865,6 @@ class Database{
                     timeOf.to      =d.stringToLong(to);
 
                     timesOff.push_back(timeOf);
-
                 }
             }
                 else{
@@ -900,7 +900,7 @@ class Database{
             return tasks;
         }
 
-    list<Task> selectTasksByProjectId(string id){
+        list<Task> selectTasksByProjectId(string id){
             list<Task> tasks;
             string query ="SELECT  task.project_id ,task.id,task.title,task.status,task.startTemp,task.endTemp,task.timeSpend,task.employee_id from  task where task.project_id="+id;// WHERE `id`="+id;
             const char* q = query.c_str();
@@ -1021,8 +1021,7 @@ class Database{
             }
             p.tasks = selectProjectTasks(p.id);
             return p;
-
-            }
+        }
 
         list<Project> selectProjects(){
             list<Project> projects;
@@ -1115,7 +1114,6 @@ class Database{
                     for(t : tasks){
                     t.e = selectEmployeeById(t.employeeId);
                 }
-
             return tasks;
         }
 
@@ -1140,7 +1138,6 @@ class Database{
                     t.projectId = row[6];
                     t.employeeId =row[7];
                     tasks.push_back(t);
-
                 }
             }
                 else{
@@ -1148,12 +1145,10 @@ class Database{
                     }
             return tasks;
         }
-
         // end hamzA
 
         //Start Gab
-        void setAdmin(string employeeId)
-        {
+        void setAdmin(string employeeId){
             if(!isAdmin(employeeId)){
 
                 string query="insert into admin(employee_id) values("+employeeId+")";
@@ -1163,8 +1158,7 @@ class Database{
         }
 
         //sign employee to task
-        void setEmployeTask(string taskId,string employeeId)
-        {
+        void setEmployeTask(string taskId,string employeeId){
             string query ="UPDATE `task` SET `employee_id`='"+employeeId+"' WHERE `id` ="+taskId;
             const char* q = query.c_str();
             qstate = mysql_query(conn,q);
@@ -1174,8 +1168,7 @@ class Database{
                 cout<<"query problem: "<<mysql_error(conn)<<endl;
         }
 
-        bool isAdmin(string employeeId)
-        {
+        bool isAdmin(string employeeId){
             bool is = false;
             string id;
             string query="SELECT * FROM `admin` WHERE employee_id="+employeeId;

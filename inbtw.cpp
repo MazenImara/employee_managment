@@ -29,39 +29,36 @@ void createDatabase(){
 
 }
 //Task
-void inbtwShowTask(string taskId)
-{
+void inbtwShowTask(string taskId){
     Task t;
     Database db;
     t = db.selectTask(taskId);
     t.show();
 }
 
-void inbtwInsertTask(string projectId)
-{
+void inbtwInsertTask(string projectId){
     Task t;
     Database db;
     t.enter();
     if (t.check==true){
-    t.status = "New";
-    t.projectId = projectId;
-    db.insertTask(t);
+        t.status = "New";
+        t.projectId = projectId;
+        db.insertTask(t);
     }
 }
 
-void inbtwDeleteTask(string taskId)
-{
+void inbtwDeleteTask(string taskId){
     Database db;
     db.deleteTask(taskId);
 }
-void inbtwUpdateTask()
-{
+
+void inbtwUpdateTask(){
     Task t;
     Database db;
     t.enterId();
     if (t.check==true){
-    t.enterNewTitle();
-    db.updateTask(t);
+        t.enterNewTitle();
+        db.updateTask(t);
     }
 }
 
@@ -74,7 +71,6 @@ void inbtwShowAllTasks(){
     Task t;
     t.header();
     for(t:ts){
-
         long startTemp=stringToLong(t.startTemp);
         long endTemp=stringToLong(t.endTemp);
         long timeSpend=stringToLong(t.timeSpend);
@@ -107,8 +103,8 @@ void inbtwSignEmployeeToTask(string taskId, string employeeId){
         db.selectTask(t.id);
         e.enterId();
         if (e.check==true){
-           db.setEmployeTask(t.id, e.id);
-           db.close();
+            db.setEmployeTask(t.id, e.id);
+            db.close();
         }
     }
 }
@@ -176,10 +172,10 @@ void inbtwUpdateProject(){
     Database db;
     p.enterId();
     if (p.check==true){
-       p.enter();
-       if (p.check==true){
-          db.updateProject(p);
-       }
+        p.enter();
+        if (p.check==true){
+            db.updateProject(p);
+        }
     }
 }
 
@@ -220,40 +216,33 @@ void showProjectsWithTasks(string id){
     Employee e;
     Project p;
     Database db;
+    list<Task> tasks;
+    list<Project> projects;
+    tasks=db.selectProjectWithTask();
+    projects=db.selectProjects();
 
-        list<Task> tasks;
-        list<Project> projects;
-        tasks=db.selectProjectWithTask();
-        projects=db.selectProjects();
+    for (p:projects){
+        cout <<"+--------------------------------------+"<<endl;
+        cout <<setw(4)<<"|  Project title  =   "<< setw(15)<<p.title<<setw(4)<<"|"<<endl;
+        cout <<"+----------------------------------------------------------------------------------+"<<endl;
+        cout <<"|                                    Your Tasks                                    |"<<endl;
+        cout <<"+----------------------------------------------------------------------------------+"<<endl;
+        cout <<"|"<<setw(13)<<"TaskId"<<setw(15)<<"TaskTitle"<<setw(13)<<"Status"<<setw(17)<<"TimeSpend"<<setw(17)<<"employeeName"<<setw(8)<<"|"<< endl;
+        cout <<"|__________________________________________________________________________________|"<<endl;
 
-
-       for (p:projects){
-
-
-            cout <<"+---------------------------------+"<<endl;
-            cout <<setw(4)<<"|  Project  =   "<< setw(15)<<p.title<<setw(4)<<"|"<<endl;
-            cout <<"+----------------------------------------------------------------------------------+"<<endl;
-            cout <<"|                                    Your Tasks                                    |"<<endl;
-            cout <<"+----------------------------------------------------------------------------------+"<<endl;
-            cout <<"|"<<setw(13)<<"TaskId"<<setw(15)<<"TaskTitle"<<setw(13)<<"Status"<<setw(17)<<"TimeSpend"<<setw(17)<<"employeeName"<<setw(8)<<"|"<< endl;
-            cout <<"|__________________________________________________________________________________|"<<endl;
-
-
-          for ( t : tasks){
+        for ( t : tasks){
                 e=db.selectEmployeeById(t.employeeId);
-               if (t.status=="New" && (t.employeeId=="0" || t.employeeId==id ) && (t.projectId==p.id)){
-
+                if (t.status=="New" && (t.employeeId=="0" || t.employeeId==id ) && (t.projectId==p.id)){
                     cout<<"|"<<setw(12)<<t.id<<setw(15)<<t.title<<setw(15)<<t.status<< "\t"<<setw(10)<<'0'<<setw(17)<<e.name<<setw(9)<<"|"<<endl;
                 }
-               if ( (t.status=="Paused" || t.status=="Started" ||  t.status=="Ended")  && (( t.employeeId==id)&& (t.projectId==p.id)) ){
-                long timeSpend=stringToLong(t.timeSpend);
-                CustomTime c=CustomTime(timeSpend);
-                     cout<<"|"<<setw(12)<<t.id<<setw(15)<<t.title<<setw(15)<<t.status<< "\t"<<setw(10)<<c.timeCorrectH()<<setw(17)<<e.name<<setw(9)<<"|"<<endl;
-               }
-           }
+                if ( (t.status=="Paused" || t.status=="Started" ||  t.status=="Ended")  && (( t.employeeId==id)&& (t.projectId==p.id)) ){
+                    long timeSpend=stringToLong(t.timeSpend);
+                    CustomTime c=CustomTime(timeSpend);
+                    cout<<"|"<<setw(12)<<t.id<<setw(15)<<t.title<<setw(15)<<t.status<< "\t"<<setw(10)<<c.timeCorrectH()<<setw(17)<<e.name<<setw(9)<<"|"<<endl;
+                }
+        }
 
-
-             cout <<"|__________________________________________________________________________________|"<<endl;
+        cout <<"|__________________________________________________________________________________|"<<endl;
     }
 }
 
@@ -262,37 +251,31 @@ void showProjectsWithTasksForAdmin(){
     Employee e;
     Project p;
     Database db;
+    list<Task> tasks;
+    list<Project> projects;
+    tasks=db.selectProjectWithTask();
+    projects=db.selectProjects();
 
-        list<Task> tasks;
-        list<Project> projects;
-        tasks=db.selectProjectWithTask();
-        projects=db.selectProjects();
+    for (p:projects){
+        long timeSpend1=stringToLong(p.timeSpend);
+        CustomTime c1=CustomTime(timeSpend1);
+        cout <<"+----------------------------------------------------------------------------------+"<<endl;
+        cout <<setw(4)<<"| ProjectName :"<< setw(10)<<p.title<<"     |"<<setw(4)<<"  status: "<<p.status<<"        |"<<setw(12)<<"timeSpend="<<c1.timeCorrectH()<<setw(14)<<"|"<<endl;
+        cout <<"+----------------------------------------------------------------------------------+"<<endl;
+        cout <<"|                                    Your Tasks                                    |"<<endl;
+        cout <<"+----------------------------------------------------------------------------------+"<<endl;
+        cout <<"|"<<setw(13)<<"TaskId"<<setw(15)<<"TaskTitle"<<setw(13)<<"Status"<<setw(17)<<"TimeSpend"<<setw(17)<<"employeeName"<<setw(8)<<"|"<< endl;
+        cout <<"|__________________________________________________________________________________|"<<endl;
 
-
-        for (p:projects){
-            long timeSpend1=stringToLong(p.timeSpend);
-            CustomTime c1=CustomTime(timeSpend1);
-            cout <<"+----------------------------------------------------------------------------------+"<<endl;
-            cout <<setw(4)<<"| ProjectName :"<< setw(10)<<p.title<<"     |"<<setw(4)<<"  status: "<<p.status<<"        |"<<setw(12)<<"timeSpend="<<c1.timeCorrectH()<<setw(14)<<"|"<<endl;
-            cout <<"+----------------------------------------------------------------------------------+"<<endl;
-            cout <<"|                                    Your Tasks                                    |"<<endl;
-            cout <<"+----------------------------------------------------------------------------------+"<<endl;
-            cout <<"|"<<setw(13)<<"TaskId"<<setw(15)<<"TaskTitle"<<setw(13)<<"Status"<<setw(17)<<"TimeSpend"<<setw(17)<<"employeeName"<<setw(8)<<"|"<< endl;
-            cout <<"|__________________________________________________________________________________|"<<endl;
-
-
-            for ( t : tasks){
-                e=db.selectEmployeeById(t.employeeId);
-               if ( t.projectId==p.id){
-                long timeSpend=stringToLong(t.timeSpend);
-                CustomTime c=CustomTime(timeSpend);
-                     cout<<"|"<<setw(12)<<t.id<<setw(15)<<t.title<<setw(15)<<t.status<< "\t"<<setw(10)<<c.timeCorrectH()<<setw(17)<<e.name<<setw(9)<<"|"<<endl;
-           }
-
-
-
-    }
-     cout <<"|__________________________________________________________________________________|"<<endl;
+        for (t : tasks){
+            e=db.selectEmployeeById(t.employeeId);
+            if ( t.projectId==p.id){
+            long timeSpend=stringToLong(t.timeSpend);
+            CustomTime c=CustomTime(timeSpend);
+            cout<<"|"<<setw(12)<<t.id<<setw(15)<<t.title<<setw(15)<<t.status<< "\t"<<setw(10)<<c.timeCorrectH()<<setw(17)<<e.name<<setw(9)<<"|"<<endl;
+            }
+        }
+        cout <<"|__________________________________________________________________________________|"<<endl;
     }
 }
 
@@ -305,33 +288,32 @@ void showAllTasksForProject(string id){
     list<Project> projects;
     tasks=db.selectProjectWithTask();
     projects=db.selectProjects();
-    for (p:projects){
 
-         if (p.id==id){
-             long timeSpend1=stringToLong(p.timeSpend);
-             CustomTime c1=CustomTime(timeSpend1);
-             cout <<"+--------------------------------------------------------------------------+"<<endl;
-             cout <<setw(4)<<"| ProjectName :"<< setw(10)<<p.title<<"     |"<<setw(4)<<"  status: "<<p.status<<"        |"<<setw(12)<<"timeSpend="<<c1.timeCorrectH()<<setw(3)<<"|"<<endl;
-             cout <<"+----------------------------------------------------------------------------------+"<<endl;
-             cout <<"|                                    The Tasks                                     |"<<endl;
-             cout <<"|__________________________________________________________________________________|"<<endl;
-             cout <<"|"<<setw(13)<<"TaskId"<<setw(15)<<"TaskTitle"<<setw(13)<<"Status"<<setw(17)<<"TimeSpend"<<setw(17)<<"employeeName"<<setw(8)<<"|"<< endl;
-             cout <<"|__________________________________________________________________________________|"<<endl;
-             for ( t : tasks){
-                  e=db.selectEmployeeById(t.employeeId);
-                  if ( t.projectId==p.id){
-                      long timeSpend=stringToLong(t.timeSpend);
-                      CustomTime c=CustomTime(timeSpend);
-                      cout<<"|"<<setw(12)<<t.id<<setw(15)<<t.title<<setw(15)<<t.status<< "\t"<<setw(10)<<c.timeCorrectH()<<setw(17)<<e.name<<setw(9)<<"|"<<endl;
-                  }
-             }
-             cout <<"|__________________________________________________________________________________|"<<endl;
-         }
+    for (p:projects){
+        if (p.id==id){
+            long timeSpend1=stringToLong(p.timeSpend);
+            CustomTime c1=CustomTime(timeSpend1);
+            cout <<"+----------------------------------------------------------------------------------+"<<endl;
+            cout <<setw(4)<<"| ProjectName :"<< setw(10)<<p.title<<"     |"<<setw(4)<<"  status: "<<p.status<<"        |"<<setw(12)<<"timeSpend="<<c1.timeCorrectH()<<setw(14)<<"|"<<endl;
+            cout <<"+----------------------------------------------------------------------------------+"<<endl;
+            cout <<"|                                    The Tasks                                     |"<<endl;
+            cout <<"|__________________________________________________________________________________|"<<endl;
+            cout <<"|"<<setw(10)<<"TaskId"<<setw(18)<<"TaskTitle"<<setw(13)<<"Status"<<setw(17)<<"TimeSpend"<<setw(17)<<"employeeName"<<setw(8)<<"|"<< endl;
+            cout <<"|__________________________________________________________________________________|"<<endl;
+            for ( t : tasks){
+                e=db.selectEmployeeById(t.employeeId);
+                if ( t.projectId==p.id){
+                    long timeSpend=stringToLong(t.timeSpend);
+                    CustomTime c=CustomTime(timeSpend);
+                    cout<<"|"<<setw(12)<<t.id<<setw(15)<<t.title<<setw(15)<<t.status<< "\t"<<setw(10)<<c.timeCorrectH()<<setw(17)<<e.name<<setw(9)<<"|"<<endl;
+                }
+            }
+            cout <<"|__________________________________________________________________________________|"<<endl;
+        }
     }
 }
 
 void showDays( long date1, long date2,string id){
-
     while(date1!=-1 && date2!=-1){
     Employee e;
     Day d;
@@ -383,7 +365,7 @@ void showTimeOff(string id){
     for (int k=1;k<=i;++k){
         CustomTime c1 =CustomTime(matrix[k][0]),c2=CustomTime(matrix[k][1]);
         cout <<"|"<<setw(10)<<c1.date()<<"  "<<setw(10)<<c1.Time()<<setw(20)<<c2.date()<<"  "<<setw(10)<<c2.Time()<<setw(6)<<"|"<<endl;
-}
+    }
     cout <<"|___________________________________________________________|"<<endl;
 }
 
@@ -452,6 +434,7 @@ void  showTaskForEmployee(string employeeId){
     }
 
 }
+
 void insertTimeOff(TimeOff timeOf){
     Database db;
     db.insertTimeOff(timeOf);
@@ -530,7 +513,7 @@ void updateEmployee(){
         cout <<"|________________________|"<<endl;
         e.enter();
         if (e.check==true){
-        db.updateEmployee(e);
+            db.updateEmployee(e);
         }
     }
 }
@@ -538,7 +521,7 @@ void signEmployeeAsAdmin(){
      Employee e;
      e.enterId();
      if (e.check==true){
-     SetAdmin(e.id);
+        SetAdmin(e.id);
      }
 }
 
@@ -559,7 +542,7 @@ void deleteEmployee(){
             string  choice;
             cin>>choice ;
             if (choice=="y" || choice=="Y"){
-            db.deleteEmployee(e.id);
+                db.deleteEmployee(e.id);
             }
             int employeeId;
             for(employeeId : e.id){
@@ -607,7 +590,6 @@ void employeeLogoutRecord(string id,long temp){
     days=db.selectDayByEmployeeIdAndByDate(id);
     long curentTime = CustomTime().getTimestampDate();
     for(d :days){
-
         if(d.date==currentTimeStampDate){
             long sub=curentTime-temp;
             d.timeSpend=d.timeSpend+sub;
@@ -628,7 +610,7 @@ void convertTaskStatusIfStatusWasStarted(string id,long temp){
     tasks=db.selectTasksByEmployeeId(id);
     long curentTime = CustomTime().getTimestampDate();
     for(t :tasks){
-          if (t.status=="Started"){
+        if (t.status=="Started"){
             t.status="Paused";
             long sub=curentTime-temp;
             t.timeSpend=t.timeSpend+longToString(sub);
@@ -637,15 +619,16 @@ void convertTaskStatusIfStatusWasStarted(string id,long temp){
         }
     }
 }
+
 bool cancel(string input){
     bool cancl;
     if (input=="*"){
         cancl=false;
-        }
-        else{
-            cancl=true;
-        }
-        return cancl;
+    }
+    else{
+        cancl=true;
+    }
+    return cancl;
 }
 
 bool cancelMenu(int &n){
@@ -654,10 +637,10 @@ bool cancelMenu(int &n){
     if (*p=='*'){
         inputN=false;
         }
-        else{
-            inputN=true;
-        }
-        return inputN;
+    else{
+        inputN=true;
+    }
+    return inputN;
 }
 
 //end MOHAMAD

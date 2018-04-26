@@ -55,7 +55,6 @@ class Project{
 
             cout <<"|"<<setw(10)<<id<<setw(20)<<title<<setw(30)<<description<<setw(20)<<status<<setw(20)<<timeSpend<<setw(12)<<"|"<<endl;
             cout <<"|_______________________________________________________________________________________________________________|"<<endl;
-
         }
 
         void enter(){

@@ -18,10 +18,10 @@ class CustomTime{
         time_t timeStamp;
 
     public:
-       CustomTime(time_t st){
-           timeStamp = st;
+        CustomTime(time_t st){
+            timeStamp = st;
             struct tm nowLocal=*localtime(&timeStamp);
-            //setAtt(nowLocal);
+
             day = nowLocal.tm_mday;
             month = nowLocal.tm_mon+1;
             year = nowLocal.tm_year+1900;
@@ -33,7 +33,7 @@ class CustomTime{
         CustomTime(){
             timeStamp=time(NULL);
             struct tm nowLocal=*localtime(&timeStamp);
-            //setAtt(nowLocal);
+
             day = nowLocal.tm_mday;
             month = nowLocal.tm_mon+1;
             year = nowLocal.tm_year+1900;
@@ -96,7 +96,6 @@ class CustomTime{
 
         long getTimestampDate(string date){
 
-
         string startTime = date;
         time_t tStart;
         int yy, month, dd, hh, mm, ss;
@@ -114,7 +113,7 @@ class CustomTime{
 
         tStart = mktime(&whenStart);
 
-          return tStart;
+            return tStart;
         }
 
         long getTimestampDate(){
@@ -151,27 +150,6 @@ class CustomTime{
 
             string fullDateTime = dateY + "/" + dateM + "/" + dateD + " " + shour + ":" + sminut + ":" + ssecond;
             return fullDateTime;
-        }
-
-        long getTimestampDate2(string date){
-            string startTime = date;
-            time_t tStart;
-            int yy, month, dd, hh, mm, ss;
-            struct tm whenStart;
-            const char *zStart = startTime.c_str();
-
-            sscanf(zStart, "%d/%d/%d %d:%d:%d", &yy, &month, &dd, &hh, &mm, &ss);
-            whenStart.tm_year = yy - 1900;
-            whenStart.tm_mon = month - 1;
-            whenStart.tm_mday = dd;
-            whenStart.tm_hour = hh+2;
-            whenStart.tm_min = mm;
-            whenStart.tm_sec = ss;
-            whenStart.tm_isdst = -1;
-
-            tStart = mktime(&whenStart);
-
-            return tStart;
         }
 
 };

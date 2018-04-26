@@ -81,8 +81,7 @@ Employee selectEmployeeByEmail(std::string email);
 Employee selectEmployeeById(std::string id);
 
 
-int main()
-{
+int main(){
     char n;
 	do {
 		system("cls");
@@ -229,6 +228,7 @@ void ManageEmployeeMenu(){
             break;
         case '5' :{
             //Sign Employee as Admin
+            showEmployee();
             signEmployeeAsAdmin();
             system("pause");
         }
@@ -373,7 +373,6 @@ void ManageTaskMenu(string ProId){
 	PrintMessage("1.  Add Task                   ", false, false);
     PrintMessage("2.  Delete Task                ", false, false);
     PrintMessage("3.  Update Task                ", false, false);
-    //PrintMessage("4.  Show All Task              ", false, false);
     PrintMessage("4.  Sign Employee To Task      ", false, false);
     PrintMessage("                               ", false, false);
 	PrintMessage("0.  Back to Manage Project     ", false, false);
@@ -399,18 +398,11 @@ void ManageTaskMenu(string ProId){
             t.update();
             system("pause");
             break;
-            /*
         case '4':
-            //show all Tasks
-            inbtwShowAllTasks();
-            system("pause");
-            break;
-            */
-        case '4':
-            //showEmployees
-            showEmployee();
             //Sign Employee to Task
+            showEmployee();
             t.signEmployeToTask(t.id, t.employeeId);
+
             system("pause");
             break;
         case '0': return;
@@ -443,39 +435,39 @@ void EmployeeMenu(string employeeId){
 	switch (n){
         case '1':{
             //Start Task
+            Task t;
             t.enterId();
             Database db;
             Project p;
-            Task tas;
-            if (tas.check==true){
-               list<Task> tasks;
-               long sum=0;
-               tasks =db.selectTasksByEmployeeId(l.e.id);
-               for (tas:tasks){
-                   if (tas.status=="Started"){
-                       CustomTime c;
-                       Day d;
-                       tas.status="Paused";
-                       string  current =c.fullDateTime2();
-                       cout<<"curent1"<<current<<endl;
-                       long currentLong=c.getTimestampDate(current);
-                       cout<<"curent2"<<currentLong<<endl;
-                       sum =currentLong-d.stringToLong(tas.startTemp);
-                       cout<<"sum"<<sum<<endl;
-                       long timeSpend=d.stringToLong(tas.timeSpend)+sum;
-                       tas.timeSpend=d.longToString(timeSpend);
-                       cout<<"tas.timeSpend"<<tas.timeSpend<<endl;
+              if (t.check==true){
+                 list<Task> tasks;
+                 long sum=0;
+                 tasks =db.selectTasksByEmployeeId(employeeId);
+                 for (t:tasks){
+                     if (t.status=="Started"){
+                         CustomTime c;
+                         Day d;
+                         t.status="Paused";
+                         string  current =c.fullDateTime2();
+                         cout<<"curent1"<<current<<endl;
+                         long currentLong=c.getTimestampDate(current);
+                         cout<<"curent2"<<currentLong<<endl;
+                         sum =currentLong-d.stringToLong(t.startTemp);
+                         cout<<"sum"<<sum<<endl;
+                         long timeSpend=d.stringToLong(t.timeSpend)+sum;
+                         t.timeSpend=d.longToString(timeSpend);
+                         cout<<"timeSpend: "<<t.timeSpend<<endl;
 
-                       db.updateTaskWhenLogOut(tas);
-                   }
-               }
-               t.start(t.id, l.e.id);
-               t=db.selectTask(t.id);
-               p=db.selectProject(t.projectId);
-               p.status="Started";
-               p.timeSpend=p.timeSpend;
-               db.updateProject(p);
-            }
+                         db.updateTaskWhenLogOut(t);
+                     }
+                 }
+                 t.start(t.id, l.e.id);
+                 t=db.selectTask(t.id);
+                 p=db.selectProject(t.projectId);
+                 p.status="Started";
+                 p.timeSpend=p.timeSpend;
+                 db.updateProject(p);
+              }
             system("pause");
         }
             break;
@@ -549,6 +541,7 @@ void EmployeeMenu(string employeeId){
         }
             return;
         case '*':return;
+
         default: cout << "\a";
 
     }

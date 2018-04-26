@@ -28,7 +28,7 @@ class Loging{
             Employee E;
             e = E;
             loged = false;
-    }
+        }
 };
 
 #endif // LOGIN_H_INCLUDED
