@@ -260,7 +260,7 @@ void showProjectsWithTasksForAdmin(){
        for (p:projects){
             long timeSpend1=stringToLong(p.timeSpend);
             CustomTime c1=CustomTime(timeSpend1);
-            cout <<"+--------------------------------------------------------------------------+"<<endl;
+            cout <<"+----------------------------------------------------------------------------+"<<endl;
             cout <<setw(4)<<"| ProjectName :"<< setw(10)<<p.title<<"     |"<<setw(4)<<"  status: "<<p.status<<"        |"<<setw(12)<<"timeSpend="<<c1.timeCorrectH()<<setw(3)<<"|"<<endl;
             cout <<"+----------------------------------------------------------------------------------+"<<endl;
             cout <<"|                                    Your Tasks                                    |"<<endl;
@@ -297,7 +297,7 @@ void showAllTasksForProject(string id){
          if (p.id==id){
              long timeSpend1=stringToLong(p.timeSpend);
              CustomTime c1=CustomTime(timeSpend1);
-             cout <<"+--------------------------------------------------------------------------+"<<endl;
+             cout <<"+----------------------------------------------------------------------------+"<<endl;
              cout <<setw(4)<<"| ProjectName :"<< setw(10)<<p.title<<"     |"<<setw(4)<<"  status: "<<p.status<<"        |"<<setw(12)<<"timeSpend="<<c1.timeCorrectH()<<setw(3)<<"|"<<endl;
              cout <<"+----------------------------------------------------------------------------------+"<<endl;
              cout <<"|                                    The Tasks                                     |"<<endl;
@@ -685,7 +685,6 @@ if (t.check==true){
     Day d;
     p=db.selectProject(t.projectId);
     p.timeSpend=d.longToString(sum);
-    cout<<"p.timeSpend"<<p.timeSpend<<endl;
     if(i==j){
        p.status="Ended";
        db.updateProject(p);
@@ -713,12 +712,10 @@ if (tas.check==true){
            db.deleteSugges(sg.t.id);
        }
    }
-
    list<Task> tasks;
    long sum=0;
    tasks =db.selectTasksByEmployeeId(id);
    for (tas:tasks){
-
        if (tas.status=="Started"){
            CustomTime c;
            Day d;
@@ -758,7 +755,6 @@ void pauseTask(){
     Day d;
     p=db.selectProject(t.projectId);
     p.timeSpend=d.longToString(sum);
-    cout<<"p.timeSpend"<<p.timeSpend<<endl;
     p.status="Started";
     db.updateProject(p);
 }

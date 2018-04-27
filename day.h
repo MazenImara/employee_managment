@@ -51,7 +51,7 @@ public:
            cout <<"+----------------------------------------------------------------+"<<endl;
            cout <<"|  Enter the date period that you need to show work details      |"<<endl;
            cout <<"|                    by form year/month/day                      |"<<endl;
-           cout <<"|  OBS  | - Press (thisMonth) for this month                     |"<<endl;
+           cout <<"|  OBS  | - Press (thisMonth/M/m) for this month                 |"<<endl;
            cout <<"|       | - Press (N/n)  for new input                           |"<<endl;
            cout <<"|       | - Press *   for back to Menu                           |"<<endl;
            cout <<"+----------------------------------------------------------------+"<<endl;
@@ -70,7 +70,7 @@ public:
                     goto backToEnter;
                 }
 
-                    if (d=="thisMonth"){
+                    if (d=="thisMonth" || d=="M" || d=="m"){
                         stringstream mm;
                         mm << c.beginThisMonth();
                         string m = mm.str();
