@@ -28,8 +28,8 @@ public:
         do {
             cout <<"+-----------------------------------------------------------+"<<endl;
             cout <<"|       |- Enter your time off  Date&Time (FROM - TO)       |"<<endl;
-            cout <<"|  OBS  |- Press (oneDay) for input date of this day        |"<<endl;
-            cout <<"|  OBS  |- Press (full) for input full time Of              |"<<endl;
+            cout <<"|  OBS  |- Press (oneDay/D/d) for input date of this day    |"<<endl;
+            cout <<"|       |- Press (full/F/f) for input full time Of          |"<<endl;
             cout <<"|       |- Press (N/n)  for new input                       |"<<endl;
             cout <<"|       |- Press *   for back to Menu                       |"<<endl;
             cout <<"|___________________________________________________________|"<<endl;
@@ -43,7 +43,7 @@ public:
                 goto backToMenu;
             }
             else{
-                 if (d=="oneDay") {
+                 if (d=="oneDay" || d=="D" || d=="d") {
                       cout <<" ___________________________________________________________"<<endl;
                       cout <<"|     Enter the (date) by form y/m/d =                      |"<<endl;
                       cout <<"|___________________________________________________________|"<<endl;
@@ -80,7 +80,7 @@ public:
                              if (t=="N" || t=="n"){
                                 goto backToEnter;
                              }
-                             if (t=="full"){
+                             if (t=="full" || t=="F" || t=="f"){
                                 stringstream tt;
                                 tt << 8<<":"<<0<<":"<<0;
                                 t = tt.str();
@@ -116,7 +116,7 @@ public:
                                     if (h=="N" || h=="n"){
                                         goto backToEnter;
                                     }
-                                    if (h=="full"){
+                                    if (h=="full" || h=="F" || h=="f"){
                                         stringstream hh;
                                         hh << 17<<":"<<0<<":"<<0;
                                         h = hh.str();
