@@ -1013,7 +1013,7 @@ public:
             qstate = mysql_query(conn,q);
             if(qstate)
                 cout<<"query problem: "<<mysql_error(conn)<<endl;
-    }
+        }
 
         void deleteProject(string id){
             string query="DELETE FROM `project` WHERE id="+id;
