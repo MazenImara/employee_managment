@@ -120,7 +120,7 @@ public:
 
         //create task
         {
-        query="CREATE TABLE employee_managment.task(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255) DEFAULT 'NONE', `status` VARCHAR(255) DEFAULT 'NONE', `timeSpend` VARCHAR(255) DEFAULT 'NONE', `endTemp` VARCHAR(255) DEFAULT 'NONE', `startTemp` VARCHAR(255) DEFAULT 'NONE' , `project_id` int not null, `employee_id` int not null, PRIMARY KEY (id), CONSTRAINT task_project__fk FOREIGN KEY (project_id) REFERENCES project (id) ON UPDATE CASCADE on DELETE CASCADE)";
+        query="CREATE TABLE employee_managment.task(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255) DEFAULT 'NONE', `status` VARCHAR(255) DEFAULT 'NONE', `timeSpend` VARCHAR(255) DEFAULT 'NONE', `started` VARCHAR(255) DEFAULT 'NONE', `finish` VARCHAR(255) DEFAULT 'NONE' , `timeTemp` VARCHAR(255) DEFAULT 'NONE' , `project_id` int not null, `employee_id` int not null, PRIMARY KEY (id), CONSTRAINT task_project__fk FOREIGN KEY (project_id) REFERENCES project (id) ON UPDATE CASCADE on DELETE CASCADE)";
         // CONSTRAINT task_employee_fk FOREIGN KEY (employee_id) REFERENCES  employee (id) ON UPDATE CASCADE on DELETE CASCADE,
         }
          q = query.c_str();
@@ -224,7 +224,7 @@ public:
 
     // Start ikram
     void insertTask(Task t){
-        string query ="INSERT INTO `task`(`title`, `status`,`project_id`, `timeSpend`, `endTemp`, `startTemp`) VALUES ('"+t.title+"', '"+t.status+"','"+t.projectId+"', 0, 0, 0)";
+        string query ="INSERT INTO `task`(`title`, `status`,`project_id`, `timeSpend`, `started`, `finish`) VALUES ('"+t.title+"', '"+t.status+"','"+t.projectId+"', 0, 0, 0)";
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate)
@@ -278,10 +278,11 @@ public:
                 t.title = row[1];
                 t.status = row[2];
                 t.timeSpend = row[3];
-                t.endTemp = row[4];
-                t.startTemp = row[5];
-                t.projectId = row[6];
-                t.employeeId =row[7];
+                t.started = row[4];
+                t.finish = row[5];
+                t.timeTemp = row[6];
+                t.projectId = row[7];
+                t.employeeId =row[8];
             }
         }
             else{
@@ -305,10 +306,11 @@ public:
                 t.title = row[1];
                 t.status = row[2];
                 t.timeSpend = row[3];
-                t.endTemp = row[4];
-                t.startTemp = row[5];
-                t.projectId = row[6];
-                t.employeeId =row[7];
+                t.started = row[4];
+                t.finish = row[5];
+                t.timeTemp = row[6];
+                t.projectId = row[7];
+                t.employeeId =row[8];
                 tasks.push_back(t);
 
             }
@@ -325,6 +327,7 @@ public:
         CustomTime c;
         Day d;
         string checkStatus;
+        string checkCreated;
         string query ="SELECT * FROM `task` WHERE `id`="+taskId;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -334,6 +337,7 @@ public:
             while(row=mysql_fetch_row(res))
             {
                 checkStatus = row[2];
+                checkCreated = row[4];
             }
         }
         else
@@ -347,13 +351,19 @@ public:
         {
             cout << "Its already Ended, Start a New Task instead" << endl;
         }
-        else
+        else if(checkCreated == "0")
         {
-        string query2 ="UPDATE `task` SET `status`='Started',`startTemp`='"+getTimestamp+"', `employee_id`='"+employeeId+"' WHERE id="+taskId;
-        const char* q2 = query2.c_str();
-        qstate = mysql_query(conn,q2);
+                string query2 ="UPDATE `task` SET `status`='Started',`started`='"+getTimestamp+"',`timeTemp`='"+getTimestamp+"', `employee_id`='"+employeeId+"' WHERE id="+taskId;
+                const char* q2 = query2.c_str();
+                qstate = mysql_query(conn,q2);
         }
-        cout<< "Task is started "<<endl;
+        else
+           {
+                string query2 ="UPDATE `task` SET `status`='Started',`timeTemp`='"+getTimestamp+"', `employee_id`='"+employeeId+"' WHERE id="+taskId;
+                const char* q2 = query2.c_str();
+                qstate = mysql_query(conn,q2);
+            }
+
     }
 
     void pauseTask(string id){
@@ -377,7 +387,7 @@ public:
             {
                 checkStatus = row[2];
                 getTimeSpend = row[3];
-                startTime = row[5];
+                startTime = row[6];
             }
         }
         else
@@ -391,7 +401,7 @@ public:
         }
         else
         {
-        string query1="UPDATE `task` SET `status`='Paused',`endTemp`='"+getTimestamp+"' WHERE `id`="+id;
+        string query1="UPDATE `task` SET `status`='Paused',`finish`='"+getTimestamp+"' WHERE `id`="+id;
         const char* q1 = query1.c_str();
         qstate = mysql_query(conn,q1);
         }
@@ -454,7 +464,7 @@ public:
         }
         else
         {
-        string query1="UPDATE `task` SET `status`='Ended',`endTemp`='"+getTimestamp+"' WHERE `id`="+id;
+        string query1="UPDATE `task` SET `status`='Ended',`finish`='"+getTimestamp+"' WHERE `id`="+id;
         const char* q1 = query1.c_str();
         qstate = mysql_query(conn,q1);
         }
@@ -881,7 +891,7 @@ public:
     }
     list<Task> selectProjectWithTask(){
         list<Task> tasks;
-        string query ="SELECT  task.project_id ,task.id,task.title,task.status,task.startTemp,task.endTemp,task.timeSpend,task.employee_id from project right join task on task.project_id=project.id ";// WHERE `id`="+id;
+        string query ="SELECT  task.project_id ,task.id,task.title,task.status,task.started,task.finish,task.timeSpend,task.employee_id from project right join task on task.project_id=project.id ";// WHERE `id`="+id;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate)
@@ -893,8 +903,8 @@ public:
                 t.id    =row[1];
                 t.title = row[2];
                 t.status = row[3];
-                t.startTemp = row[4];
-                t.endTemp = row[5];
+                t.started = row[4];
+                t.finish = row[5];
                 t.timeSpend = row[6];
                 t.employeeId =row[7];
                 tasks.push_back(t);
@@ -907,7 +917,7 @@ public:
     }
     list<Task> selectTasksByProjectId(string id){
         list<Task> tasks;
-        string query ="SELECT  task.project_id ,task.id,task.title,task.status,task.startTemp,task.endTemp,task.timeSpend,task.employee_id from  task where task.project_id="+id;// WHERE `id`="+id;
+        string query ="SELECT  task.project_id ,task.id,task.title,task.status,task.started,task.finish,task.timeSpend,task.employee_id from  task where task.project_id="+id;// WHERE `id`="+id;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate)
@@ -919,8 +929,8 @@ public:
                 t.id    =row[1];
                 t.title = row[2];
                 t.status = row[3];
-                t.startTemp = row[4];
-                t.endTemp = row[5];
+                t.started = row[4];
+                t.finish = row[5];
                 t.timeSpend = row[6];
                 t.employeeId =row[7];
                 tasks.push_back(t);
@@ -933,7 +943,7 @@ public:
     }
     list<Task> selectTasksByEmployeeId(string id){
         list<Task> tasks;
-        string query ="SELECT  task.project_id ,task.id,task.title,task.status,task.startTemp,task.endTemp,task.timeSpend,task.employee_id from  task where task.employee_id="+id;// WHERE `id`="+id;
+        string query ="SELECT  task.project_id ,task.id,task.title,task.status,task.started,task.finish,task.timeSpend,task.employee_id from  task where task.employee_id="+id;// WHERE `id`="+id;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate)
@@ -945,8 +955,8 @@ public:
                 t.id    =row[1];
                 t.title = row[2];
                 t.status = row[3];
-                t.startTemp = row[4];
-                t.endTemp = row[5];
+                t.started = row[4];
+                t.finish = row[5];
                 t.timeSpend = row[6];
                 t.employeeId =row[7];
                 tasks.push_back(t);
@@ -958,7 +968,7 @@ public:
         return tasks;
     }
     void updateTaskWhenLogOut(Task t){
-        string query ="UPDATE `task` SET `status`='"+t.status+"',`timeSpend`='"+t.timeSpend+"',`endTemp`='"+t.endTemp+"' WHERE `id` ="+t.id;
+        string query ="UPDATE `task` SET `status`='"+t.status+"',`timeSpend`='"+t.timeSpend+"',`finish`='"+t.finish+"' WHERE `id` ="+t.id;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
         if(!qstate)
@@ -1147,10 +1157,11 @@ public:
                 t.title = row[1];
                 t.status = row[2];
                 t.timeSpend = row[3];
-                t.endTemp = row[4];
-                t.startTemp = row[5];
-                t.projectId = row[6];
-                t.employeeId =row[7];
+                t.started = row[4];
+                t.finish = row[5];
+                t.timeTemp = row[6];
+                t.projectId = row[7];
+                t.employeeId =row[8];
                 tasks.push_back(t);
 
             }
@@ -1176,10 +1187,11 @@ public:
                 t.title = row[1];
                 t.status = row[2];
                 t.timeSpend = row[3];
-                t.endTemp = row[4];
-                t.startTemp = row[5];
-                t.projectId = row[6];
-                t.employeeId =row[7];
+                t.started = row[4];
+                t.finish = row[5];
+                t.timeTemp = row[6];
+                t.projectId = row[7];
+                t.employeeId =row[8];
                 tasks.push_back(t);
 
             }
@@ -1205,10 +1217,11 @@ public:
                 t.title = row[1];
                 t.status = row[2];
                 t.timeSpend = row[3];
-                t.endTemp = row[4];
-                t.startTemp = row[5];
-                t.projectId = row[6];
-                t.employeeId =row[7];
+                t.started = row[4];
+                t.finish = row[5];
+                t.timeTemp = row[6];
+                t.projectId = row[7];
+                t.employeeId =row[8];
                 tasks.push_back(t);
 
             }

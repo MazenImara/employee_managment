@@ -12,7 +12,7 @@ using namespace std;
 
 class Task{
 public:
-    string id, title, status, timeSpend, endTemp, startTemp, projectId, employeeId;
+    string id, title, status, timeSpend, started, finish, timeTemp, projectId, employeeId;
     bool check=true;
 
 public:

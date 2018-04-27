@@ -70,17 +70,17 @@ void inbtwShowAllTasks(){
     t.header();
     for(t:ts){
 
-        long startTemp=stringToLong(t.startTemp);
-        long endTemp=stringToLong(t.endTemp);
+        long startTemp=stringToLong(t.started);
+        long endTemp=stringToLong(t.finish);
         long timeSpend=stringToLong(t.timeSpend);
         c1 =CustomTime(startTemp);
         c2=CustomTime(endTemp);
         c3=CustomTime(timeSpend);
-        if(t.startTemp != "0"){
-            t.startTemp =  c1.fullDateTime();
+        if(t.started != "0"){
+            t.started =  c1.fullDateTime();
         }
-        if(t.endTemp != "0"){
-            t.endTemp =  c2.fullDateTime();
+        if(t.finish != "0"){
+            t.finish =  c2.fullDateTime();
         }
         if(t.timeSpend != "0"){
             t.timeSpend = c3.timeCorrectH();
@@ -419,17 +419,17 @@ void showTaskForEmployee(string employeeId){
 //            long startTemp=d.stringToLong(t.startTemp),endTemp=d.stringToLong(t.endTemp);
 //        CustomTime c1 =CustomTime(startTemp),c2=CustomTime(endTemp);
 //        cout <<"|"<<setw(10)<<t.title<<setw(10)<<t.status<<setw(15)<<c1.date()<<"  "<<setw(8)<<c1.Time()<<setw(20)<<c2.date()<<"  "<<setw(8)<<c2.Time()<<setw(16)<<t.timeSpend<<setw(30)<<t.projectId<<setw(30)<<"|"<< endl;
-        long startTemp=stringToLong(t.startTemp);
-        long endTemp=stringToLong(t.endTemp);
+        long startTemp=stringToLong(t.started);
+        long endTemp=stringToLong(t.finish);
         long timeSpend=stringToLong(t.timeSpend);
         CustomTime c1 =CustomTime(startTemp);
         CustomTime c2=CustomTime(endTemp);
         CustomTime c3=CustomTime(timeSpend);
-        if(t.startTemp != "0"){
-            t.startTemp =  c1.fullDateTime();
+        if(t.started != "0"){
+            t.started =  c1.fullDateTime();
         }
-        if(t.endTemp != "0"){
-            t.endTemp =  c2.fullDateTime();
+        if(t.finish != "0"){
+            t.finish =  c2.fullDateTime();
         }
         if(t.timeSpend != "0"){
             t.timeSpend = c3.timeCorrectH();
@@ -597,7 +597,7 @@ void convertTaskStatusIfStatusWasStarted(string id,long temp){
             t.status="Paused";
             long sub=curentTime-temp;
             t.timeSpend=t.timeSpend+longToString(sub);
-            t.endTemp=longToString(curentTime);
+            t.finish=longToString(curentTime);
             db.updateTaskWhenLogOut(t);
           }
         }
@@ -725,7 +725,7 @@ if (tas.check==true){
            tas.status="Paused";
            string  current =c.fullDateTime2();
            long currentLong=c.getTimestampDate(current);
-           sum =currentLong-d.stringToLong(tas.startTemp);
+           sum =currentLong-d.stringToLong(tas.started);
            long timeSpend=d.stringToLong(tas.timeSpend)+sum;
            tas.timeSpend=d.longToString(timeSpend);
            db.updateTaskWhenLogOut(tas);
