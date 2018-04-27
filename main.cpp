@@ -567,5 +567,6 @@ void TimeOffMenu(){
 	  default: cout << "\a";
     }
      TimeOffMenu();
-}
+    }
+
 
