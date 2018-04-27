@@ -11,7 +11,7 @@ void showHeader(){
         cout <<" ______________________________________________________________"<<endl;
         cout <<"|              Suggestions for selected project                |"<<endl;
         cout <<"|______________________________________________________________|"<<endl;
-        cout <<"|"<<setw(18)<<"ProjectId"<<setw(23)<<"employeeName"<<setw(18)<<"TaskId"<<setw(4)<<"  |"<< endl;
+        cout <<"|"<<setw(18)<<"ProjectName"<<setw(23)<<"employeeName"<<setw(18)<<"TaskName"<<setw(4)<<"  |"<< endl;
         cout <<"|______________________________________________________________|"<<endl;
     }
     void showData(){
@@ -23,7 +23,7 @@ void showHeader(){
         cout <<" ________________________________________________________________________"<<endl;
         cout <<"|                                Suggestions                             |"<<endl;
         cout <<"|________________________________________________________________________|"<<endl;
-        cout <<"|"<<setw(10)<<"SuggesId"<<setw(18)<<"ProjectId"<<setw(23)<<"employeeId"<<setw(18)<<"TaskId"<<setw(4)<<"  |"<< endl;
+        cout <<"|"<<setw(10)<<"SuggesId"<<setw(18)<<"ProjectName"<<setw(23)<<"employeeName"<<setw(18)<<"TaskName"<<setw(4)<<"  |"<< endl;
         cout <<"|________________________________________________________________________|"<<endl;
     }
     void showDataWithId(){
