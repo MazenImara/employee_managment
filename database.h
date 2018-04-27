@@ -343,8 +343,6 @@ public:
         string getTimeSpend;
         long current = CustomTime().getTimestampDate();
         string getTimestamp = d.longToString(current);
-
-
         string query ="SELECT * FROM `task` WHERE `id`="+id;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -384,7 +382,6 @@ public:
         stringstream re;    re<<newResult;   string lastResult = re.str();
 
         string FullDate = c.date() + " " + c.Time();
-        cout << c.Time()  << endl;
 
         if(checkStatus == "Paused" || checkStatus == "Ended")
         {
@@ -397,7 +394,7 @@ public:
         qstate = mysql_query(conn,q3);
         }
         cout<<"Task is paused "<<endl;
-        cout<<result<< endl;
+        //cout<<result<< endl;
     }
 
     void endTask(string id){
@@ -519,7 +516,6 @@ public:
     void deleteEmployee (string id){
         string query = "DELETE FROM `employee`  where id="+id;
         const char* q = query.c_str();
-        cout <<query<<endl;
         qstate = mysql_query(conn,q);
         if(qstate)
             cout<<"query problem: "<<mysql_error(conn)<<endl;
@@ -748,7 +744,6 @@ public:
     void deleteDay (string id){
         string query = "DELETE FROM `day`  where id="+id;
         const char* q = query.c_str();
-        cout <<query<<endl;
         qstate = mysql_query(conn,q);
         if(qstate)
             cout<<"query problem: "<<mysql_error(conn)<<endl;
@@ -803,7 +798,6 @@ public:
     void deleteTimeOff (string id){
         string query = "DELETE FROM `time_off`  where id="+id;
         const char* q = query.c_str();
-        cout <<query<<endl;
         qstate = mysql_query(conn,q);
         if(qstate)
             cout<<"query problem: "<<mysql_error(conn)<<endl;
@@ -939,7 +933,6 @@ public:
     void deleteSugges (string id){
         string query = "DELETE FROM `suggestion`  where task_id="+id;
         const char* q = query.c_str();
-        cout <<query<<endl;
         qstate = mysql_query(conn,q);
         if(qstate)
             cout<<"query problem: "<<mysql_error(conn)<<endl;
@@ -948,7 +941,6 @@ public:
         list <Sugges> suggess;
         string query = "SELECT * FROM `suggestion` " ;
         const char* q = query.c_str();
-        cout<<"query="<<query<<endl;
         qstate = mysql_query(conn,q);
         if(!qstate){
             res=mysql_store_result(conn);
@@ -1028,7 +1020,6 @@ public:
             string query="SELECT * FROM `project` WHERE id="+id;
             const char* q = query.c_str();
             qstate = mysql_query(conn,q);
-
             if(!qstate)
             {
                 res = mysql_store_result(conn);
@@ -1079,7 +1070,6 @@ public:
         list<Task>tasks;
         string query ="SELECT * FROM `task` WHERE project_id="+projectId;
         const char* q = query.c_str();
-        cout<<"query is: "<<q<<endl;
         qstate = mysql_query(conn,q);
         if(!qstate)
         {
@@ -1133,7 +1123,7 @@ public:
                 }
         return tasks;
     }
-     list<Task>selectProjectStatus(string status){
+    list<Task>selectProjectStatus(string status){
         list<Task>tasks;
         string NewStats = "new";
         string query ="SELECT * FROM `task` WHERE `status`='new'";
