@@ -455,7 +455,7 @@ void EmployeeMenu(){
         break;
 	case '3':{
         //Finish
-        void finishTask();
+        finishTask();
         system("pause");
 	}
 	    break;

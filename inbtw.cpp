@@ -713,12 +713,10 @@ if (tas.check==true){
            db.deleteSugges(sg.t.id);
        }
    }
-
    list<Task> tasks;
    long sum=0;
    tasks =db.selectTasksByEmployeeId(id);
    for (tas:tasks){
-
        if (tas.status=="Started"){
            CustomTime c;
            Day d;
