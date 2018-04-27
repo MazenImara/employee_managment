@@ -371,7 +371,7 @@ public:
             cout<<"query problem: "<<mysql_error(conn)<<endl;
         }
 
-        if(checkStatus == "Paused" || checkStatus == "Ended")
+        if(checkStatus == "Paused" || checkStatus == "Ended" || checkStatus == "New")
         {
             cout << "Its already in pause, Start the Task instead" << endl;
         }
@@ -393,7 +393,7 @@ public:
 
         string FullDate = c.date() + " " + c.Time();
 
-        if(checkStatus == "Paused" || checkStatus == "Ended")
+        if(checkStatus == "Paused" || checkStatus == "Ended" || checkStatus == "New")
         {
 
         }
@@ -433,7 +433,7 @@ public:
         {
             cout<<"query problem: "<<mysql_error(conn)<<endl;
         }
-        if(checkStatus == "Paused" || checkStatus == "Ended")
+        if(checkStatus == "Paused" || checkStatus == "Ended" || checkStatus == "New")
         {
             cout << "Its already Ended, Start a New Task instead" << endl;
         }

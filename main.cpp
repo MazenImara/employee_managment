@@ -5,13 +5,13 @@
 #include <stdlib.h>
 #include <day.h>
 #include <gtime.h>
-#include <database.h>
 #include <gtime.h>
 #include <employee.h>
 #include <project.h>
 #include <projectMenu.h>
 #include <show.h>
 #include <sugges.h>
+
 
 using namespace std;
 
@@ -67,23 +67,32 @@ void workTimesMenu(string id);
 void showAllEmployee();
 void showAllProject();
 
-void inbtwInsertEmployee();
-void inbtwUpdateEmployee();
-void inbtwDeleteEmployee();
-void inbtwShowEmployees();
-void inbtwSignEmployeeAsAdmin();
-void inbtwShowWorkDetails(string id);
-void inbtwShowTaskForEmployee(string id);
-void inbtwShowTimeOff(string id);
-
-
-Employee selectEmployeeByEmail(std::string email);
-Employee selectEmployeeById(std::string id);
 
 
 void ShowAllTask();
 
-int main()
+int main5 (){
+    Employee e;
+    Database db;
+    e = db.selectEmployeeById("1");
+    e.showDataWithId();
+    return 0;
+}
+
+int main(){
+    Task t;
+    Database db;
+
+    //t.start("7", "5");
+    //t.pause("7");
+    //t.ended("7");
+
+
+return 0;
+}
+
+
+int main2()
 {
     char n;
 	do {
