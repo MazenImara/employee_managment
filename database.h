@@ -361,7 +361,7 @@ public:
             cout<<"query problem: "<<mysql_error(conn)<<endl;
         }
 
-        if(checkStatus == "Paused" || checkStatus == "Ended")
+        if(checkStatus == "Paused" || checkStatus == "Ended" || checkStatus == "New" )
         {
             cout << "Its already in pause, Start the Task instead" << endl;
         }
@@ -383,7 +383,7 @@ public:
 
         string FullDate = c.date() + " " + c.Time();
 
-        if(checkStatus == "Paused" || checkStatus == "Ended")
+        if(checkStatus == "Paused" || checkStatus == "Ended" ||checkStatus == "New")
         {
 
         }
@@ -423,7 +423,7 @@ public:
         {
             cout<<"query problem: "<<mysql_error(conn)<<endl;
         }
-        if(checkStatus == "Paused" || checkStatus == "Ended")
+        if(checkStatus == "Paused" || checkStatus == "Ended" || checkStatus== "New")
         {
             cout << "Its already Ended, Start a New Task instead" << endl;
         }
@@ -441,14 +441,15 @@ public:
 
         c = CustomTime(newResult);
         stringstream re;    re<<newResult;   string lastResult = re.str();
-        if(checkStatus == "Paused" || checkStatus == "Ended"){}
+        if(checkStatus == "Paused" || checkStatus == "Ended" || checkStatus== "New"){}
         else
         {
         string query3 ="UPDATE `task` SET `timeSpend`='"+lastResult+"' WHERE `id`="+id;
         const char* q3 = query3.c_str();
         qstate = mysql_query(conn,q3);
-        }
         cout<<"Task is ended "<<endl;
+        }
+
     }
     // End ikram
 
