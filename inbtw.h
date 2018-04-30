@@ -56,9 +56,10 @@ void convertTaskStatusIfStatusWasStarted(string id,long temp);
 void showSuggessByProjectId(string id);
 void showAllSuggess();
 void signEmployeeToTask();
-void inbtwStartTask(string taskId, string employeeId);
+void inbtwStartTask(string taskId,string employeeId);
 void inbtwPauseTask(string taskId);
 void inbtwEndTask(string taskId);
+
 
 
 #endif // INBTW_H_INCLUDED

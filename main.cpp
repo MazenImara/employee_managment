@@ -18,7 +18,8 @@ using namespace std;
 Loging l;
 long temp=0;
 bool cancl=false;
-//bool returnToMenu=false;
+long currentTimeStart;
+
 void PrintMessage(string message, bool printTop = true, bool printBottom = true)
 {
 	if (printTop)
@@ -86,6 +87,7 @@ void ShowAllTask();
 int main()
 {
     char n;
+
 	do {
 		system("cls");
 		PrintMessage("EMPLOYEE MANAGEMENT");
@@ -168,7 +170,7 @@ void AdminMenu()
 
    	case '0':{
    	    employeeLogoutRecord(l.e.id,temp);
-   	    convertTaskStatusIfStatusWasStarted(l.e.id, temp);
+   	 //   convertTaskStatusIfStatusWasStarted(l.e.id, temp);
         l.logout();
         }
         return;
@@ -444,7 +446,10 @@ void EmployeeMenu(){
         //Start Task
         t.enterId();
         if (t.check==true){
+            CustomTime c;
             t.start(t.id,l.e.id);
+            string currentTime =c.fullDateTime2();
+            currentTimeStart=c.getTimestampDate(currentTime);
             system("pause");
         }
 
@@ -481,7 +486,7 @@ void EmployeeMenu(){
         break;
    	case '0':{
         employeeLogoutRecord(l.e.id,temp);
-        convertTaskStatusIfStatusWasStarted(l.e.id, temp);
+        convertTaskStatusIfStatusWasStarted(l.e.id, currentTimeStart);
         l.logout();
     }
         return;

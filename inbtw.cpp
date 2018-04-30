@@ -60,6 +60,7 @@ void inbtwUpdateTask(){
 }
 void inbtwShowAllTasks(){
     Database db ;
+    Day d;
     CustomTime c1;
     CustomTime c2;
     CustomTime c3;
@@ -67,9 +68,9 @@ void inbtwShowAllTasks(){
     Task t;
     t.header();
     for(t:ts){
-        long startTemp=stringToLong(t.startTemp);
-        long endTemp=stringToLong(t.endTemp);
-        long timeSpend=stringToLong(t.timeSpend);
+        long startTemp=d.stringToLong(t.startTemp);
+        long endTemp=d.stringToLong(t.endTemp);
+        long timeSpend=d.stringToLong(t.timeSpend);
         c1 =CustomTime(startTemp);
         c2=CustomTime(endTemp);
         c3=CustomTime(timeSpend);
@@ -112,12 +113,10 @@ void signEmployeeToTask(){
 //end updating
 
 void inbtwStartTask( string taskId,string employeeId){
-  Task t;
+    Task t;
     Database db;
     Project p;
     Task tas;
-
-
        Sugges sg;
        list <Sugges> suggess;
        suggess=db.selectSuggestions();
@@ -135,8 +134,8 @@ void inbtwStartTask( string taskId,string employeeId){
                Day d;
                tas.status="Paused";
                string  current =c.fullDateTime2();
-               long currentLong=c.getTimestampDate(current);
-               sum =currentLong-d.stringToLong(tas.startTemp);
+               long currentTimeStart=c.getTimestampDate(current);
+               sum =currentTimeStart-d.stringToLong(tas.startTemp);
                long timeSpend=d.stringToLong(tas.timeSpend)+sum;
                tas.timeSpend=d.longToString(timeSpend);
                db.updateTaskWhenLogOut(tas);
@@ -156,15 +155,15 @@ void inbtwPauseTask(string taskId){
     Task t;
     db.pauseTask(taskId);
     Project p;
-
+    Day d;
     t=db.selectTask(taskId);
     list <Task> tasks;
     long sum=0;
     tasks=db.selectTasksByProjectId(t.projectId);
     for(tas:tasks){
-        sum=sum+stringToLong(tas.timeSpend);
+        sum=sum+d.stringToLong(tas.timeSpend);
     }
-    Day d;
+
     p=db.selectProject(t.projectId);
     p.timeSpend=d.longToString(sum);
     p.status="Started";
@@ -175,6 +174,7 @@ void inbtwEndTask(string taskId){
     Database db;
     Task tas;
     Task t;
+    Day d;
     Project p;
     db.endTask(taskId);
     t=db.selectTask(taskId);
@@ -186,9 +186,8 @@ void inbtwEndTask(string taskId){
             j++;
         }
         i++;
-        sum=sum+stringToLong(tas.timeSpend);
+        sum=sum+d.stringToLong(tas.timeSpend);
     }
-    Day d;
     p=db.selectProject(t.projectId);
     p.timeSpend=d.longToString(sum);
     if(i==j){
@@ -210,11 +209,12 @@ void inbtwEndTask(string taskId){
 void inbtwShowAllProjects(){
     Database db;
     Project p;
+    Day d;
     list<Project> projects;
     projects = db.selectProjects();
     p.header();
     for(p:projects){
-        long timeSpend=stringToLong(p.timeSpend);
+        long timeSpend=d.stringToLong(p.timeSpend);
         CustomTime c=CustomTime(timeSpend);
         cout <<"|"<<setw(10)<<p.id<<setw(20)<<p.title<<setw(30)<<p.description<<setw(20)<<p.status<<setw(20)<<c.timeCorrectH()<<setw(12)<<"|"<<endl;
         cout <<"|_______________________________________________________________________________________________________________|"<<endl;
@@ -256,6 +256,7 @@ void inbtwUpdateProject(){
 // end gab
 
 // mazen
+/*
     string longToString(long  number){
         std::stringstream ss;
         ss << number;
@@ -264,6 +265,7 @@ void inbtwUpdateProject(){
     long stringToLong(string str){
         return atol(str.c_str());
      }
+     */
 // end mazen
 
 
@@ -285,6 +287,7 @@ void showProjectsWithTasks(string id){
     Employee e;
     Project p;
     Database db;
+    Day d;
 
         list<Task> tasks;
         list<Project> projects;
@@ -311,7 +314,7 @@ void showProjectsWithTasks(string id){
                     cout<<"|"<<setw(12)<<t.id<<setw(15)<<t.title<<setw(15)<<t.status<< "\t"<<setw(10)<<'0'<<setw(17)<<e.name<<setw(9)<<"|"<<endl;
                 }
                if ( (t.status=="Paused" || t.status=="Started" ||  t.status=="Ended"|| t.status=="New")  && (( t.employeeId==id)&& (t.projectId==p.id)) ){
-                long timeSpend=stringToLong(t.timeSpend);
+                long timeSpend=d.stringToLong(t.timeSpend);
                 CustomTime c=CustomTime(timeSpend);
                      cout<<"|"<<setw(12)<<t.id<<setw(15)<<t.title<<setw(15)<<t.status<< "\t"<<setw(10)<<c.timeCorrectH()<<setw(17)<<e.name<<setw(9)<<"|"<<endl;
                }
@@ -325,6 +328,7 @@ void showProjectsWithTasksForAdmin(){
         Task t;
         Employee e;
         Project p;
+        Day d;
         Database db;
         list<Task> tasks;
         list<Project> projects;
@@ -333,7 +337,7 @@ void showProjectsWithTasksForAdmin(){
 
 
        for (p:projects){
-            long timeSpend1=stringToLong(p.timeSpend);
+            long timeSpend1=d.stringToLong(p.timeSpend);
             CustomTime c1=CustomTime(timeSpend1);
             cout <<"+----------------------------------------------------------------------------+"<<endl;
             cout <<setw(4)<<"| ProjectName :"<< setw(10)<<p.title<<"     |"<<setw(4)<<"  status: "<<p.status<<"        |"<<setw(12)<<"timeSpend="<<c1.timeCorrectH()<<setw(3)<<"|"<<endl;
@@ -347,7 +351,7 @@ void showProjectsWithTasksForAdmin(){
           for ( t : tasks){
                 e=db.selectEmployeeById(t.employeeId);
                if ( t.projectId==p.id){
-                long timeSpend=stringToLong(t.timeSpend);
+                long timeSpend=d.stringToLong(t.timeSpend);
                 CustomTime c=CustomTime(timeSpend);
                      cout<<"|"<<setw(12)<<t.id<<setw(15)<<t.title<<setw(15)<<t.status<< "\t"<<setw(10)<<c.timeCorrectH()<<setw(17)<<e.name<<setw(9)<<"|"<<endl;
                }
@@ -362,6 +366,7 @@ void showAllTasksForProject(string id){
     Task t;
     Employee e;
     Project p;
+    Day d;
     Database db;
     list<Task> tasks;
     list<Project> projects;
@@ -370,7 +375,7 @@ void showAllTasksForProject(string id){
     for (p:projects){
 
          if (p.id==id){
-             long timeSpend1=stringToLong(p.timeSpend);
+             long timeSpend1=d.stringToLong(p.timeSpend);
              CustomTime c1=CustomTime(timeSpend1);
              cout <<"+----------------------------------------------------------------------------+"<<endl;
              cout <<setw(4)<<"| ProjectName :"<< setw(10)<<p.title<<"     |"<<setw(4)<<"  status: "<<p.status<<"        |"<<setw(12)<<"timeSpend="<<c1.timeCorrectH()<<setw(3)<<"|"<<endl;
@@ -382,7 +387,7 @@ void showAllTasksForProject(string id){
              for ( t : tasks){
                   e=db.selectEmployeeById(t.employeeId);
                   if ( t.projectId==p.id){
-                      long timeSpend=stringToLong(t.timeSpend);
+                      long timeSpend=d.stringToLong(t.timeSpend);
                       CustomTime c=CustomTime(timeSpend);
                       cout<<"|"<<setw(12)<<t.id<<setw(15)<<t.title<<setw(15)<<t.status<< "\t"<<setw(10)<<c.timeCorrectH()<<setw(17)<<e.name<<setw(9)<<"|"<<endl;
                   }
@@ -494,9 +499,9 @@ void showTaskForEmployee(string employeeId){
 //            long startTemp=d.stringToLong(t.startTemp),endTemp=d.stringToLong(t.endTemp);
 //        CustomTime c1 =CustomTime(startTemp),c2=CustomTime(endTemp);
 //        cout <<"|"<<setw(10)<<t.title<<setw(10)<<t.status<<setw(15)<<c1.date()<<"  "<<setw(8)<<c1.Time()<<setw(20)<<c2.date()<<"  "<<setw(8)<<c2.Time()<<setw(16)<<t.timeSpend<<setw(30)<<t.projectId<<setw(30)<<"|"<< endl;
-        long startTemp=stringToLong(t.startTemp);
-        long endTemp=stringToLong(t.endTemp);
-        long timeSpend=stringToLong(t.timeSpend);
+        long startTemp=d.stringToLong(t.startTemp);
+        long endTemp=d.stringToLong(t.endTemp);
+        long timeSpend=d.stringToLong(t.timeSpend);
         CustomTime c1 =CustomTime(startTemp);
         CustomTime c2=CustomTime(endTemp);
         CustomTime c3=CustomTime(timeSpend);
@@ -619,13 +624,11 @@ long employeeLoginRecord(string id){
      CustomTime c;
      long temp ;
      bool found=false;
-
      days =db.selectDayByEmployeeIdAndByDate(id);
      long current = CustomTime().getTimestampDate();
      for (d:days){
          string  currentDate =c.date2()+" "+ "00"+ ":" + "00" + ":" + "00";
          long currentTimeStampDate=c.getTimestampDate(currentDate);
-
          if (currentTimeStampDate == d.date){
              temp =current;
              found=true;
@@ -648,7 +651,6 @@ void employeeLogoutRecord(string id,long temp){
     days=db.selectDayByEmployeeIdAndByDate(id);
     long curentTime = CustomTime().getTimestampDate();
     for(d :days){
-
         if(d.date==currentTimeStampDate){
             long sub=curentTime-temp;
             d.timeSpend=d.timeSpend+sub;
@@ -666,13 +668,13 @@ void convertTaskStatusIfStatusWasStarted(string id,long temp){
     long currentTimeStampDate=c.getTimestampDate(currentTime);
     list<Task> tasks;
     tasks=db.selectTasksByEmployeeId(id);
-    long curentTime = CustomTime().getTimestampDate();
     for(t :tasks){
           if (t.status=="Started"){
             t.status="Paused";
-            long sub=curentTime-temp;
-            t.timeSpend=t.timeSpend+longToString(sub);
-            t.endTemp=longToString(curentTime);
+            long sub=currentTimeStampDate-temp;
+            long result=d.stringToLong(t.timeSpend)+sub;
+            t.timeSpend=d.longToString(result);
+            t.endTemp=d.longToString(currentTimeStampDate);
             db.updateTaskWhenLogOut(t);
           }
         }
@@ -699,22 +701,24 @@ bool cancelMenu(int &n){
  return inputN;
 }
 void showSuggessByProjectId(string id){
-  Sugges sg;
-  Database db;
-  list<Sugges> suggess;
-  suggess=db.showSuggessByProjectId(id);
-  sg.showHeader();
-  for(sg :suggess){
-      Employee e;
-      Project p;
-      Task t;
-      e=db.selectEmployeeById(sg.e.id);
-      p=db.selectProject(sg.p.id);
-      t=db.selectTask(sg.t.id);
-      sg.p.id=p.title;
-      sg.e.id=e.name;
-      sg.t.id=t.title;
-      sg.showData();
+
+
+    Sugges sg;
+    Database db;
+    list<Sugges> suggess;
+    suggess=db.showSuggessByProjectId(id);
+    sg.showHeader();
+    for(sg :suggess){
+          Employee e;
+          Project p;
+          Task t;
+          e=db.selectEmployeeById(sg.e.id);
+          p=db.selectProject(sg.p.id);
+          t=db.selectTask(sg.t.id);
+          sg.p.id=p.title;
+          sg.e.id=e.name;
+          sg.t.id=t.title;
+          sg.showData();
   }
 
 }
@@ -738,13 +742,7 @@ void showAllSuggess(){
   }
 
 }
-void finishTask(){
 
 
-}
-
-void pauseTask(){
-
-}
 
   //end MOHAMAD.
