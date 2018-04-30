@@ -1,6 +1,7 @@
 #ifndef INBTW_H_INCLUDED
 #define INBTW_H_INCLUDED
 #include <timoff.h>
+#include <employee.h>
 
 
 // gab
@@ -59,6 +60,7 @@ void signEmployeeToTask();
 void inbtwStartTask(string taskId,string employeeId);
 void inbtwPauseTask(string taskId);
 void inbtwEndTask(string taskId);
+
 
 
 

@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <day.h>
 #include <gtime.h>
-#include <database.h>
 #include <gtime.h>
 #include <employee.h>
 #include <project.h>
