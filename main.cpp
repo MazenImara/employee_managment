@@ -67,6 +67,7 @@ void TimeOffMenu();
 void workTimesMenu(string id);
 void showAllEmployee();
 void showAllProject();
+Employee selectEmployeeById(string id);
 
 
 
@@ -244,7 +245,7 @@ void workTimesMenu(string id){
     char n;
     Employee e;
     Day d;
-    //e=selectEmployeeById(id);
+    e=selectEmployeeById(id);
     e.showHeaderWithId();
     e.showDataWithId();
     e.showLineWhitId();
