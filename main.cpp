@@ -70,24 +70,8 @@ void showAllProject();
 
 
 
+
 int main()
-{
-    Database db;
-    Task t;
-    Employee e;
-    cout << "enter task ID: ";
-    t.enterId();
-    cout << "enter Employe ID: ";
-    e.enterId();
-
-    db.startTask(t.id, e.id);
-
-
-    return 0;
-}
-
-
-int main5()
 {
     char n;
 
