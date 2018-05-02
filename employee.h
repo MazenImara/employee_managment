@@ -3,7 +3,6 @@
 #include <iostream>
 #include <iomanip>
 #include <inbtw.h>
-#include <database.h>
 #include <gtime.h>
 
 
@@ -54,6 +53,7 @@ public:
            check=false;
         }
     }
+
     void showHeaderWithId(){
        cout <<" __________________________________________________________________________________________________________________________________"<<endl;
        cout <<"|                                                      Employee's details                                                          |"<<endl;

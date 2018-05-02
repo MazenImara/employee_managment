@@ -325,7 +325,7 @@ public:
 
         long current = CustomTime().getTimestampDate();
         string getTimestamp = d.longToString(current);
-        if(checkStatus == "Ended")
+        if(checkStatus == "Ended" || checkStatus == "Started")
         {
             cout << "Its already Ended, Start a New Task instead" << endl;
         }
@@ -451,14 +451,15 @@ public:
 
         c = CustomTime(newResult);
         stringstream re;    re<<newResult;   string lastResult = re.str();
-        if(checkStatus == "Paused" || checkStatus == "Ended"){}
+        if(checkStatus == "Paused" || checkStatus == "Ended" || checkStatus== "New"){}
         else
         {
         string query3 ="UPDATE `task` SET `timeSpend`='"+lastResult+"' WHERE `id`="+id;
         const char* q3 = query3.c_str();
         qstate = mysql_query(conn,q3);
-        }
         cout<<"Task is ended "<<endl;
+        }
+
     }
     // End ikram
 

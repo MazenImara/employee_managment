@@ -1,6 +1,5 @@
 #ifndef GTIME_H_INCLUDED
 #define GTIME_H_INCLUDED
-
 #include <iostream>
 #include <string>
 #include <ctime>

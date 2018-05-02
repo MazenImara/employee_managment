@@ -18,7 +18,8 @@ using namespace std;
 Loging l;
 long temp=0;
 bool cancl=false;
-//bool returnToMenu=false;
+long currentTimeStart;
+
 void PrintMessage(string message, bool printTop = true, bool printBottom = true)
 {
 	if (printTop)
@@ -69,32 +70,27 @@ void showAllProject();
 
 
 
-void ShowAllTask();
-
-int main5 (){
-    Employee e;
+int main()
+{
     Database db;
-    e = db.selectEmployeeById("1");
-    e.showDataWithId();
+    Task t;
+    Employee e;
+    cout << "enter task ID: ";
+    t.enterId();
+    cout << "enter Employe ID: ";
+    e.enterId();
+
+    db.startTask(t.id, e.id);
+
+
     return 0;
 }
 
-int main(){
-    Task t;
-    Database db;
 
-    //t.start("7", "5");
-    //t.pause("7");
-    //t.ended("7");
-
-
-return 0;
-}
-
-
-int main2()
+int main5()
 {
     char n;
+
 	do {
 		system("cls");
 		PrintMessage("EMPLOYEE MANAGEMENT");
@@ -130,7 +126,6 @@ int main2()
             }
             else{
                 l.logout();
-
             }
         }
             break;
@@ -178,7 +173,7 @@ void AdminMenu()
 
    	case '0':{
    	    employeeLogoutRecord(l.e.id,temp);
-   	    convertTaskStatusIfStatusWasStarted(l.e.id, temp);
+   	 //   convertTaskStatusIfStatusWasStarted(l.e.id, temp);
         l.logout();
         }
         return;
@@ -241,8 +236,9 @@ void ManageEmployeeMenu()
         if (e.check==true){
         system("cls");
         workTimesMenu(e.id);
-        }
         system("pause");
+        }
+
     }
 	    break;
     case '5' :{
@@ -264,7 +260,7 @@ void workTimesMenu(string id){
     char n;
     Employee e;
     Day d;
-    e=selectEmployeeById(id);
+    //e=selectEmployeeById(id);
     e.showHeaderWithId();
     e.showDataWithId();
     e.showLineWhitId();
@@ -340,23 +336,21 @@ void ManageProjectMenu()
 	    break;
 	case '2':
 	    //create project
-	    if (p.check==true){
         p.Add();
-	    }
-        system("pause");
         break;
     case '3':
         //delete project
         p.enterId();
         if (p.check==true){
             p.Delete(p.id);
+            system("pause");
         }
-        system("pause");
+
 	    break;
-    case '4':
+    case '4':{
         //update Project
         p.Update();
-        system("pause");
+    }
         break;
    	case '0' :return;
     case '*' :return;
@@ -386,28 +380,30 @@ void ManageTaskMenu(string proId){
 	cout<< ">";	cin >> n;
 	switch (n)
 	{
-	case '1':
+	case '1':{
 	    //create Task
 	    t.add(proId);
 	    system("pause");
+	}
 	    break;
 	case '2':
 	    //Delete Task
         t.enterId();
         if (t.check==true){
             t.deleteT(t.id);
+            system("pause");
         }
-        system("pause");
+
         break;
-    case '3':
+    case '3':{
         //update Task
         t.update();
         system("pause");
+    }
         break;
 
     case '4':{
         //Sign Employee to Task
-        //inbtwShowAllTasks();
         showEmployee();
         signEmployeeToTask();
         system("pause");
@@ -432,8 +428,8 @@ void ManageTaskMenu(string proId){
 
 void EmployeeMenu(){
     char n;
+    Task t;
     system("cls");
-   // inbtwShowAllTasks();
     showProjectsWithTasks(l.e.id);
 	PrintMessage("EMPLOYEE MENU");
     PrintMessage("                               ", false, false);
@@ -451,21 +447,34 @@ void EmployeeMenu(){
 	{
 	case '1':{
         //Start Task
-        startTask(l.e.id);
+        t.enterId();
+        if (t.check==true){
+            CustomTime c;
+            t.start(t.id,l.e.id);
+            string currentTime =c.fullDateTime2();
+            currentTimeStart=c.getTimestampDate(currentTime);
+            system("pause");
         }
-        system("pause");
 
+	}
 	    break;
 	case '2':{
         //Pause
-        pauseTask();
+        t.enterId();
+        if (t.check==true){
+            t.pause(t.id);
+            system("pause");
+        }
+
 	}
-        system("pause");
         break;
 	case '3':{
         //Finish
-        finishTask();
+        t.enterId();
+        if (t.check==true){
+        t.ended(t.id);
         system("pause");
+        }
 	}
 	    break;
 	case '4':{
@@ -476,12 +485,11 @@ void EmployeeMenu(){
         //show all suggestion
 	    showAllSuggess();
 	    system("pause");
-
 	}
         break;
    	case '0':{
         employeeLogoutRecord(l.e.id,temp);
-        convertTaskStatusIfStatusWasStarted(l.e.id, temp);
+        convertTaskStatusIfStatusWasStarted(l.e.id, currentTimeStart);
         l.logout();
     }
         return;
@@ -508,7 +516,7 @@ void TimeOffMenu(){
     PrintMessage("Enter Your Choice (0-5)");
     cout<< ">";	cin >> n;
     switch (n){
-        case '1':{
+       case '1':{
             //show All TimeOff.
             showTimeOff(l.e.id);
             system("pause");
@@ -516,16 +524,14 @@ void TimeOffMenu(){
        }
        case '2':{
            //Add timeOff.
-
            timeOf=timeOf.enter(l.e.id);
-
            if(timeOf.check==true){
-                insertTimeOff(timeOf);
-                showTimeOff(l.e.id);
-                system("pause");
+              insertTimeOff(timeOf);
+              showTimeOff(l.e.id);
+              system("pause");
            }
+           break;
        }
-            break;
        case '3':{
            //Update TimeOff.
            string id;
@@ -545,8 +551,8 @@ void TimeOffMenu(){
            timeOf=timeOf.enter(l.e.id);
            timeOf.id=id;
            updateTimeOff(timeOf);
-           }
            system("pause");
+           }
            break;
        }
        case '4':{
@@ -567,12 +573,12 @@ void TimeOffMenu(){
             if (choice=="y" || choice=="Y"){
             deleteTimeOff(timeOf.id);
             }
-            }
             system("pause");
+            }
            break;
        }
        case '0': return;
-       case '*' :return;
+       case '*': break;
 	  default: cout << "\a";
     }
      TimeOffMenu();
