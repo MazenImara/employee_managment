@@ -14,6 +14,7 @@
 #include <gtime.h>
 #include <timoff.h>
 #include <taskdetails.h>
+#include <sugges.h>
 
 
 using namespace std;
@@ -26,16 +27,12 @@ public:
     int qstate;
     Database(){
         conn = mysql_init(0);
-        if(conn)
-            cout<<"connection object ok, conn="<<conn<<endl;
-        else
+        if(!conn)
             cout<<"conn object problem: "<<mysql_error(conn);
 
         conn = mysql_real_connect(conn,"localhost","root","password","employee_managment",0,NULL,0);
 
-        if(conn)
-            cout<<"connect to data base  successfully..."<<endl;
-        else
+        if(!conn)
             cout<<"conn object problem: "<<mysql_error(conn);
     }
     void close(){
@@ -52,15 +49,11 @@ public:
     const char* q;
 
     conn = mysql_init(0);
-    if(conn)
-        cout<<"connection object ok, conn="<<conn<<endl;
-    else
+    if(!conn)
         cout<<"conn object problem: "<<mysql_error(conn);
     conn = mysql_real_connect(conn,"localhost","root","password",NULL,0,NULL,0);
 
-    if(conn)
-        cout<<"test without database  ok, conn="<<conn<<endl;
-    else
+    if(!conn)
         cout<<"conn object problem: "<<mysql_error(conn);
 
 
@@ -105,7 +98,7 @@ public:
 
         //create project
         {
-        query="CREATE TABLE employee_managment.project(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255), `description` VARCHAR(255), `status` VARCHAR(255), PRIMARY KEY (id))";
+        query="CREATE TABLE employee_managment.project(`id` int not null AUTO_INCREMENT, `title` VARCHAR(255), `description` VARCHAR(255), `status` VARCHAR(255), `timeSpend` VARCHAR(255), PRIMARY KEY (id))";
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -131,6 +124,22 @@ public:
             cout<<"query error: "<<mysql_error(conn)<<endl;
         }
         //end task
+        {
+
+
+            query="CREATE TABLE employee_managment.suggestion(`id` int not null AUTO_INCREMENT , `project_id` int not null,  `task_id` int not null,`employee_id` int not null, PRIMARY KEY (id),CONSTRAINT sugges_project__fk FOREIGN KEY (project_id) REFERENCES project (id) ON UPDATE CASCADE on DELETE CASCADE, CONSTRAINT sugges_employee_fk FOREIGN KEY (employee_id) REFERENCES  employee (id) ON UPDATE CASCADE on DELETE CASCADE, CONSTRAINT sugges_task_fk FOREIGN KEY (task_id) REFERENCES  task (id) ON UPDATE CASCADE on DELETE CASCADE)";
+        }
+        q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate){
+            cout<< "Suggestion Tabel created successfully\n";
+        }
+        else{
+            cout<<"query error: "<<mysql_error(conn)<<endl;
+        }
+
+
+
 
         //create day
         {
@@ -180,10 +189,7 @@ public:
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
-        if(!qstate){
-            cout<< "employee inserted successfully\n";
-        }
-        else{
+        if(qstate){
             cout<<"query error: "<<mysql_error(conn)<<endl;
         }
         //end employee
@@ -194,10 +200,7 @@ public:
         }
          q = query.c_str();
         qstate = mysql_query(conn,q);
-        if(!qstate){
-            cout<< "Admin inserted  successfully\n";
-        }
-        else{
+        if(qstate){
             cout<<"query error: "<<mysql_error(conn)<<endl;
         }
         //end admin
@@ -210,9 +213,7 @@ public:
         string query ="INSERT INTO `task`(`title`, `status`,`project_id`, `timeSpend`, `endTemp`, `startTemp`) VALUES ('"+t.title+"', '"+t.status+"','"+t.projectId+"', 0, 0, 0)";
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
-        if(!qstate)
-            cout<<"Task inserted successfully..."<<endl;
-        else
+        if(qstate)
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
 
@@ -220,9 +221,7 @@ public:
         string query ="DELETE FROM `Task` WHERE id ="+id;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
-        if(!qstate)
-            cout<<"Task deleted successfully..."<<endl;
-        else
+        if(qstate)
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
 
@@ -230,9 +229,7 @@ public:
         string query ="UPDATE `task` SET `title`='"+t.title+"' WHERE `id` ="+t.id;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
-        if(!qstate)
-            cout<<"Task updated successfully..."<<endl;
-        else
+        if(qstate)
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
 
@@ -240,9 +237,7 @@ public:
         string query ="UPDATE `task` SET `employee_id`=0 WHERE `employee_id` ="+id;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
-        if(!qstate)
-            cout<<"Task updated successfully..."<<endl;
-        else
+        if(qstate)
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
 
@@ -348,8 +343,6 @@ public:
         string getTimeSpend;
         long current = CustomTime().getTimestampDate();
         string getTimestamp = d.longToString(current);
-
-
         string query ="SELECT * FROM `task` WHERE `id`="+id;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
@@ -368,7 +361,7 @@ public:
             cout<<"query problem: "<<mysql_error(conn)<<endl;
         }
 
-        if(checkStatus == "Paused" || checkStatus == "Ended")
+        if(checkStatus == "Paused" || checkStatus == "Ended" || checkStatus == "New" )
         {
             cout << "Its already in pause, Start the Task instead" << endl;
         }
@@ -389,9 +382,8 @@ public:
         stringstream re;    re<<newResult;   string lastResult = re.str();
 
         string FullDate = c.date() + " " + c.Time();
-        cout << c.Time()  << endl;
 
-        if(checkStatus == "Paused" || checkStatus == "Ended")
+        if(checkStatus == "Paused" || checkStatus == "Ended" ||checkStatus == "New")
         {
 
         }
@@ -402,7 +394,7 @@ public:
         qstate = mysql_query(conn,q3);
         }
         cout<<"Task is paused "<<endl;
-        cout<<result<< endl;
+        //cout<<result<< endl;
     }
 
     void endTask(string id){
@@ -431,7 +423,7 @@ public:
         {
             cout<<"query problem: "<<mysql_error(conn)<<endl;
         }
-        if(checkStatus == "Paused" || checkStatus == "Ended")
+        if(checkStatus == "Paused" || checkStatus == "Ended" || checkStatus== "New")
         {
             cout << "Its already Ended, Start a New Task instead" << endl;
         }
@@ -449,14 +441,15 @@ public:
 
         c = CustomTime(newResult);
         stringstream re;    re<<newResult;   string lastResult = re.str();
-        if(checkStatus == "Paused" || checkStatus == "Ended"){}
+        if(checkStatus == "Paused" || checkStatus == "Ended" || checkStatus== "New"){}
         else
         {
         string query3 ="UPDATE `task` SET `timeSpend`='"+lastResult+"' WHERE `id`="+id;
         const char* q3 = query3.c_str();
         qstate = mysql_query(conn,q3);
-        }
         cout<<"Task is ended "<<endl;
+        }
+
     }
     // End ikram
 
@@ -511,28 +504,21 @@ public:
         string query = "INSERT INTO `employee`( `name`,`email`,`password`, `address`,`phone`) VALUES ('"+e.name+"','"+e.email+"','"+e.password+"','"+e.address+"','"+e.phone+"')";
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
-        if(!qstate)
-            cout<<"record inserted successfully..."<<endl;
-        else
+        if(qstate)
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
     void updateEmployee( Employee e){
         string query = "update  employee set name='"+e.name+"',email='"+e.email+"',password='"+e.password+"',address='"+e.address+"',phone='"+e.phone+"' where id="+e.id;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
-        if(!qstate)
-            cout<<"record updated successfully..."<<endl;
-        else
+        if(qstate)
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
     void deleteEmployee (string id){
         string query = "DELETE FROM `employee`  where id="+id;
         const char* q = query.c_str();
-        cout <<query<<endl;
         qstate = mysql_query(conn,q);
-        if(!qstate)
-            cout<<"record deleted successfully..."<<endl;
-        else
+        if(qstate)
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
     list<Employee> selectEmployees(){
@@ -622,9 +608,7 @@ public:
         string query = "INSERT INTO `day`( `startTime`,`endTime`,`timeSpend`,`employee_id`,`date`) VALUES ('"+start+"','"+endTime+"','"+timeSpend+"','"+d.employeeId+"','"+date+"')";
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
-        if(!qstate)
-            cout<<"record inserted successfully..."<<endl;
-        else
+        if(qstate)
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
     Day selectDay(string id){
@@ -715,9 +699,7 @@ public:
         string query = "update  `day` set `startTime` ="+start+",`endTime` ="+getTimestamp+",`employee_id`="+d.employeeId+",`date`="+date+" ,`timeSpend`="+timeSpend+" where id="+d.id;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
-        if(!qstate)
-            cout<<"record inserted successfully..."<<endl;
-        else
+        if(qstate)
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
       list<Day> selectDayByEmployeeIdAndByDate(string employeeId){
@@ -757,19 +739,14 @@ public:
         string query = "update  `day` set `startTime` ="+start+",`endTime` ="+endTime+",`employee_id`="+d.employeeId+",`date`="+date+" ,`timeSpend`="+timeSpend+" where id="+d.id;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
-        if(!qstate)
-            cout<<"record updated successfully..."<<endl;
-        else
+        if(qstate)
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
     void deleteDay (string id){
         string query = "DELETE FROM `day`  where id="+id;
         const char* q = query.c_str();
-        cout <<query<<endl;
         qstate = mysql_query(conn,q);
-        if(!qstate)
-            cout<<"record deleted successfully..."<<endl;
-        else
+        if(qstate)
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
 
@@ -782,9 +759,7 @@ public:
         string query = "INSERT INTO `time_off`( `from`,`to`,`employee_id`) VALUES ('"+from+"','"+to+"','"+timeOf.employeeId+"')";
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
-        if(!qstate)
-            cout<<"record inserted successfully..."<<endl;
-        else
+        if(qstate)
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
     TimeOff selectTimeOff(string id){
@@ -818,19 +793,14 @@ public:
         string query = "update  `time_off` set `from` ="+from+",`to` ="+to+",`employee_id`="+timeOf.employeeId+" where id="+timeOf.id;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
-        if(!qstate)
-            cout<<"record updated successfully..."<<endl;
-        else
+        if(qstate)
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
     void deleteTimeOff (string id){
         string query = "DELETE FROM `time_off`  where id="+id;
         const char* q = query.c_str();
-        cout <<query<<endl;
         qstate = mysql_query(conn,q);
-        if(!qstate)
-            cout<<"record deleted successfully..."<<endl;
-        else
+        if(qstate)
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
     list<TimeOff>selectTimesOff( string employeeId){
@@ -862,6 +832,158 @@ public:
                 }
         return timesOff;
     }
+    list<Task> selectProjectWithTask(){
+        list<Task> tasks;
+        string query ="SELECT  task.project_id ,task.id,task.title,task.status,task.startTemp,task.endTemp,task.timeSpend,task.employee_id from project right join task on task.project_id=project.id ";// WHERE `id`="+id;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+        {
+            res = mysql_store_result(conn);
+            while(row=mysql_fetch_row(res))
+            {   Task t;
+                t.projectId= row[0];
+                t.id    =row[1];
+                t.title = row[2];
+                t.status = row[3];
+                t.startTemp = row[4];
+                t.endTemp = row[5];
+                t.timeSpend = row[6];
+                t.employeeId =row[7];
+                tasks.push_back(t);
+            }
+        }
+            else{
+                    cout<<"query error: "<<mysql_error(conn)<<endl;
+                }
+        return tasks;
+    }
+    list<Task> selectTasksByProjectId(string id){
+        list<Task> tasks;
+        string query ="SELECT  task.project_id ,task.id,task.title,task.status,task.startTemp,task.endTemp,task.timeSpend,task.employee_id from  task where task.project_id="+id;// WHERE `id`="+id;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+        {
+            res = mysql_store_result(conn);
+            while(row=mysql_fetch_row(res))
+            {   Task t;
+                t.projectId= row[0];
+                t.id    =row[1];
+                t.title = row[2];
+                t.status = row[3];
+                t.startTemp = row[4];
+                t.endTemp = row[5];
+                t.timeSpend = row[6];
+                t.employeeId =row[7];
+                tasks.push_back(t);
+            }
+        }
+            else{
+                    cout<<"query error: "<<mysql_error(conn)<<endl;
+                }
+        return tasks;
+    }
+    list<Task> selectTasksByEmployeeId(string id){
+        list<Task> tasks;
+        string query ="SELECT  task.project_id ,task.id,task.title,task.status,task.startTemp,task.endTemp,task.timeSpend,task.employee_id from  task where task.employee_id="+id;// WHERE `id`="+id;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+        {
+            res = mysql_store_result(conn);
+            while(row=mysql_fetch_row(res))
+            {   Task t;
+                t.projectId= row[0];
+                t.id    =row[1];
+                t.title = row[2];
+                t.status = row[3];
+                t.startTemp = row[4];
+                t.endTemp = row[5];
+                t.timeSpend = row[6];
+                t.employeeId =row[7];
+                tasks.push_back(t);
+            }
+        }
+            else{
+                    cout<<"query error: "<<mysql_error(conn)<<endl;
+                }
+        return tasks;
+    }
+    void updateTaskWhenLogOut(Task t){
+        string query ="UPDATE `task` SET `status`='"+t.status+"',`timeSpend`='"+t.timeSpend+"',`endTemp`='"+t.endTemp+"' WHERE `id` ="+t.id;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(qstate)
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+    }
+    void insertSugges(Sugges sg){
+        string query = "INSERT INTO `suggestion`( `project_id`, `employee_id`,`task_id`) VALUES ('"+sg.p.id+"','"+sg.e.id+"','"+sg.t.id+"')";
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(qstate)
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+    }
+    void updateSugges( Sugges sg){
+        string query = "update  suggestion set project_id='"+sg.p.id+"',employee_id='"+sg.e.id+"',task_id='"+sg.t.id+"' where id="+sg.id;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(qstate)
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+    }
+    void deleteSugges (string id){
+        string query = "DELETE FROM `suggestion`  where task_id="+id;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(qstate)
+            cout<<"query problem: "<<mysql_error(conn)<<endl;
+    }
+    list<Sugges> selectSuggestions(){
+        list <Sugges> suggess;
+        string query = "SELECT * FROM `suggestion` " ;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate){
+            res=mysql_store_result(conn);
+            while(row=mysql_fetch_row(res)){
+                Sugges sg;
+                sg.id=       row[0];
+                sg.p.id      = row[1];
+                sg.t.id     = row[2];
+                sg.e.id    = row[3];
+                suggess.push_back(sg);
+            }
+        }
+        else{
+            cout<<"query error: "<<mysql_error(conn)<<endl;
+        }
+        return suggess;
+    }
+    list <Sugges> showSuggessByProjectId(string id){
+     list <Sugges> suggess;
+        string query = "select * from  `suggestion` where project_id="+id ;
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate){
+            res=mysql_store_result(conn);
+            while(row=mysql_fetch_row(res)){
+                Sugges sg;
+                sg.id=row[0];
+                sg.p.id      = row[1];
+                sg.t.id     = row[2];
+                sg.e.id    = row[3];
+                suggess.push_back(sg);
+            }
+        }
+        else{
+            cout<<"query error: "<<mysql_error(conn)<<endl;
+        }
+        return suggess;
+    }
+
+
+
+
 
 
     // end code Mohamad
@@ -870,32 +992,27 @@ public:
 
 
         void insertProject(Project p){
-                string query="insert into project(title,description,status) values('"+p.title+"','"+p.description+"','"+p.status+"')";
+                string query="insert into project(title,description,status,timeSpend) values('"+p.title+"','"+p.description+"','"+p.status+"','"+p.timeSpend+"')";
                 const char* q = query.c_str();
                 qstate = mysql_query(conn,q);
-                if(!qstate)
-                    cout<<"Project inserted successfully..."<<endl;
-                else
+                if(qstate)
                     cout<<"query problem: "<<mysql_error(conn)<<endl;
         }
 
         void updateProject(Project p){
-            string query="UPDATE `project` SET `title`='"+p.title+"',`description`='"+p.description+"' WHERE id="+p.id;
+
+            string query="UPDATE `project` SET `title`='"+p.title+"',`status`='"+p.status+"',`description`='"+p.description+"',`timeSpend`='"+p.timeSpend+"' WHERE id="+p.id;
             const char* q = query.c_str();
             qstate = mysql_query(conn,q);
-            if(!qstate)
-                cout<<"Project updated successfully..."<<endl;
-            else
+            if(qstate)
                 cout<<"query problem: "<<mysql_error(conn)<<endl;
-    }
+        }
 
         void deleteProject(string id){
             string query="DELETE FROM `project` WHERE id="+id;
             const char* q = query.c_str();
             qstate = mysql_query(conn,q);
-            if(!qstate)
-                cout<<"Project deleted successfully..."<<endl;
-            else
+            if(qstate)
                 cout<<"query problem: "<<mysql_error(conn)<<endl;
         }
 
@@ -904,16 +1021,17 @@ public:
             string query="SELECT * FROM `project` WHERE id="+id;
             const char* q = query.c_str();
             qstate = mysql_query(conn,q);
-
             if(!qstate)
             {
                 res = mysql_store_result(conn);
                 while(row=mysql_fetch_row(res))
                 {
-                    p.id = row[0];
-                    p.title = row[1];
+                    p.id          = row[0];
+                    p.title       = row[1];
                     p.description = row[2];
-                    p.status = row[3];
+                    p.status      = row[3];
+                    p.timeSpend   =row[4];
+
                 }
             }
             else
@@ -938,15 +1056,13 @@ public:
                 p.title = row[1];
                 p.description = row[2];
                 p.status = row[3];
+                p.timeSpend=row[4];
                 projects.push_front(p);
             }
         }
 
         else{
             cout<<"query problem: "<<mysql_error(conn)<<endl;
-        }
-        for(p : projects){
-            p.tasks = selectProjectTasks(p.id);
         }
         return projects;
     }
@@ -955,7 +1071,6 @@ public:
         list<Task>tasks;
         string query ="SELECT * FROM `task` WHERE project_id="+projectId;
         const char* q = query.c_str();
-        cout<<"query is: "<<q<<endl;
         qstate = mysql_query(conn,q);
         if(!qstate)
         {
@@ -1009,6 +1124,35 @@ public:
                 }
         return tasks;
     }
+    list<Task>selectProjectStatus(string status){
+        list<Task>tasks;
+        string NewStats = "new";
+        string query ="SELECT * FROM `task` WHERE `status`='new'";
+        const char* q = query.c_str();
+        qstate = mysql_query(conn,q);
+        if(!qstate)
+        {
+            res = mysql_store_result(conn);
+            while(row=mysql_fetch_row(res))
+            {
+                Task t;
+                t.id = row[0];
+                t.title = row[1];
+                t.status = row[2];
+                t.timeSpend = row[3];
+                t.endTemp = row[4];
+                t.startTemp = row[5];
+                t.projectId = row[6];
+                t.employeeId =row[7];
+                tasks.push_back(t);
+
+            }
+        }
+            else{
+                    cout<<"query error: "<<mysql_error(conn)<<endl;
+                }
+        return tasks;
+    }
 
     // end hamzA
 
@@ -1029,9 +1173,7 @@ public:
         string query ="UPDATE `task` SET `employee_id`='"+employeeId+"' WHERE `id` ="+taskId;
         const char* q = query.c_str();
         qstate = mysql_query(conn,q);
-        if(!qstate)
-            cout<<"Employee signed to task successfully..."<<endl;
-        else
+        if(qstate)
             cout<<"query problem: "<<mysql_error(conn)<<endl;
     }
 

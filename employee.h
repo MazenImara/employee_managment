@@ -3,8 +3,8 @@
 #include <iostream>
 #include <iomanip>
 #include <inbtw.h>
-#include <database.h>
 #include <gtime.h>
+
 
 //MOHAMAD CODE
 
@@ -13,17 +13,47 @@ using namespace std;
 class Employee{
 public:
     string id,name,email,password,address,phone;
+    bool check=true;
 
     void enterId(){
         cout <<"enter id of the employee =\t";cin >>id;cout <<endl;
+        if (cancel(id)==false){
+            check=false;
+        }
     }
     void enter(){
         cout <<setw(20)<<"Enter name     =\t";cin >>name;cout <<endl;
-        cout <<setw(20)<<"Enter email    =\t";cin >>email;cout <<endl;
-        cout <<setw(20)<<"Enter password =\t";cin >>password;cout <<endl;
-        cout <<setw(20)<<"Enter address  =\t";cin >>address;cout <<endl;
-        cout <<setw(20)<<"Enter phone    =\t";cin >>phone;cout <<endl;
+        if (cancel(name)==true){
+            cout <<setw(20)<<"Enter email    =\t";cin >>email;cout <<endl;
+            if ( cancel(email)==true){
+                cout <<setw(20)<<"Enter password =\t";cin >>password;cout <<endl;
+                if (cancel(password)==true){
+                    cout <<setw(20)<<"Enter address  =\t";cin >>address;cout <<endl;
+                    if (cancel(address)==true){
+                        cout <<setw(20)<<"Enter phone    =\t";cin >>phone;cout <<endl;
+                        if (cancel(phone)==true){
+                        }
+                        else{
+                           check=false;
+                        }
+                    }
+                    else{
+                        check=false;
+                    }
+                }
+                else{
+                   check=false;
+                 }
+            }
+            else{
+           check=false;
+            }
+        }
+        else{
+           check=false;
+        }
     }
+
     void showHeaderWithId(){
        cout <<" __________________________________________________________________________________________________________________________________"<<endl;
        cout <<"|                                                      Employee's details                                                          |"<<endl;

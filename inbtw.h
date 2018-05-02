@@ -1,6 +1,8 @@
 #ifndef INBTW_H_INCLUDED
 #define INBTW_H_INCLUDED
 #include <timoff.h>
+#include <employee.h>
+
 
 // gab
 void SetAdmin(std::string employeeId);
@@ -47,7 +49,16 @@ void deleteEmployee();
 void signEmployeeAsAdmin();
 long employeeLoginRecord(std:: string id);
 void employeeLogoutRecord(std::string id,long temp);
-
-//end MOHAMAD.
-void inbtwTest();
+bool cancel(string input);
+bool cancelMenu(int &n);
+void showProjectsWithTasks(string id);
+void showProjectsWithTasksForAdmin();
+void showAllTasksForProject(string id);
+void convertTaskStatusIfStatusWasStarted(string id,long temp);
+void showSuggessByProjectId(string id);
+void showAllSuggess();
+void signEmployeeToTask();
+void inbtwStartTask(string taskId,string employeeId);
+void inbtwPauseTask(string taskId);
+void inbtwEndTask(string taskId);
 #endif // INBTW_H_INCLUDED
