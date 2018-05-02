@@ -130,16 +130,8 @@ void inbtwStartTask( string taskId,string employeeId){
        long sum=0;
        tasks =db.selectTasksByEmployeeId(employeeId);
        for (tas:tasks){
-           if (tas.status=="Started"){
-               CustomTime c;
-               Day d;
-               tas.status="Paused";
-               string  current =c.fullDateTime2();
-               long currentTimeStart=c.getTimestampDate(current);
-               sum =currentTimeStart-d.stringToLong(tas.timeTemp);
-               long timeSpend=d.stringToLong(tas.timeSpend)+sum;
-               tas.timeSpend=d.longToString(timeSpend);
-               db.updateTaskWhenLogOut(tas);
+           if (tas.status=="Started" && taskId != tas.id) {
+               db.pauseTask(tas.id);
            }
        }
        db.startTask(taskId, employeeId);
