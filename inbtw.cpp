@@ -118,6 +118,8 @@ void inbtwStartTask( string taskId,string employeeId){
     Database db;
     Project p;
     Task tas;
+    Day d ;
+    long sum=0;
        Sugges sg;
        list <Sugges> suggess;
        suggess=db.selectSuggestions();
@@ -127,18 +129,20 @@ void inbtwStartTask( string taskId,string employeeId){
            }
        }
        list<Task> tasks;
-       long sum=0;
        tasks =db.selectTasksByEmployeeId(employeeId);
        for (tas:tasks){
            if (tas.status=="Started" && taskId != tas.id) {
                db.pauseTask(tas.id);
+               tas=db.selectTask(tas.id);
            }
+            sum=sum+d.stringToLong(tas.timeSpend);
        }
        db.startTask(taskId, employeeId);
        t=db.selectTask(taskId);
        p=db.selectProject(t.projectId);
        p.status="Started";
-       p.timeSpend=p.timeSpend;
+       p.timeSpend=d.longToString(sum);
+      // p.timeSpend=p.timeSpend;
        db.updateProject(p);
 
 }
@@ -156,7 +160,6 @@ void inbtwPauseTask(string taskId){
     for(tas:tasks){
         sum=sum+d.stringToLong(tas.timeSpend);
     }
-
     p=db.selectProject(t.projectId);
     p.timeSpend=d.longToString(sum);
     p.status="Started";
@@ -191,6 +194,7 @@ void inbtwEndTask(string taskId){
        p.status="Started";
        db.updateProject(p);
    }
+
 }
 //Task End
 
@@ -674,7 +678,9 @@ void convertTaskStatusIfStatusWasStarted(string id,long temp){
             t=db.selectTask(t.id);
             p=db.selectProject(t.projectId);
             p.status="Started";
-            p.timeSpend=p.timeSpend;
+            long res=d.stringToLong(p.timeSpend)+sub;
+
+            p.timeSpend=d.longToString(res);
             db.updateProject(p);
           }
     }

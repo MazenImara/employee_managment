@@ -426,7 +426,7 @@ public:
             {
                 checkStatus = row[2];
                 getTimeSpend = row[3];
-                startTime = row[5];
+                startTime = row[6];
             }
         }
         else
@@ -435,7 +435,7 @@ public:
         }
         if(checkStatus == "Paused" || checkStatus == "Ended" || checkStatus == "New")
         {
-            cout << "Its already Ended, Start a New Task instead" << endl;
+            cout << "Its already Ended or paused, Start a New Task instead" << endl;
         }
         else
         {
@@ -451,7 +451,9 @@ public:
 
         c = CustomTime(newResult);
         stringstream re;    re<<newResult;   string lastResult = re.str();
-        if(checkStatus == "Paused" || checkStatus == "Ended" || checkStatus== "New"){}
+        if(checkStatus == "Paused" || checkStatus == "Ended" || checkStatus== "New"){
+
+        }
         else
         {
         string query3 ="UPDATE `task` SET `timeSpend`='"+lastResult+"' WHERE `id`="+id;
