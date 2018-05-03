@@ -68,17 +68,18 @@ void inbtwShowAllTasks(){
     Task t;
     t.header();
     for(t:ts){
-        long startTemp=d.stringToLong(t.startTemp);
-        long endTemp=d.stringToLong(t.endTemp);
-        long timeSpend=d.stringToLong(t.timeSpend);
+
+        long startTemp=stringToLong(t.started);
+        long endTemp=stringToLong(t.finish);
+        long timeSpend=stringToLong(t.timeSpend);
         c1 =CustomTime(startTemp);
         c2=CustomTime(endTemp);
         c3=CustomTime(timeSpend);
-        if(t.startTemp != "0"){
-           t.startTemp =  c1.fullDateTime();
+        if(t.started != "0"){
+            t.started =  c1.fullDateTime();
         }
-        if(t.endTemp != "0"){
-           t.endTemp =  c2.fullDateTime();
+        if(t.finish != "0"){
+            t.finish =  c2.fullDateTime();
         }
         if(t.timeSpend != "0"){
            t.timeSpend = c3.timeCorrectH();
@@ -129,16 +130,8 @@ void inbtwStartTask( string taskId,string employeeId){
        long sum=0;
        tasks =db.selectTasksByEmployeeId(employeeId);
        for (tas:tasks){
-           if (tas.status=="Started"){
-               CustomTime c;
-               Day d;
-               tas.status="Paused";
-               string  current =c.fullDateTime2();
-               long currentTimeStart=c.getTimestampDate(current);
-               sum =currentTimeStart-d.stringToLong(tas.startTemp);
-               long timeSpend=d.stringToLong(tas.timeSpend)+sum;
-               tas.timeSpend=d.longToString(timeSpend);
-               db.updateTaskWhenLogOut(tas);
+           if (tas.status=="Started" && taskId != tas.id) {
+               db.pauseTask(tas.id);
            }
        }
        db.startTask(taskId, employeeId);
@@ -283,7 +276,6 @@ void inbtwShowEmployeeTasksAndProject(string employee_id){
 // end gab
 
 // mazen
-/*
     string longToString(long  number){
         std::stringstream ss;
         ss << number;
@@ -292,10 +284,9 @@ void inbtwShowEmployeeTasksAndProject(string employee_id){
     long stringToLong(string str){
         return atol(str.c_str());
      }
-<<<<<<< HEAD
 
 
-void inbtwTest(){
+/* void inbtwTest(){
     Database db;
     list<Project> projects;
     projects = db.selectProjects();
@@ -308,7 +299,6 @@ void inbtwTest(){
         }
     }
 }
-=======
      */
 // end mazen
 
@@ -537,28 +527,30 @@ void showTaskForEmployee(string employeeId){
     Day d;
     Database db;
     list<Task> tasks;
-    t.showHeaderWithId();
+    t.showHeaderWithoutId();
     tasks = db.selectEmployeeTasks(employeeId);
     for ( t : tasks){
-//            long startTemp=d.stringToLong(t.startTemp),endTemp=d.stringToLong(t.endTemp);
-//        CustomTime c1 =CustomTime(startTemp),c2=CustomTime(endTemp);
-//        cout <<"|"<<setw(10)<<t.title<<setw(10)<<t.status<<setw(15)<<c1.date()<<"  "<<setw(8)<<c1.Time()<<setw(20)<<c2.date()<<"  "<<setw(8)<<c2.Time()<<setw(16)<<t.timeSpend<<setw(30)<<t.projectId<<setw(30)<<"|"<< endl;
-        long startTemp=d.stringToLong(t.startTemp);
-        long endTemp=d.stringToLong(t.endTemp);
+      // long startTemp=d.stringToLong(t.timeTemp),endTemp=d.stringToLong(t.finish);
+       //CustomTime c1 =CustomTime(startTemp),c2=CustomTime(endTemp);
+       //cout <<"|"<<setw(10)<<t.title<<setw(10)<<t.status<<setw(15)<<c1.date()<<"  "<<setw(8)<<c1.Time()<<setw(20)<<c2.date()<<"  "<<setw(8)<<c2.Time()<<setw(16)<<t.timeSpend<<setw(30)<<t.projectId<<setw(30)<<"|"<< endl;
+        long startTemp=d.stringToLong(t.started);
+        long endTemp=d.stringToLong(t.finish);
         long timeSpend=d.stringToLong(t.timeSpend);
         CustomTime c1 =CustomTime(startTemp);
         CustomTime c2=CustomTime(endTemp);
         CustomTime c3=CustomTime(timeSpend);
-        if(t.startTemp != "0"){
-            t.startTemp =  c1.fullDateTime();
+        if(t.started != "0"){
+            t.started =  c1.fullDateTime();
         }
-        if(t.endTemp != "0"){
-            t.endTemp =  c2.fullDateTime();
+        if(t.finish != "0"){
+            t.finish =  c2.fullDateTime();
         }
         if(t.timeSpend != "0"){
             t.timeSpend = c3.timeCorrectH();
         }
-        t.show();
+        cout <<"|"<<setw(15)<<t.title<<setw(10)<<t.status<<setw(15)<<c1.date()<<"  "<<setw(8)<<c1.Time()<<setw(20)<<c2.date()<<"  "<<setw(8)<<c2.Time()<<setw(16)<<t.timeSpend<<setw(30)<<t.projectId<<setw(30)<<"|"<< endl;
+        t.showLineWithoutId();
+        //t.show();
     }
 
 }
@@ -705,6 +697,7 @@ void employeeLogoutRecord(string id,long temp){
 }
 void convertTaskStatusIfStatusWasStarted(string id,long temp){
     Database db;
+    Project p;
     CustomTime c;
     Day d;
     Task t;
@@ -718,11 +711,17 @@ void convertTaskStatusIfStatusWasStarted(string id,long temp){
             long sub=currentTimeStampDate-temp;
             long result=d.stringToLong(t.timeSpend)+sub;
             t.timeSpend=d.longToString(result);
-            t.endTemp=d.longToString(currentTimeStampDate);
+            t.finish=d.longToString(currentTimeStampDate);
             db.updateTaskWhenLogOut(t);
+            t=db.selectTask(t.id);
+            p=db.selectProject(t.projectId);
+            p.status="Started";
+            p.timeSpend=p.timeSpend;
+            db.updateProject(p);
           }
-        }
     }
+
+}
 bool cancel(string input){
   bool cancl;
  if (input=="*"){
@@ -784,9 +783,7 @@ void showAllSuggess(){
       sg.t.id=t.title;
       sg.showData();
   }
-
 }
-
 
 
   //end MOHAMAD.

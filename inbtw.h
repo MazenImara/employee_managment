@@ -61,4 +61,20 @@ void signEmployeeToTask();
 void inbtwStartTask(string taskId,string employeeId);
 void inbtwPauseTask(string taskId);
 void inbtwEndTask(string taskId);
+
+
+
+void inbtwInsertEmployee();
+void inbtwUpdateEmployee();
+void inbtwDeleteEmployee();
+void inbtwShowEmployees();
+void inbtwSignEmployeeAsAdmin();
+void inbtwShowWorkDetails(string id);
+void inbtwShowTaskForEmployee(string id);
+void inbtwShowTimeOff(string id);
+
+/*
+Employee selectEmployeeByEmail(std::string email);
+Employee selectEmployeeById(std::string id);
+*/
 #endif // INBTW_H_INCLUDED

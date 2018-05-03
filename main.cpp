@@ -12,6 +12,7 @@
 #include <show.h>
 #include <sugges.h>
 
+
 using namespace std;
 
 Loging l;
@@ -66,22 +67,10 @@ void TimeOffMenu();
 void workTimesMenu(string id);
 void showAllEmployee();
 void showAllProject();
-
-void inbtwInsertEmployee();
-void inbtwUpdateEmployee();
-void inbtwDeleteEmployee();
-void inbtwShowEmployees();
-void inbtwSignEmployeeAsAdmin();
-void inbtwShowWorkDetails(string id);
-void inbtwShowTaskForEmployee(string id);
-void inbtwShowTimeOff(string id);
+Employee selectEmployeeById(string id);
 
 
-Employee selectEmployeeByEmail(std::string email);
-Employee selectEmployeeById(std::string id);
 
-
-void ShowAllTask();
 
 int main()
 {
